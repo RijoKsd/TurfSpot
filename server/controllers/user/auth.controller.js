@@ -1,7 +1,7 @@
 import * as argon2 from "argon2";
 import chalk from "chalk";
 import User from "../../models/user.model.js";
-import generateJwtToken from "../../utils/generateJwtToken.js";
+import { generateUserToken } from "../../utils/generateJwtToken.js";
 
 export const registerUser = async (req, res) => {
   const { name, email, password, confirmPassword } = req.body;
@@ -27,7 +27,7 @@ export const registerUser = async (req, res) => {
 
     const newUser = new User({ name, email, password: hashedPassword });
     await newUser.save();
-    const token = generateJwtToken(newUser._id);
+    const token = generateUserToken(newUser._id);
     return res
       .status(201)
       .json({ success: true, message: "User created successfully", token });
@@ -59,7 +59,7 @@ export const loginUser = async (req, res) => {
         .status(400)
         .json({ success: false, message: "Incorrect password" });
     }
-    const token = generateJwtToken(user._id);
+    const token = generateUserToken(user._id);
     return res
       .status(200)
       .json({ success: true, message: "Login successful", token });
