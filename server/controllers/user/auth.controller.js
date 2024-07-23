@@ -2,20 +2,15 @@ import * as argon2 from "argon2";
 import chalk from "chalk";
 import User from "../../models/user.model.js";
 import { generateUserToken } from "../../utils/generateJwtToken.js";
+import { validationResult } from "express-validator";
 
 export const registerUser = async (req, res) => {
-  const { name, email, password, confirmPassword } = req.body;
+  const { name, email, password } = req.body;
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ success: false, message: errors.array() });
+  }
 
-  if (!name || !email || !password || !confirmPassword) {
-    return res
-      .status(400)
-      .json({ success: false, message: "Please fill all the fields" });
-  }
-  if (password !== confirmPassword) {
-    return res
-      .status(400)
-      .json({ success: false, message: "Passwords do not match" });
-  }
   try {
     const user = await User.findOne({ email });
     if (user) {
@@ -37,14 +32,11 @@ export const registerUser = async (req, res) => {
   }
 };
 
-
-
 export const loginUser = async (req, res) => {
   const { email, password } = req.body;
-  if (!email || !password) {
-    return res
-      .status(400)
-      .json({ success: false, message: "Please fill all the fields" });
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
   }
   try {
     const user = await User.findOne({ email });

@@ -2,20 +2,15 @@ import * as argon2 from "argon2";
 import chalk from "chalk";
 import { generateOwnerToken } from "../../utils/generateJwtToken.js";
 import Owner from "../../models/owner.model.js";
+import { validationResult } from "express-validator";
 
 export const registerOwner = async (req, res) => {
-  const { name, email, phone, password, confirmPassword } = req.body;
+  const { name, email, phone, password } = req.body;
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ success: false, message: errors.array() });
+  }
 
-  if (!name || !email || !password || !confirmPassword || !phone) {
-    return res
-      .status(400)
-      .json({ success: false, message: "Please fill all the fields" });
-  }
-  if (password !== confirmPassword) {
-    return res
-      .status(400)
-      .json({ success: false, message: "Passwords do not match" });
-  }
   try {
     const owner = await Owner.findOne({ email });
     if (owner) {
@@ -44,10 +39,9 @@ export const registerOwner = async (req, res) => {
 
 export const loginOwner = async (req, res) => {
   const { email, password } = req.body;
-  if (!email || !password) {
-    return res
-      .status(400)
-      .json({ success: false, message: "Please fill all the fields" });
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
   }
   try {
     const owner = await Owner.findOne({ email });
