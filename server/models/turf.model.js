@@ -10,4 +10,5 @@ const turfSchema = new mongoose.Schema({
     owner: { type: mongoose.Schema.Types.ObjectId, ref: "Owner", required: true },
 }, { timestamps: true });
 
-export default mongoose.model("Turf", turfSchema);
+const Turf = mongoose.model("Turf", turfSchema);
+export default Turf;

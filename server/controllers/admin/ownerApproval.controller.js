@@ -26,7 +26,7 @@ export const approveOwnerRequest = async (req, res) => {
     await ownerRequest.save();
     const to = ownerRequest.email;
     const subject = "Your request has been approved";
- const html = ` 
+    const html = ` 
     <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
         <h1 style="color: #4CAF50;">Your request to become an owner has been approved</h1>
         <p>Congratulations! You can now create your account by clicking the button below:</p>
@@ -35,7 +35,7 @@ export const approveOwnerRequest = async (req, res) => {
         </button>
     </div>
 `;
-    await generateEmail( to, subject, html);
+    await generateEmail(to, subject, html);
     return res
       .status(200)
       .json({ success: true, message: "Owner request approved" });
