@@ -62,7 +62,7 @@ export const registerOwner = async (req, res) => {
         .status(400)
         .json({ success: false, message: "Owner request is rejected" });
     }
-    
+
     const owner = await Owner.findOne({ email });
     if (owner) {
       return res
@@ -110,7 +110,7 @@ export const loginOwner = async (req, res) => {
     const token = generateOwnerToken(owner);
     return res
       .status(200)
-      .json({ success: true, message: "Login successful", token });
+      .json({ success: true, message: "Login successful", token,role:owner.role });
   } catch (err) {
     console.log(chalk.red(err.message));
     return res.status(400).json({ success: false, message: err.message });
