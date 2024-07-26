@@ -1,9 +1,11 @@
 import useLoginForm from "../hooks/useLoginForm";
 import FormField from "../components/FormField";
 import { Link } from "react-router-dom";
-import { Button } from "../components/Button";
+import Button  from "../components/Button";
+
 
 const Login = () => {
+
   const { register, handleSubmit, errors, onSubmit } = useLoginForm();
 
   return (
@@ -27,7 +29,7 @@ const Login = () => {
               error={errors.password}
             />
             <div className="form-control mt-6">
-              <Button type="submit" className="btn-primary">
+              <Button type="submit" className="btn-primary" loading={true}>
                 Sign Up
               </Button>
             </div>

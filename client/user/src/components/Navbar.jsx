@@ -1,5 +1,4 @@
- 
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import ThemeSwitcher from "./ThemeSwitcher";
 
 const Navbar = () => {
@@ -36,6 +35,14 @@ const Navbar = () => {
             <li>
               <Link to="/history">History</Link>
             </li>
+            <li>
+              <NavLink
+                to="/become-owner"
+                className={({ isActive }) => (isActive ? "text-accent" : "")}
+              >
+                Become an Owner
+              </NavLink>
+            </li>
           </ul>
         </div>
         <Link to="/" className="btn btn-ghost normal-case text-xl">
@@ -52,6 +59,14 @@ const Navbar = () => {
           </li>
           <li>
             <Link to="/history">History</Link>
+          </li>
+          <li>
+            <NavLink
+              to="/become-owner"
+              className={({ isActive }) => (isActive ? "text-accent" : "")}
+            >
+              Become an Owner
+            </NavLink>
           </li>
         </ul>
       </div>
