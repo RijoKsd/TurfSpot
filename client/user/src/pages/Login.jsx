@@ -6,7 +6,7 @@ import Button  from "../components/Button";
 
 const Login = () => {
 
-  const { register, handleSubmit, errors, onSubmit } = useLoginForm();
+  const { register, handleSubmit, errors, onSubmit,loading } = useLoginForm();
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-base-200">
@@ -29,7 +29,7 @@ const Login = () => {
               error={errors.password}
             />
             <div className="form-control mt-6">
-              <Button type="submit" className="btn-primary" loading={true}>
+              <Button type="submit" className="btn-primary" loading={loading}>
                 Sign Up
               </Button>
             </div>

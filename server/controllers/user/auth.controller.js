@@ -43,7 +43,7 @@ export const loginUser = async (req, res) => {
     if (!user) {
       return res
         .status(400)
-        .json({ success: false, message: "User does not exist" });
+        .json({ success: false, message: "Invalid email" });
     }
     const isPasswordCorrect = await argon2.verify(user.password, password);
     if (!isPasswordCorrect) {

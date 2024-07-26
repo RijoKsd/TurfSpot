@@ -4,7 +4,7 @@ import useSignUpForm from "../hooks/useSignUpForm";
 import  Button  from "../components/Button";
 
 const SignUp = () => {
-  const { register, handleSubmit, errors, onSubmit } = useSignUpForm();
+  const { register, handleSubmit, errors, onSubmit,loading } = useSignUpForm();
    return (
     <div className="flex items-center justify-center min-h-screen">
       <div className="card w-96 bg-base-100 shadow-xl">
@@ -40,7 +40,7 @@ const SignUp = () => {
               error={errors.confirmPassword}
             />
             <div className="form-control mt-6">
-               <Button type="submit" className="btn-primary">Sign Up</Button>
+               <Button type="submit" className="btn-primary" loading={loading}>Sign Up</Button>
             </div>
           </form>
           <div className="text-center mt-4">

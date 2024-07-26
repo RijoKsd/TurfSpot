@@ -7,7 +7,7 @@ const turfSchema = new mongoose.Schema({
     image: { type: String, required: true },
     sportTypes:[{type:String, required:true}],
     pricePerHour: { type: Number, required: true }, 
-    openTime: { type: String, required: true },
+    openTime: { type: String, required: true, default: Date.now() },
     closeTime: { type: String, required: true },
     reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: "Review" }],
     owner: { type: mongoose.Schema.Types.ObjectId, ref: "Owner", required: true },

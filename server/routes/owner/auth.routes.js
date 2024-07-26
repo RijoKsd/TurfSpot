@@ -11,7 +11,7 @@ import {
 } from "../../middleware/validators/owner/authValidator.js";
 
 const authRouter = Router();
-authRouter.post("/register",validateRegisterInput, registerOwner);
+authRouter.post("/register",validateRegisterInput,  registerOwner);
 authRouter.post("/login",validateLoginInput, loginOwner);
 authRouter.post("/ownerRequest",validateOwnerRequestInput, ownerRequest);
 

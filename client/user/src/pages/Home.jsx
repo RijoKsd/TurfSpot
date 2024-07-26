@@ -27,7 +27,7 @@ const Home = () => {
               you&#39;re planning a casual game or a tournament, TurfSpot has
               got you covered.
             </p>
-            <Button className="btn-accent">Get Started</Button>
+            <Link to="/turfs" className="btn btn-accent">Get Started</Link>
           </div>
         </div>
       </div>

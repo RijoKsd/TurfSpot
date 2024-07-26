@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import FormField from "../components/FormField";
-import useSignUpForm from "../hooks/useSignUpForm";
+import useSignUpForm from "../hooks/useSignUpForm"
 import Button from "../components/Button";
 
 const SignUp = () => {
-  const { register, handleSubmit, errors, onSubmit } = useSignUpForm();
+  const { register, handleSubmit, errors, onSubmit,loading } = useSignUpForm();
   return (
     <div className="flex items-center justify-center min-h-screen p-4">
       <div className="card w-full max-w-4xl bg-base-100 shadow-xl">
@@ -22,7 +22,7 @@ const SignUp = () => {
               <FormField
                 label="Phone Number"
                 name="phone"
-                type="tel"
+                type="text"
                 register={register}
                 error={errors.phone}
               />
@@ -52,7 +52,7 @@ const SignUp = () => {
             </div>
 
             <div className="form-control mt-12 pt-6 ">
-              <Button type="submit" className="btn-primary w-full">
+              <Button type="submit" className="btn-primary w-full" loading={loading}>
                 Sign Up
               </Button>
             </div>
