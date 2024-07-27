@@ -1,14 +1,13 @@
 import { createBrowserRouter } from "react-router-dom";
 import PublicLayout from "./layouts/PublicLayout";
-import Home from "./pages/public/Home.jsx"
+import Home from "./pages/public/Home.jsx";
 import Login from "./pages/public/Login";
 import SignUp from "./pages/public/SignUp";
-// import AddTurf from "./components/AddTurf";
+import AddTurf from "./pages/owner/AddTurf";
 import AdminLayout from "./layouts/AdminLayout";
 import OwnerLayout from "./layouts/OwnerLayout";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import OwnerDashboard from "./pages/owner/OwnerDashboard.jsx";
-
 
 const router = createBrowserRouter([
   {
@@ -28,11 +27,10 @@ const router = createBrowserRouter([
         path: "signup",
         element: <SignUp />,
       },
-      
     ],
   },
-   {
-    path: '/admin',
+  {
+    path: "/admin",
     element: <AdminLayout />,
     children: [
       { index: true, element: <AdminDashboard /> },
@@ -43,17 +41,16 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: '/owner',
+    path: "/owner",
     element: <OwnerLayout />,
     children: [
-      { index: true, element: <OwnerDashboard /> },
+      { path: "", element: <OwnerDashboard /> },
+      { path: "add-turf", element: <AddTurf /> },
       // { path: 'turfs', element: <MyTurfsPage /> },
       // { path: 'reviews', element: <ReviewsPage /> },
       // { path: 'bookings', element: <BookingsPage /> },
     ],
   },
 ]);
-
- 
 
 export default router;

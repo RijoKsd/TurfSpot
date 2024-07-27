@@ -1,6 +1,9 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useState } from "react";
+import axiosInstance from "./useAxiosInstance";
+import toast from "react-hot-toast";
 
 const loginSchema = yup.object().shape({
   email: yup
@@ -17,6 +20,7 @@ const loginSchema = yup.object().shape({
 });
 
 const useLoginForm = () => {
+  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -26,18 +30,23 @@ const useLoginForm = () => {
   });
 
   const onSubmit = async (data) => {
-    console.log(data, "login");
-    // API fetching logic here
+   loading(true);
     try {
-      // const response = await fetch('/api/signup', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify(data),
-      // });
-      // const result = await response.json();
-      // Handle the result (e.g., show success message, redirect user)
+      const response = await axiosInstance.post("api/owner/auth/login", data);
+      const result = await response.data;
+      toast.success(result.message);
+      
     } catch (error) {
-      // Handle any errors (e.g., show error message)
+      console.error(error, "error");
+      if(error.response) {
+        toast.error(error.response?.data?.message);
+      } else if(error.request) {
+        toast.error("No response from server. Please try again later.");
+      } else {
+        toast.error(error.message);
+      }
+    }finally{
+      loading(false);
     }
   };
 
@@ -46,6 +55,7 @@ const useLoginForm = () => {
     handleSubmit,
     errors,
     onSubmit,
+    loading,
   };
 };
 

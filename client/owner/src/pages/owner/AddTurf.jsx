@@ -1,47 +1,26 @@
-import React, { useState } from "react";
-import { useForm, Controller } from "react-hook-form";
+import React from "react";
 import DatePicker from "react-datepicker";
-import { format, parse, addMinutes } from "date-fns";
 import "react-datepicker/dist/react-datepicker.css";
-import FormField from "../FormField";
+import { Controller } from "react-hook-form";
+import { setHours, setMinutes } from "date-fns";
+import FormField from "../../components/FormField";
 import useAddTurf from "../../hooks/useAddTurf";
 
 const AddTurf = () => {
   const {
     register,
     handleSubmit,
+    errors,
     control,
-    formState: { errors },
-  } = useForm();
-  const [sportTypes, setSportTypes] = useState([]);
-  const [newSportType, setNewSportType] = useState("");
-  const { addTurf, isLoading, error } = useAddTurf();
-
-  const onSubmit = async (data) => {
-    const formData = new FormData();
-    for (const key in data) {
-      if (key === "image") {
-        formData.append(key, data[key][0]);
-      } else if (key === "openTime" || key === "closeTime") {
-        formData.append(key, format(data[key], "HH:mm"));
-      } else {
-        formData.append(key, data[key]);
-      }
-    }
-    formData.append("sportTypes", JSON.stringify(sportTypes));
-    await addTurf(formData);
-  };
-
-  const addSportType = () => {
-    if (newSportType && !sportTypes.includes(newSportType)) {
-      setSportTypes([...sportTypes, newSportType]);
-      setNewSportType("");
-    }
-  };
-
-  const removeSportType = (type) => {
-    setSportTypes(sportTypes.filter((sport) => sport !== type));
-  };
+    setValue,
+    onSubmit,
+    sportTypes,
+    newSportType,
+    setNewSportType,
+    addSportType,
+    removeSportType,
+    openTime,
+  } = useAddTurf();
 
   return (
     <div className="container mx-auto p-4">
@@ -63,10 +42,8 @@ const AddTurf = () => {
               <span className="label-text">Description</span>
             </label>
             <textarea
-              {...register("description", {
-                required: "Description is required",
-              })}
-              className="textarea textarea-bordered h-24"
+              {...register("description")}
+              className="textarea textarea-bordered h-12"
               placeholder="Enter turf description"
             ></textarea>
             {errors.description && (
@@ -97,9 +74,12 @@ const AddTurf = () => {
             </label>
             <input
               type="file"
-              accept="image/*"
-              {...register("image", { required: "Image is required" })}
               className="file-input file-input-bordered w-full"
+              onChange={(e) => {
+                const file = e.target.files[0];
+                setValue("image", file);
+              }}
+              {...register("image", { required: true })}
             />
             {errors.image && (
               <span className="text-error text-xs">{errors.image.message}</span>
@@ -116,7 +96,10 @@ const AddTurf = () => {
               render={({ field }) => (
                 <DatePicker
                   selected={field.value}
-                  onChange={field.onChange}
+                  onChange={(date) => {
+                    field.onChange(date);
+                    setValue("closeTime", null);
+                  }}
                   showTimeSelect
                   showTimeSelectOnly
                   timeIntervals={30}
@@ -150,6 +133,9 @@ const AddTurf = () => {
                   timeCaption="Time"
                   dateFormat="h:mm aa"
                   className="input input-bordered w-full"
+                  disabled={!openTime}
+                  minTime={openTime || setHours(setMinutes(new Date(), 0), 0)}
+                  maxTime={setHours(setMinutes(new Date(), 30), 23)}
                 />
               )}
             />
@@ -193,17 +179,17 @@ const AddTurf = () => {
                 </span>
               ))}
             </div>
+            {errors.sportTypes && (
+              <span className="text-error text-xs">
+                {errors.sportTypes.message}
+              </span>
+            )}
           </div>
         </div>
         <div className="md:col-span-2">
-          <button
-            type="submit"
-            className="btn btn-primary w-full"
-            disabled={isLoading}
-          >
-            {isLoading ? "Adding Turf..." : "Add Turf"}
+          <button type="submit" className="btn btn-primary w-full">
+            Add Turf
           </button>
-          {error && <p className="text-error mt-2">{error}</p>}
         </div>
       </form>
     </div>

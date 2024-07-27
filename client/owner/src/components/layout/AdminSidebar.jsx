@@ -10,7 +10,7 @@ import {
   DollarSign,
 } from "lucide-react";
 
-const AdminSidebar = ({ isOpen, toggleSidebar }) => {
+const AdminSidebar = ({ isOpen, toggleSidebar, className }) => {
   const location = useLocation();
 
   const navItems = [
@@ -22,12 +22,8 @@ const AdminSidebar = ({ isOpen, toggleSidebar }) => {
   ];
 
   return (
-    <div
-      className={`fixed inset-y-0 left-0 transform ${
-        isOpen ? "translate-x-0" : "-translate-x-full"
-      } lg:translate-x-0 w-64 bg-base-200 overflow-y-auto ease-in-out transition-all duration-300 z-30`}
-    >
-      <div className="flex items-center justify-between p-4 border-b mt-20">
+    <aside className={`${className} bg-base-200 overflow-y-auto`}>
+      <div className="flex items-center justify-between p-4 border-b">
         <span className="text-xl font-semibold">Admin Dashboard</span>
         <button onClick={toggleSidebar} className="lg:hidden">
           <X size={24} />
@@ -43,7 +39,11 @@ const AdminSidebar = ({ isOpen, toggleSidebar }) => {
                 ? "bg-primary text-primary-content"
                 : "hover:bg-base-300"
             }`}
-            onClick={() => toggleSidebar()}
+            onClick={() => {
+              if (window.innerWidth < 1024) {
+                toggleSidebar();
+              }
+            }}
           >
             <item.icon size={18} className="mr-2" />
             {item.label}
@@ -57,7 +57,7 @@ const AdminSidebar = ({ isOpen, toggleSidebar }) => {
           Logout
         </Link>
       </nav>
-    </div>
+    </aside>
   );
 };
 

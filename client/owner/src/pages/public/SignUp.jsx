@@ -7,11 +7,11 @@ const SignUp = () => {
   const { register, handleSubmit, errors, onSubmit,loading } = useSignUpForm();
   return (
     <div className="flex items-center justify-center min-h-screen p-4">
-      <div className="card w-full max-w-4xl bg-base-100 shadow-xl">
-        <div className="card-body">
+      <div className="card w-full max-w-4xl bg-base-100 shadow-xl border">
+        <div className="card-body max-md:p-4">
           <h2 className="card-title justify-center text-2xl mb-6">Sign Up</h2>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            <div className="grid lg:grid-cols-2 gap-4">
+            <div className="lg:grid grid-cols-2 gap-4">
               <FormField
                 label="Name"
                 name="name"
@@ -34,7 +34,7 @@ const SignUp = () => {
               register={register}
               error={errors.email}
             />
-            <div className="grid lg:grid-cols-2 gap-4">
+            <div className="lg:grid grid-cols-2 gap-4">
               <FormField
                 label="Password"
                 name="password"

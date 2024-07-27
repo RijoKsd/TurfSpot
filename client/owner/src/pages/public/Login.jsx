@@ -7,9 +7,9 @@ const Login = () => {
   const { register, handleSubmit, errors, onSubmit } = useLoginForm();
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-base-200">
-      <div className="card w-96 bg-base-100 shadow-xl">
-        <div className="card-body">
+    <div className="flex items-center justify-center  min-h-screen max-md:p-4 bg-base-200 ">
+      <div className="card w-full border  lg:w-96 bg-base-100 shadow-xl ">
+        <div className="card-body ">
           <h2 className="card-title justify-center">Login</h2>
           <form onSubmit={handleSubmit(onSubmit)}>
             <FormField

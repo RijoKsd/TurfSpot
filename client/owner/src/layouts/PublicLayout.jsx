@@ -1,6 +1,5 @@
 import { Outlet } from "react-router-dom";
 import PublicNavbar from "../components/layout/PublicNavbar";
- 
 
 const PublicLayout = () => {
   return (
@@ -14,6 +13,3 @@ const PublicLayout = () => {
 };
 
 export default PublicLayout;
-
-
- 
