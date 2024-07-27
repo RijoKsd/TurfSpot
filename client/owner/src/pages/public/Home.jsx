@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import Carousel from "../components/Carousel";
-import Button from "../components/Button";
-import Footer from "../components/Footer";
+import Carousel from "../../components/Carousel";
+import Button from "../../components/Button";
+import Footer from "../../components/Footer";
 
 import bg from "/r.png";
 import bg2 from "/bg.jpeg";

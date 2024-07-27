@@ -1,4 +1,4 @@
-import React from "react";
+ 
 import { useParams } from "react-router-dom";
 import useTurfData from "../hooks/useTurfData";
 import Reviews from "./Reviews";

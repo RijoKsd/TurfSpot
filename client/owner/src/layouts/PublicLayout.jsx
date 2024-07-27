@@ -1,10 +1,11 @@
 import { Outlet } from "react-router-dom";
-import Navbar from "../components/Navbar";
+import PublicNavbar from "../components/layout/PublicNavbar";
+ 
 
-const Root = () => {
+const PublicLayout = () => {
   return (
     <div className="flex flex-col min-h-screen ">
-      <Navbar />
+      <PublicNavbar />
       <main className="flex-grow pt-16 ">
         <Outlet />
       </main>
@@ -12,4 +13,7 @@ const Root = () => {
   );
 };
 
-export default Root;
+export default PublicLayout;
+
+
+ 
