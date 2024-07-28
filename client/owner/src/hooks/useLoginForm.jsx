@@ -4,6 +4,9 @@ import * as yup from "yup";
 import { useState } from "react";
 import axiosInstance from "./useAxiosInstance";
 import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import {login} from "../redux/slices/authSlice";
+import { useNavigate } from "react-router-dom";
 
 const loginSchema = yup.object().shape({
   email: yup
@@ -21,6 +24,8 @@ const loginSchema = yup.object().shape({
 
 const useLoginForm = () => {
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -30,11 +35,20 @@ const useLoginForm = () => {
   });
 
   const onSubmit = async (data) => {
-   loading(true);
+   setLoading(true);
     try {
       const response = await axiosInstance.post("api/owner/auth/login", data);
       const result = await response.data;
+      dispatch(login({token:result.token,role:result.role}));
+      if(result.role === "owner") {
+        navigate("/owner");
+      }else if(result.role === "admin") {
+        navigate("/admin");
+      }
+      
       toast.success(result.message);
+      console.log(result)
+      
       
     } catch (error) {
       console.error(error, "error");
@@ -46,7 +60,7 @@ const useLoginForm = () => {
         toast.error(error.message);
       }
     }finally{
-      loading(false);
+      setLoading(false);
     }
   };
 

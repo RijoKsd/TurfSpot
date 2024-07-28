@@ -37,7 +37,7 @@ export const ownerRequest = async (req, res) => {
 
 export const registerOwner = async (req, res) => {
   const { name, email, phone, password } = req.body;
-  
+
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ success: false, message: errors.array() });
@@ -45,10 +45,10 @@ export const registerOwner = async (req, res) => {
 
   try {
     const ownerRequest = await OwnerRequest.findOne({ email });
-    console.log(chalk.green(ownerRequest), "ownerRequest")
+    console.log(chalk.green(ownerRequest), "ownerRequest");
 
     if (!ownerRequest) {
-      console.log(chalk.red("Owner request does not exist"))
+      console.log(chalk.red("Owner request does not exist"));
       return res
         .status(400)
         .json({ success: false, message: "Owner request does not exist" });
@@ -65,7 +65,7 @@ export const registerOwner = async (req, res) => {
         .status(400)
         .json({ success: false, message: "Owner request is rejected" });
     }
- 
+
     const owner = await Owner.findOne({ email });
     if (owner) {
       return res
@@ -82,9 +82,12 @@ export const registerOwner = async (req, res) => {
     });
     await newOwner.save();
     const token = generateOwnerToken(newOwner);
-    return res
-      .status(201)
-      .json({ success: true, message: "Owner created successfully", token });
+    return res.status(201).json({
+      success: true,
+      message: "Owner created successfully",
+      token,
+      role: owner.role,
+    });
   } catch (err) {
     console.log(chalk.red(err.message));
     return res.status(400).json({ success: false, message: err.message });
@@ -113,7 +116,12 @@ export const loginOwner = async (req, res) => {
     const token = generateOwnerToken(owner);
     return res
       .status(200)
-      .json({ success: true, message: "Login successful", token,role:owner.role });
+      .json({
+        success: true,
+        message: "Login successful",
+        token,
+        role: owner.role,
+      });
   } catch (err) {
     console.log(chalk.red(err.message));
     return res.status(400).json({ success: false, message: err.message });
