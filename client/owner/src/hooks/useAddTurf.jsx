@@ -95,7 +95,7 @@ export default function useAddTurf() {
         }
       } else if (key === "openTime" || key === "closeTime") {
         if (data[key] instanceof Date) {
-          formData.append(key, format(data[key], "HH:mm"));
+          formData.append(key, format(data[key], "hh:mm aa"));
         }
       } else if (key === "sportTypes") {
         if (Array.isArray(data[key])) {

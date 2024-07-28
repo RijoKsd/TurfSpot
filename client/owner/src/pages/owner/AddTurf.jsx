@@ -102,7 +102,7 @@ const AddTurf = () => {
                   }}
                   showTimeSelect
                   showTimeSelectOnly
-                  timeIntervals={30}
+                  timeIntervals={60}
                   timeCaption="Time"
                   dateFormat="h:mm aa"
                   className="input input-bordered w-full"
@@ -129,7 +129,7 @@ const AddTurf = () => {
                   onChange={field.onChange}
                   showTimeSelect
                   showTimeSelectOnly
-                  timeIntervals={30}
+                  timeIntervals={60}
                   timeCaption="Time"
                   dateFormat="h:mm aa"
                   className="input input-bordered w-full"

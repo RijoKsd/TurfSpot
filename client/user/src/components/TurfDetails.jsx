@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import useTurfData from "../hooks/useTurfData";
 import Reviews from "./Reviews";
 import TurfDetailsSkeleton from "./TurfDetailsSkeleton";
+import Reservation from "../pages/Reservation";
 
 const TurfDetails = () => {
   const { id } = useParams();
@@ -107,6 +108,7 @@ const TurfDetails = () => {
               </div>
               <div className="card-actions">
                 <button className="btn btn-primary w-full">Reserve Now</button>
+                <Reservation turfId={id} />
               </div>
             </div>
           </div>
