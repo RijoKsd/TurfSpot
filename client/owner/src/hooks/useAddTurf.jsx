@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { format } from "date-fns";
+import toast from "react-hot-toast";  
+import axiosInstance from "./useAxiosInstance";
 
 const addTurfSchema = yup.object().shape({
   name: yup
@@ -45,6 +47,7 @@ const addTurfSchema = yup.object().shape({
 });
 
 export default function useAddTurf() {
+  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -81,7 +84,7 @@ export default function useAddTurf() {
   };
 
   const onSubmit = async (data) => {
-    console.log(data, "addTurf");
+     setLoading(true);
 
     const formData = new FormData();
 
@@ -108,10 +111,32 @@ export default function useAddTurf() {
     for (let [key, value] of formData.entries()) {
       console.log(key, value);
     }
+    try {
 
-    // Here you would typically send the formData to your API
-    // For example:
-    // await api.post('/turfs', formData);
+      const response = await axiosInstance.post(
+        "/api/owner/turf/register",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log("hit");
+      const result = await response.data;
+      toast.success(result.message);
+      console.log(result);
+    } catch (error) {
+      if (error.response) {
+        toast.error(error.response?.data?.message);
+      } else if (error.request) {
+        toast.error("No response from server. Please try again later.");
+      } else {
+        toast.error(error.message);
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return {
@@ -127,5 +152,6 @@ export default function useAddTurf() {
     addSportType,
     removeSportType,
     openTime,
+    loading,
   };
 }

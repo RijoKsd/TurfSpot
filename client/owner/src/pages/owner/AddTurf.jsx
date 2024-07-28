@@ -43,7 +43,7 @@ const AddTurf = () => {
             </label>
             <textarea
               {...register("description")}
-              className="textarea textarea-bordered h-12"
+              className="textarea textarea-bordered h-24"
               placeholder="Enter turf description"
             ></textarea>
             {errors.description && (

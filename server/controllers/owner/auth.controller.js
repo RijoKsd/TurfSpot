@@ -48,7 +48,6 @@ export const registerOwner = async (req, res) => {
     console.log(chalk.green(ownerRequest), "ownerRequest");
 
     if (!ownerRequest) {
-      console.log(chalk.red("Owner request does not exist"));
       return res
         .status(400)
         .json({ success: false, message: "Owner request does not exist" });

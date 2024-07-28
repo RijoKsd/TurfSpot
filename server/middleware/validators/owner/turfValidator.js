@@ -10,21 +10,4 @@ export const validateTurfInput = [
     .withMessage("Price per hour is required")
     .isNumeric()
     .withMessage("Price per hour must be a number"),
-
-  (req, res, next) => {
-    if (!req.file) {
-      return res.status(400).json({
-        success: false,
-        message: [
-          {
-            type: "field",
-            msg: "Image is required",
-            path: "image",
-            location: "body",
-          },
-        ],
-      });
-    }
-    next();
-  },
 ];

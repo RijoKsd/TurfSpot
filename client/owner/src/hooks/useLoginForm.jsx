@@ -46,10 +46,7 @@ const useLoginForm = () => {
         navigate("/admin");
       }
       
-      toast.success(result.message);
-      console.log(result)
-      
-      
+      toast.success(result.message);      
     } catch (error) {
       console.error(error, "error");
       if(error.response) {

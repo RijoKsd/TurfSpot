@@ -4,6 +4,8 @@ import * as yup from "yup";
 import { useState } from "react";
 import axiosInstance from "./useAxiosInstance";
 import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const registerSchema = yup.object().shape({
   name: yup.string().required("Name is required"),
@@ -32,6 +34,8 @@ const registerSchema = yup.object().shape({
 });
 
 const useSignUpForm = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const {
     register,
@@ -50,24 +54,26 @@ const useSignUpForm = () => {
         data
       );
       const result = await response.data;
-      console.log(result, "data");
+        dispatch(login({ token: result.token, role: result.role }));
+        if (result.role === "owner") {
+          navigate("/owner");
+        } else if (result.role === "admin") {
+          navigate("/admin");
+        }
     } catch (error) {
       console.error(error, "error");
-         if (error.response) {
-           // Server responded with a status other than 200 range
-           console.error(error.response.data, "error response data");
-           toast.error(
-             `Error: ${error.response.data.message || "Registration failed"}`
-           );
-         } else if (error.request) {
-           // Request was made but no response was received
-           console.error(error.request, "error request");
-           toast.error("No response from server. Please try again later.");
-         } else {
-           // Something else caused the error
-           console.error(error.message, "error message");
-           toast.error(`Error: ${error.message}`);
-         }
+      if (error.response) {
+        // Server responded with a status other than 200 range
+        toast.error(
+          `Error: ${error.response.data.message || "Registration failed"}`
+        );
+      } else if (error.request) {
+        // Request was made but no response was received
+        toast.error("No response from server. Please try again later.");
+      } else {
+        // Something else caused the error
+        toast.error(`Error: ${error.message}`);
+      }
     } finally {
       setLoading(false);
     }

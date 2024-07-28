@@ -10,7 +10,7 @@ turfRouter.post(
   "/register",
   verifyOwnerToken,
   upload.single("image"),
-  validateTurfInput,
+  
   turfRegister
 );
 
