@@ -2,12 +2,16 @@ import axios from "axios";
 
 const axiosInstance = axios.create({
     baseURL: "http://localhost:8080",
-})
+});
 
 axiosInstance.interceptors.request.use((config)=>{
-    config.headers.Authorization = `Bearer ${localStorage.getItem("token")}`
+     const token = JSON.parse(
+       JSON.parse(localStorage.getItem("persist:user"))?.auth
+     )?.token;
+    config.headers.Authorization = `Bearer ${token}`
     return config;
 
 })
 
+ 
 export default axiosInstance;

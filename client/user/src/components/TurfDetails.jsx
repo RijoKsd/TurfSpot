@@ -1,13 +1,19 @@
- 
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useTurfData from "../hooks/useTurfData";
 import Reviews from "./Reviews";
 import TurfDetailsSkeleton from "./TurfDetailsSkeleton";
-import Reservation from "../pages/Reservation";
+import { useEffect } from "react";
+ // import { useSelector } from "react-redux";
 
 const TurfDetails = () => {
+  // const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const { id } = useParams();
-  const { loading, error, turfs } = useTurfData();
+  const navigate = useNavigate();
+  const { loading, error, turfs, fetchTurfData } = useTurfData();
+
+  useEffect(() => {
+    fetchTurfData();
+  }, []);
 
   if (loading) {
     return <TurfDetailsSkeleton />;
@@ -60,6 +66,9 @@ const TurfDetails = () => {
       </div>
     );
   }
+  const handleReservation = () => {
+    navigate(`/auth/reserve/${id}`);
+  };
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -107,8 +116,12 @@ const TurfDetails = () => {
                 </div>
               </div>
               <div className="card-actions">
-                <button className="btn btn-primary w-full">Reserve Now</button>
-                <Reservation turfId={id} />
+                <button
+                  className="btn btn-primary w-full"
+                  onClick={handleReservation}
+                >
+                  Reserve Now
+                </button>
               </div>
             </div>
           </div>

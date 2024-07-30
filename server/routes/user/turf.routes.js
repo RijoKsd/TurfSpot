@@ -12,6 +12,7 @@ turfRouter.get("/all", getAllTurfs);
 // get single turf by id
 turfRouter.get("/details/:id", getTurfById);
 // get time slots by turf id pass with query
-turfRouter.get("/timeSlots", getTimeSlotByTurfId);
+turfRouter.get("/timeSlot", getTimeSlotByTurfId);
+// update time slots by turf id pass with query
 
 export default turfRouter;

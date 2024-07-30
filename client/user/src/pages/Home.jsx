@@ -8,8 +8,10 @@ import TurfCardSkeleton from "../components/TurfCardSkeleton";
 
 import bg from "/r.png";
 import bg2 from "/bg.jpeg";
+import { useSelector } from "react-redux";
 
 const Home = () => {
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const { turfs, loading } = useTurfData();
   const slides = [bg, bg2, bg];
 
@@ -27,7 +29,12 @@ const Home = () => {
               you&#39;re planning a casual game or a tournament, TurfSpot has
               got you covered.
             </p>
-            <Link to="/turfs" className="btn btn-accent">Get Started</Link>
+            <Link
+              to={isLoggedIn ? "/auth/turfs" : "/turfs"}
+              className="btn btn-accent"
+            >
+              Get Started
+            </Link>
           </div>
         </div>
       </div>
@@ -43,8 +50,11 @@ const Home = () => {
                 .map((turf) => <TurfCard key={turf._id} turf={turf} />)}
         </div>
         <div className="text-center mt-8">
-          <Link to="/turfs">
-            <Button className="btn-primary">View More Turfs</Button>
+          <Link
+            to={isLoggedIn ? "/auth/turfs" : "/turfs"}
+            className="btn btn-primary"
+          >
+            View More Turfs
           </Link>
         </div>
       </div>

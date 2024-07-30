@@ -1,32 +1,23 @@
-import React, { useState } from "react";
 import { format, addDays, isSameDay } from "date-fns";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import useReservation from "../hooks/useReservation";
+import { useParams } from "react-router-dom";
 
-const ReservationPage = ({ turfId }) => {
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const [selectedTime, setSelectedTime] = useState(null);
-
-  const availableTimes = [
-    "09:00",
-    "10:00",
-    "11:00",
-    "12:00",
-    "13:00",
-    "14:00",
-    "15:00",
-    "16:00",
-    "17:00",
-  ];
-
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
-    setSelectedTime(null);
-  };
-
-  const handleTimeSelection = (time) => {
-    setSelectedTime(time);
-  };
+const Reservation = () => {
+  const { id } = useParams();
+   const {
+    selectedDate,
+    selectedStartTime,
+    duration,
+    availableTimes,
+    handleDateChange,
+    handleTimeSelection,
+    handleDurationChange,
+    isTimeSlotSelected,
+    isStartTime,
+    isDurationDisabled,
+  } = useReservation();
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -71,17 +62,44 @@ const ReservationPage = ({ turfId }) => {
                 <button
                   key={time}
                   className={`btn btn-sm ${
-                    selectedTime === time ? "btn-primary" : "btn-ghost"
+                    isStartTime(time)
+                      ? "bg-blue-500 hover:bg-blue-600 text-white"
+                      : isTimeSlotSelected(time)
+                      ? "btn-primary"
+                      : "btn-ghost"
                   }`}
                   onClick={() => handleTimeSelection(time)}
+                  disabled={isTimeSlotSelected(time) && !isStartTime(time)}
                 >
                   {time}
                 </button>
               ))}
             </div>
           </div>
+          {selectedStartTime && (
+            <div className="mt-6">
+              <h3 className="text-lg font-semibold mb-4">Select Duration</h3>
+              <div className="flex justify-center space-x-4">
+                {[1, 2, 3].map((hours) => (
+                  <button
+                    key={hours}
+                    className={`btn ${
+                      duration === hours ? "btn-primary" : "btn-outline"
+                    }`}
+                    onClick={() => handleDurationChange(hours)}
+                    disabled={isDurationDisabled(hours)}
+                  >
+                    {hours} hour{hours > 1 ? "s" : ""}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
           <div className="mt-6">
-            <button className="btn btn-primary w-full" disabled={!selectedTime}>
+            <button
+              className="btn btn-primary w-full"
+              disabled={!selectedStartTime}
+            >
               Confirm Reservation
             </button>
           </div>
@@ -91,4 +109,4 @@ const ReservationPage = ({ turfId }) => {
   );
 };
 
-export default ReservationPage;
+export default Reservation;

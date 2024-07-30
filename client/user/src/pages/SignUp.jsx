@@ -7,7 +7,7 @@ const SignUp = () => {
   const { register, handleSubmit, errors, onSubmit,loading } = useSignUpForm();
    return (
     <div className="flex items-center justify-center min-h-screen">
-      <div className="card w-96 bg-base-100 shadow-xl">
+      <div className="card w-96 bg-base-100 shadow-xl border">
         <div className="card-body">
           <h2 className="card-title justify-center">Sign Up</h2>
           <form onSubmit={handleSubmit(onSubmit)}>

@@ -4,6 +4,9 @@ import * as yup from "yup";
 import axiosInstance from "./useAxiosInstance";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import {login} from "../redux/slices/authSlice"
 
 const registerSchema = yup.object().shape({
   name: yup.string().required("Name is required"),
@@ -25,6 +28,8 @@ const registerSchema = yup.object().shape({
 });
 
 const useSignUpForm = () => {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const [loading, setLoading] = useState(false);
   const {
     register,
@@ -35,6 +40,7 @@ const useSignUpForm = () => {
   });
 
   const onSubmit = async (data) => {
+
     setLoading(true);
     try {
       const response = await axiosInstance.post(
@@ -43,6 +49,9 @@ const useSignUpForm = () => {
       );
       const result = await response.data;
       toast.success(result.message);
+      dispatch(login(result.token));
+      navigate("/auth", { replace: true });
+      axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${result.token}`;
     } catch (error) {
       if (error.response) {
         toast.error(error.response?.data?.message);
