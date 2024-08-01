@@ -13,7 +13,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
-    errorElement: <div>Error</div>,
+    // errorElement: <div>Error</div>,
     children: [
       {
         path: "",
@@ -40,7 +40,7 @@ const router = createBrowserRouter([
   {
     path: "/auth",
     element: <ProtectedLayout />,
-    errorElement: <div>Error</div>,
+    // errorElement: <div>Error</div>,
     children: [
       {
         path: "",

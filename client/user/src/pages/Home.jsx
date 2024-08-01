@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import Carousel from "../components/Carousel";
-import Button from "../components/Button";
 import Footer from "../components/Footer";
 import useTurfData from "../hooks/useTurfData";
 import TurfCard from "../components/TurfCard";
@@ -9,11 +8,12 @@ import TurfCardSkeleton from "../components/TurfCardSkeleton";
 import bg from "/r.png";
 import bg2 from "/bg.jpeg";
 import { useSelector } from "react-redux";
-
+ 
 const Home = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const { turfs, loading } = useTurfData();
   const slides = [bg, bg2, bg];
+
 
   return (
     <div className="min-h-screen bg-base-100 text-base-content">

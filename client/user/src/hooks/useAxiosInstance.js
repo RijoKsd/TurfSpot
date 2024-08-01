@@ -1,17 +1,31 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-    baseURL: "http://localhost:8080",
+  baseURL: "http://localhost:8080",
 });
 
-axiosInstance.interceptors.request.use((config)=>{
-     const token = JSON.parse(
-       JSON.parse(localStorage.getItem("persist:user"))?.auth
-     )?.token;
-    config.headers.Authorization = `Bearer ${token}`
-    return config;
+axiosInstance.interceptors.request.use((config) => {
+  let token = null;
+  try {
+    const persistedUser = localStorage.getItem("persist:user");
+    if (persistedUser) {
+      const parsedUser = JSON.parse(persistedUser);
+      if (parsedUser.auth) {
+        const parsedAuth = JSON.parse(parsedUser.auth);
+        token = parsedAuth.token;
+      }
+    }
+  } catch (error) {
+    console.error("Error parsing persisted user data:", error);
+  }
 
-})
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  } else {
+    delete config.headers.Authorization;
+  }
 
- 
+  return config;
+});
+
 export default axiosInstance;

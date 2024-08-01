@@ -2,11 +2,9 @@ import { format, addDays, isSameDay } from "date-fns";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import useReservation from "../hooks/useReservation";
-import { useParams } from "react-router-dom";
 
 const Reservation = () => {
-  const { id } = useParams();
-   const {
+  const {
     selectedDate,
     selectedStartTime,
     duration,
@@ -24,6 +22,7 @@ const Reservation = () => {
       <h2 className="text-2xl font-bold mb-6">Reserve Turf</h2>
       <div className="card bg-base-100 shadow-xl">
         <div className="card-body p-4 sm:p-6">
+          {/* Date selection */}
           <div className="flex flex-col space-y-4 mb-6">
             <div className="w-full">
               <DatePicker
@@ -53,6 +52,8 @@ const Reservation = () => {
               </button>
             </div>
           </div>
+
+          {/* Available start times */}
           <div>
             <h3 className="text-lg font-semibold mb-4">
               Available start times
@@ -76,6 +77,8 @@ const Reservation = () => {
               ))}
             </div>
           </div>
+
+          {/* Duration selection */}
           {selectedStartTime && (
             <div className="mt-6">
               <h3 className="text-lg font-semibold mb-4">Select Duration</h3>
@@ -95,6 +98,8 @@ const Reservation = () => {
               </div>
             </div>
           )}
+
+          {/* Confirm reservation button */}
           <div className="mt-6">
             <button
               className="btn btn-primary w-full"

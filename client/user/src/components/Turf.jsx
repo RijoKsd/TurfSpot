@@ -1,16 +1,14 @@
-import   { useEffect, useState } from "react";
+import   { useState } from "react";
 import TurfCard from "./TurfCard";
 import TurfCardSkeleton from "./TurfCardSkeleton";
 import useTurfData from "../hooks/useTurfData";
 import SearchTurf from "./SearchTurf";
 
 const Turf = () => {
-  const { turfs, loading, error, fetchTurfData } = useTurfData();
+  const { turfs, loading, error } = useTurfData();
   const [filteredTurfs, setFilteredTurfs] = useState(turfs);
 
-  useEffect(() => {
-    fetchTurfData();
-  }, []);
+ 
 
   const handleSearch = (searchTerm) => {
     const filtered = turfs.filter(
