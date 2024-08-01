@@ -39,9 +39,7 @@ export const getTurfById = async(req,res) =>{
 
 export const getTimeSlotByTurfId = async (req,res)=>{
     const {date, turfId} = req.query;    
-    console.log("entered to getTimeSlotByTurfId")
-    console.log(chalk.blue(date), "date from getTimeSlotByTurfId")
-    console.log(chalk.bgGreen(turfId), "turfId from getTimeSlotByTurfId")
+console.log(req.query, "req.query in getTimeSlotByTurfId")
     try {
         // get all time slot when there is no turfid  in Timeslot db
         const bookedTime = await TimeSlot.find({turf:turfId, startTime:{$gte:new Date(date)}});
