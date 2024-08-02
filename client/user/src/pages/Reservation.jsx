@@ -1,4 +1,4 @@
-import React from "react";
+
 import { format, addDays, isSameDay, parse, addHours, isAfter } from "date-fns";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -17,6 +17,7 @@ const Reservation = () => {
     isTimeSlotBooked,
     isDurationAvailable,
     confirmReservation,
+    pricePerHour,
   } = useReservation();
 
   const getEndTime = (startTime, hours) => {
@@ -143,6 +144,7 @@ const Reservation = () => {
               <p>
                 Duration: {duration} hour{duration > 1 ? "s" : ""}
               </p>
+              <p className = "font-bold"> Price: {pricePerHour * duration} INR</p>
             </div>
           )}
 

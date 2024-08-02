@@ -13,6 +13,8 @@ import {
 } from "date-fns";
 import axiosInstance from "../hooks/useAxiosInstance";
 import { useParams } from "react-router-dom";
+import { createOrder, handlePayment } from "../config/razorpay";
+import "https://checkout.razorpay.com/v1/checkout.js";
 
 const useReservation = () => {
   const { id } = useParams();
@@ -21,6 +23,7 @@ const useReservation = () => {
   const [duration, setDuration] = useState(1);
   const [bookedTime, setBookedTime] = useState([]);
   const [timeSlots, setTimeSlots] = useState({ openTime: "", closeTime: "" });
+  const [pricePerHour, setPricePerHour] = useState(0);
 
   const availableTimes = useMemo(() => {
     if (!timeSlots.openTime || !timeSlots.closeTime) return [];
@@ -104,6 +107,7 @@ const useReservation = () => {
       const result = await response.data;
 
       setTimeSlots(result.timeSlots);
+      setPricePerHour(result.timeSlots.pricePerHour);
 
       // Convert startTime and endTime to "hh:mm a" format
       const formattedBookedTime = result.bookedTime.map((booking) => ({
@@ -131,41 +135,48 @@ const useReservation = () => {
     }
   };
 
- 
-
   const confirmReservation = async () => {
-   const selectedTurfDate = format(selectedDate, "yyyy-MM-dd");
-   const parsedStartTime = parse(selectedStartTime, "hh:mm a", new Date());
+    const selectedTurfDate = format(selectedDate, "yyyy-MM-dd");
+    const parsedStartTime = parse(selectedStartTime, "hh:mm a", new Date());
 
-   // Combine the selected date with the parsed start time
-   const combinedStartDateTime = set(parseISO(selectedTurfDate), {
-     hours: parsedStartTime.getHours(),
-     minutes: parsedStartTime.getMinutes(),
-     seconds: 0,
-     milliseconds: 0,
-   });
+    // Combine the selected date with the parsed start time
+    const combinedStartDateTime = set(parseISO(selectedTurfDate), {
+      hours: parsedStartTime.getHours(),
+      minutes: parsedStartTime.getMinutes(),
+      seconds: 0,
+      milliseconds: 0,
+    });
 
-   // Calculate end time
-   const combinedEndDateTime = addHours(combinedStartDateTime, duration);
+    // Calculate end time
+    const combinedEndDateTime = addHours(combinedStartDateTime, duration);
 
-   // Format times for display
-  //  const startTime = format(combinedStartDateTime, "hh:mm a");
-  //  const endTime = format(combinedEndDateTime, "hh:mm a");
+    // Convert to ISO format
+    const startTimeISO = formatISO(combinedStartDateTime);
+    const endTimeISO = formatISO(combinedEndDateTime);
 
-   // Convert to ISO format
-   const startTimeISO = formatISO(combinedStartDateTime);
-   const endTimeISO = formatISO(combinedEndDateTime);
- 
     try {
-      const response = await axiosInstance.post("/api/user/turf/booking", {
+      const order = await createOrder(pricePerHour * duration);
+      const razorpayResponse = await handlePayment(order);
+      console.log("Razorpay response:", razorpayResponse);
+
+      const bookingData = {
         id,
         duration,
         startTime: startTimeISO,
         endTime: endTimeISO,
-
+        totalPrice: pricePerHour * duration,
         selectedTurfDate,
-      });
-      console.log(response.data);
+        paymentId: razorpayResponse.razorpay_payment_id,
+        orderId: razorpayResponse.razorpay_order_id,
+        razorpay_signature: razorpayResponse.razorpay_signature,
+      };
+      console.log("Booking data:", bookingData);
+
+      const response = await axiosInstance.post(
+        "/api/user/booking/verify-payment",
+        bookingData
+      );
+      console.log("Verify payment response:", response.data);
     } catch (err) {
       if (err.response) {
         toast.error(err.response?.data?.message);
@@ -189,6 +200,7 @@ const useReservation = () => {
     isTimeSlotBooked,
     isDurationAvailable,
     confirmReservation,
+    pricePerHour,
   };
 };
 
