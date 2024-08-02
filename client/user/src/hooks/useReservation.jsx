@@ -1,7 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
+import toast from "react-hot-toast";
 import {
-  addDays,
-  isSameDay,
   format,
   parse,
   isBefore,
@@ -9,8 +8,8 @@ import {
   parseISO,
   addMinutes,
   addHours,
-  setHours,
-  setMinutes,
+  set,
+  formatISO,
 } from "date-fns";
 import axiosInstance from "../hooks/useAxiosInstance";
 import { useParams } from "react-router-dom";
@@ -132,17 +131,45 @@ const useReservation = () => {
     }
   };
 
-  const confirmReservation = () => {
-    if (selectedStartTime && duration) {
-      const startTime = parse(selectedStartTime, "hh:mm a", new Date());
-      const endTime = addHours(startTime, duration);
-      console.log("Confirmed Reservation:", {
-        date: format(selectedDate, "yyyy-MM-dd"),
-        startTime: format(startTime, "hh:mm a"),
-        endTime: format(endTime, "hh:mm a"),
-        duration: `${duration} hour${duration > 1 ? "s" : ""}`,
+ 
+
+  const confirmReservation = async () => {
+   const selectedTurfDate = format(selectedDate, "yyyy-MM-dd");
+   const parsedStartTime = parse(selectedStartTime, "hh:mm a", new Date());
+
+   // Combine the selected date with the parsed start time
+   const combinedStartDateTime = set(parseISO(selectedTurfDate), {
+     hours: parsedStartTime.getHours(),
+     minutes: parsedStartTime.getMinutes(),
+     seconds: 0,
+     milliseconds: 0,
+   });
+
+   // Calculate end time
+   const combinedEndDateTime = addHours(combinedStartDateTime, duration);
+
+   // Format times for display
+  //  const startTime = format(combinedStartDateTime, "hh:mm a");
+  //  const endTime = format(combinedEndDateTime, "hh:mm a");
+
+   // Convert to ISO format
+   const startTimeISO = formatISO(combinedStartDateTime);
+   const endTimeISO = formatISO(combinedEndDateTime);
+ 
+    try {
+      const response = await axiosInstance.post("/api/user/turf/booking", {
+        id,
+        duration,
+        startTime: startTimeISO,
+        endTime: endTimeISO,
+
+        selectedTurfDate,
       });
-      // Here you can also add logic to send this data to your backend
+      console.log(response.data);
+    } catch (err) {
+      if (err.response) {
+        toast.error(err.response?.data?.message);
+      }
     }
   };
 
