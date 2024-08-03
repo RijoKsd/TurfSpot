@@ -33,23 +33,6 @@ export const handlePayment = async (order) => {
         contact: "",
       },
      
-      config: {
-        display: {
-          blocks: {
-            upi: {
-              name: "UPI",
-              instruments: [
-                {
-                  method: "upi",
-                  apps: ["google_pay", "phonepe"],
-                },
-              ],
-            },
-          },
-          hide: [],
-          sequence: ["block.upi"],
-        },
-      },
     };
 
     console.log("Razorpay options:", options);

@@ -10,6 +10,8 @@ import {
   addHours,
   set,
   formatISO,
+  isEqual,
+  addDays,
 } from "date-fns";
 import axiosInstance from "../hooks/useAxiosInstance";
 import { useParams } from "react-router-dom";
@@ -29,8 +31,13 @@ const useReservation = () => {
     if (!timeSlots.openTime || !timeSlots.closeTime) return [];
 
     const times = [];
-    const openTime = parse(timeSlots.openTime, "hh:mm a", new Date());
-    const closeTime = parse(timeSlots.closeTime, "hh:mm a", new Date());
+    let openTime = parse(timeSlots.openTime, "hh:mm a", new Date());
+    let closeTime = parse(timeSlots.closeTime, "hh:mm a", new Date());
+
+    // If close time is before or equal to open time, assume it's on the next day
+    if (isBefore(closeTime, openTime) || isEqual(closeTime, openTime)) {
+      closeTime = addDays(closeTime, 1);
+    }
 
     let currentTime = openTime;
 
@@ -61,7 +68,12 @@ const useReservation = () => {
     const timeToCheck = parse(time, "hh:mm a", new Date());
     return bookedTime.some((booking) => {
       const bookingStart = parse(booking.startTime, "hh:mm a", new Date());
-      const bookingEnd = parse(booking.endTime, "hh:mm a", new Date());
+      let bookingEnd = parse(booking.endTime, "hh:mm a", new Date());
+
+      // If booking end time is before start time, assume it ends on the next day
+      if (isBefore(bookingEnd, bookingStart)) {
+        bookingEnd = addDays(bookingEnd, 1);
+      }
 
       return (
         (isAfter(timeToCheck, bookingStart) ||
@@ -75,9 +87,12 @@ const useReservation = () => {
     const start = parse(startTime, "hh:mm a", new Date());
     const end = addHours(start, hours);
 
-    // Check if the end time exceeds the closing time
-    const closeTime = parse(timeSlots.closeTime, "hh:mm a", new Date());
-    if (isAfter(end, closeTime) || isSameTime(end, closeTime)) return false;
+    let closeTime = parse(timeSlots.closeTime, "hh:mm a", new Date());
+    if (isBefore(closeTime, start) || isEqual(closeTime, start)) {
+      closeTime = addDays(closeTime, 1);
+    }
+
+    if (isAfter(end, closeTime)) return false;
 
     // Check if the selected duration overlaps with any booked time
     for (let i = 0; i < hours; i++) {
