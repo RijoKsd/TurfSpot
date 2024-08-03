@@ -15,6 +15,9 @@ export const handlePayment = async (order) => {
       amount: order.amount,
       currency: order.currency,
       order_id: order.id, // Make sure this is included
+      name: "TurfSpot",
+      description: "Book a spot for your next adventure",
+
       handler: function (response) {
         console.log("Full Razorpay response:", response);
         if (response.error) {
@@ -28,6 +31,24 @@ export const handlePayment = async (order) => {
         name: "rijo",
         email: "rijo@gmail.com",
         contact: "",
+      },
+     
+      config: {
+        display: {
+          blocks: {
+            upi: {
+              name: "UPI",
+              instruments: [
+                {
+                  method: "upi",
+                  apps: ["google_pay", "phonepe"],
+                },
+              ],
+            },
+          },
+          hide: [],
+          sequence: ["block.upi"],
+        },
       },
     };
 

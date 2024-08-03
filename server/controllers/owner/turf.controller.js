@@ -13,7 +13,7 @@ export const turfRegister = async (req, res) => {
   try {
     // upload the turf image to cloudinary
     const turfImage = await cloudinary.uploader.upload(image, {
-      folder: "turf",
+      folder: "TurfSpot/turfs",
     });
     const turf = new Turf({
       image: turfImage.secure_url,
