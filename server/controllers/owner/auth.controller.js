@@ -37,7 +37,6 @@ export const ownerRequest = async (req, res) => {
 
 export const registerOwner = async (req, res) => {
   const { name, email, phone, password } = req.body;
-
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ success: false, message: errors.array() });
@@ -45,7 +44,6 @@ export const registerOwner = async (req, res) => {
 
   try {
     const ownerRequest = await OwnerRequest.findOne({ email });
-    console.log(chalk.green(ownerRequest), "ownerRequest");
 
     if (!ownerRequest) {
       return res
@@ -85,13 +83,15 @@ export const registerOwner = async (req, res) => {
       success: true,
       message: "Owner created successfully",
       token,
-      role: owner.role,
+      role: newOwner.role,
     });
   } catch (err) {
     console.log(chalk.red(err.message));
-    return res.status(400).json({ success: false, message: err.message });
+    return res.status(500).json({ success: false, message: err.message });
   }
 };
+
+
 
 export const loginOwner = async (req, res) => {
   const { email, password } = req.body;

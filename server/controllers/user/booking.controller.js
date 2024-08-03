@@ -61,10 +61,16 @@ export const verifyPayment = async (req, res) => {
   const adjustedEndTime = adjustTime(endTime, selectedTurfDate);
 
   try {
+
+     const user = await User.findById(userId);
+     if (!user) {
+      return res.status(400).json({ message: "User not found" });
+     
+     }
     // getting turf details for adding to QR code when booking is successful
     const turf = await Turf.findById(turfId);
      const QRcode = await  generateQRCode(totalPrice, startTime, endTime, selectedTurfDate, turf.name, turf.location);
-console.log(QRcode)
+ 
 
     //  first add time slot to db
     const newTimeSlot =   new TimeSlot({
@@ -90,27 +96,24 @@ console.log(QRcode)
 
     await booking.save();
 
-    //  add turf name, location startTime, endTime date, totalprice and qrcode
+    //  add turf name, location startTime, endTime date, totalPrice and QrCode
     const htmlContent = `
       <h1>Booking Confirmation</h1>
       <p>Your booking has been successful.</p>
       <p>Turf Name: ${turf.name}</p>
       <p>Location: ${turf.location}</p>
+      <p>Date: ${selectedTurfDate}</p>
       <p>Start Time: ${adjustedStartTime}</p>
       <p>End Time: ${adjustedEndTime}</p>
       <p>Total Price: ${totalPrice}</p>
-      <img src=" ${QRcode}" alt="QRcode" />
+      <img src="${QRcode}" alt="QRcode" />
        <p>Thank you for using our service.</p>
       <p>Best Regards,</p>
       <p>The Team</p>
       <p>Booking Confirmation</p>
     `;
 
-    const user = await User.findById(userId);
-    console.log(user, "user")
-    if(!user){
-      return res.status(400).json({ message: "User not found" });
-    }
+   
 
     // send email to user
     const email = await generateEmail(user.email, "Booking Confirmation", htmlContent)
