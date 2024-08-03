@@ -5,31 +5,37 @@ import Booking from "../../models/booking.model.js"
 import TimeSlot from "../../models/timeSlot.model.js"
 import generateQRCode from "../../utils/generateQRCode.js";
 import Turf from "../../models/turf.model.js";
-import  generateEmail  from "../../utils/generateEmail.js"
+import  generateEmail, { generateHTMLContent }  from "../../utils/generateEmail.js"
 import User from "../../models/user.model.js"
+import { format, parseISO } from "date-fns";
 
 
 export const createOrder = async (req, res) => {
-  const { totalPrice } = req.body;
-
-  const options = {
-    amount: totalPrice * 100,
-    currency: "INR",
-    receipt: `receipt${Date.now()}`,
-  };
-
-  try {
-    const order = await razorpay.orders.create(options);
-    return res.status(200).json({ order });
-  } catch (error) {
-    return res.status(500).json({ message: error.message });
-  }
+    const userId = req.user.user;
+    try{
+        const { totalPrice } = req.body;
+        // select only name and contact and email
+        const user = await User.findById(userId).select("name  email");
+        if (!user) {
+            return res.status(400).json({ message: "User not found" });
+        }
+        const options = {
+            amount: totalPrice * 100,
+            currency: "INR",
+            receipt: `receipt${Date.now()}`,
+        };
+        const order = await razorpay.orders.create(options);
+        return res.status(200).json({ order, user });
+    }
+    catch(error){
+        return res.status(400).json({ message: error.message });
+    }
+ 
+ 
 };
 
 export const verifyPayment = async (req, res) => {
-  console.log(req.user, "req.user")
   const  userId  = req.user.user;
-  console.log(userId, "userId")
 
   const {
     id : turfId,
@@ -43,6 +49,11 @@ export const verifyPayment = async (req, res) => {
     razorpay_signature,
   } = req.body;
  
+  
+  const formattedStartTime = format(parseISO(startTime), "hh:mm a");
+  const formattedEndTime = format(parseISO(endTime), "hh:mm a");
+  const formattedDate = format(parseISO(selectedTurfDate), "d MMM yyyy");
+
  
   const hmac = crypto.createHmac("sha256", process.env.RAZORPAY_KEY_SECRET);
   
@@ -57,6 +68,7 @@ export const verifyPayment = async (req, res) => {
   }
   console.log("payment verification passed");
  
+  // This time is for the time slot that is created in the database
   const adjustedStartTime = adjustTime(startTime, selectedTurfDate);
   const adjustedEndTime = adjustTime(endTime, selectedTurfDate);
 
@@ -69,7 +81,7 @@ export const verifyPayment = async (req, res) => {
      }
     // getting turf details for adding to QR code when booking is successful
     const turf = await Turf.findById(turfId);
-     const QRcode = await  generateQRCode(totalPrice, startTime, endTime, selectedTurfDate, turf.name, turf.location);
+     const QRcode = await  generateQRCode(totalPrice, formattedStartTime, formattedEndTime, formattedDate, turf.name, turf.location);
  
 
     //  first add time slot to db
@@ -97,21 +109,8 @@ export const verifyPayment = async (req, res) => {
     await booking.save();
 
     //  add turf name, location startTime, endTime date, totalPrice and QrCode
-    const htmlContent = `
-      <h1>Booking Confirmation</h1>
-      <p>Your booking has been successful.</p>
-      <p>Turf Name: ${turf.name}</p>
-      <p>Location: ${turf.location}</p>
-      <p>Date: ${selectedTurfDate}</p>
-      <p>Start Time: ${adjustedStartTime}</p>
-      <p>End Time: ${adjustedEndTime}</p>
-      <p>Total Price: ${totalPrice}</p>
-      <img src="${QRcode}" alt="QRcode" />
-       <p>Thank you for using our service.</p>
-      <p>Best Regards,</p>
-      <p>The Team</p>
-      <p>Booking Confirmation</p>
-    `;
+ 
+const htmlContent = generateHTMLContent(turf.name, turf.location,formattedDate,formattedStartTime,formattedEndTime,totalPrice, QRcode)
 
    
 

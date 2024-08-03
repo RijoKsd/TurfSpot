@@ -27,27 +27,22 @@ const useReservation = () => {
   const [timeSlots, setTimeSlots] = useState({ openTime: "", closeTime: "" });
   const [pricePerHour, setPricePerHour] = useState(0);
 
-  const availableTimes = useMemo(() => {
-    if (!timeSlots.openTime || !timeSlots.closeTime) return [];
+ const availableTimes = useMemo(() => {
+   if (!timeSlots.openTime || !timeSlots.closeTime) return [];
 
-    const times = [];
-    let openTime = parse(timeSlots.openTime, "hh:mm a", new Date());
-    let closeTime = parse(timeSlots.closeTime, "hh:mm a", new Date());
+   const times = [];
+   const openTime = parse(timeSlots.openTime, "hh:mm a", new Date());
+   const closeTime = parse(timeSlots.closeTime, "hh:mm a", new Date());
 
-    // If close time is before or equal to open time, assume it's on the next day
-    if (isBefore(closeTime, openTime) || isEqual(closeTime, openTime)) {
-      closeTime = addDays(closeTime, 1);
-    }
+   let currentTime = openTime;
 
-    let currentTime = openTime;
+   while (isBefore(currentTime, closeTime)) {
+     times.push(format(currentTime, "hh:mm a"));
+     currentTime = addHours(currentTime, 1);
+   }
 
-    while (isBefore(currentTime, closeTime)) {
-      times.push(format(currentTime, "hh:mm a"));
-      currentTime = addHours(currentTime, 1);
-    }
-
-    return times;
-  }, [timeSlots.openTime, timeSlots.closeTime]);
+   return times;
+ }, [timeSlots.openTime, timeSlots.closeTime]);
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
@@ -171,9 +166,8 @@ const useReservation = () => {
 
     try {
       const order = await createOrder(pricePerHour * duration);
-      const razorpayResponse = await handlePayment(order);
-      console.log("Razorpay response:", razorpayResponse);
-
+       const razorpayResponse = await handlePayment(order.order, order.user);
+ 
       const bookingData = {
         id,
         duration,

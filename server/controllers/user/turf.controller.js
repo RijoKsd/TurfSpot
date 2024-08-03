@@ -1,11 +1,7 @@
-
 import chalk from "chalk";
 import Turf from "../../models/turf.model.js";
 import TimeSlot from "../../models/timeSlot.model.js";
-
-
-
-
+import { format, parseISO, startOfDay } from "date-fns";
 
 // get all turfs
 export const getAllTurfs = async (req, res) => {
@@ -38,26 +34,30 @@ export const getTurfById = async (req, res) => {
 
 export const getTimeSlotByTurfId = async (req, res) => {
   const { date, turfId } = req.query;
+
+  const selectedDate = new Date(date);
+  const startOfSelectedDate = startOfDay(selectedDate);
+  const endOfSelectedDate = new Date(startOfSelectedDate);
+  endOfSelectedDate.setDate(endOfSelectedDate.getDate() + 1);
+
+  const query = {
+    turf: turfId,
+    startTime: { $gte: startOfSelectedDate },
+    endTime: { $lt: endOfSelectedDate },
+  };
+
   try {
     // get all time slot when there is no turfid  in Timeslot db
-    const bookedTime = await TimeSlot.find({
-      turf: turfId,
-      startTime: { $gte: new Date(date) },
-    });
+    const bookedTime = await TimeSlot.find(query);
     const timeSlots = await Turf.findById(turfId).select([
       "openTime",
       "closeTime",
-      "pricePerHour"
+      "pricePerHour",
     ]);
+    console.log(bookedTime, "bookedTime");
     return res.status(200).json({ timeSlots, bookedTime });
   } catch (error) {
     console.log(chalk.red("Error in getTimeSlotByTurfId"), error);
     return res.status(500).json({ message: error.message });
   }
 };
-
-
-
-
-
-

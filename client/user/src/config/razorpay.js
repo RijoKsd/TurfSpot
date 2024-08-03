@@ -5,10 +5,11 @@ export const createOrder = async (totalPrice) => {
   const response = await axiosInstance.post("/api/user/booking/create-order", {
     totalPrice,
   });
-    return response.data.order;
+    return response.data;
 };
 
-export const handlePayment = async (order) => {
+export const handlePayment = async (order,user) => {
+  console.log("order from razorpay", order);
   return new Promise((resolve, reject) => {
     const options = {
       key: import.meta.env.VITE_RAZORPAY_KEY_ID,
@@ -28,8 +29,8 @@ export const handlePayment = async (order) => {
         }
       },
       prefill: {
-        name: "rijo",
-        email: "rijo@gmail.com",
+        name: user.name,
+        email: user.email,
         contact: "",
       },
      
