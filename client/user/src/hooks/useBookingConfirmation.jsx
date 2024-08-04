@@ -4,16 +4,14 @@ import axiosInstance from "./useAxiosInstance";
 import { createOrder, handlePayment } from "../config/razorpay";
 import "https://checkout.razorpay.com/v1/checkout.js";
 
-
 const useBookingConfirmation = (
   id,
   selectedDate,
   selectedStartTime,
   duration,
-  pricePerHour
-   
+  pricePerHour,
+  setLoading
 ) => {
- 
   const confirmReservation = async () => {
     const selectedTurfDate = format(selectedDate, "yyyy-MM-dd");
     const parsedStartTime = parse(selectedStartTime, "hh:mm a", new Date());
@@ -31,9 +29,13 @@ const useBookingConfirmation = (
     const endTimeISO = formatISO(combinedEndDateTime);
 
     try {
-      const order = await createOrder(pricePerHour * duration);
-      const razorpayResponse = await handlePayment(order.order, order.user);
+      setLoading(true);
 
+      const order = await createOrder(pricePerHour * duration);
+      setLoading(false);
+
+      const razorpayResponse = await handlePayment(order.order, order.user);
+      setLoading(true);
       const bookingData = {
         id,
         duration,
@@ -45,17 +47,19 @@ const useBookingConfirmation = (
         orderId: razorpayResponse.razorpay_order_id,
         razorpay_signature: razorpayResponse.razorpay_signature,
       };
-      console.log("Booking data:", bookingData);
 
       const response = await axiosInstance.post(
         "/api/user/booking/verify-payment",
         bookingData
       );
-      console.log("Verify payment response:", response.data);
+      const result = await response.data;
+      toast.success(result.message);
     } catch (err) {
       if (err.response) {
         toast.error(err.response?.data?.message);
       }
+    } finally {
+      setLoading(false);
     }
   };
 

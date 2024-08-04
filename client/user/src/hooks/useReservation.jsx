@@ -7,6 +7,7 @@ import { useState } from "react";
 
 const useReservation = () => {
   const { id } = useParams();
+  const [loading, setLoading] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedStartTime, setSelectedStartTime] = useState(null);
   const [bookedTime, setBookedTime] = useState([]);
@@ -47,7 +48,8 @@ const useReservation = () => {
     selectedDate,
     selectedStartTime,
     duration,
-    pricePerHour
+    pricePerHour,
+    setLoading
   );
 
   return {
@@ -63,6 +65,7 @@ const useReservation = () => {
     isDurationAvailable,
     confirmReservation,
     pricePerHour,
+    loading,
   };
 };
 

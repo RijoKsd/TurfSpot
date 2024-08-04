@@ -9,8 +9,7 @@ export const createOrder = async (totalPrice) => {
 };
 
 export const handlePayment = async (order,user) => {
-  console.log("order from razorpay", order);
-  return new Promise((resolve, reject) => {
+   return new Promise((resolve, reject) => {
     const options = {
       key: import.meta.env.VITE_RAZORPAY_KEY_ID,
       amount: order.amount,
@@ -20,8 +19,7 @@ export const handlePayment = async (order,user) => {
       description: "Book a spot for your next adventure",
 
       handler: function (response) {
-        console.log("Full Razorpay response:", response);
-        if (response.error) {
+         if (response.error) {
           toast.error(response.error.message);
           reject(response.error);
         } else {
@@ -35,8 +33,6 @@ export const handlePayment = async (order,user) => {
       },
      
     };
-
-    console.log("Razorpay options:", options);
     const rzp1 = new window.Razorpay(options);
     rzp1.open();
   });

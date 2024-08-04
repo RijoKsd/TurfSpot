@@ -42,7 +42,7 @@ export default function AuthNavbar() {
               <Link to="/turfs">Turfs</Link>
             </li>
             <li>
-              <Link to="/history">History</Link>
+              <Link to="/auth/booking-history">My Bookings</Link>
             </li>
             <li>
               <NavLink
@@ -67,7 +67,7 @@ export default function AuthNavbar() {
             <Link to="/auth/turfs">Turfs</Link>
           </li>
           <li>
-            <Link to="/auth/history">History</Link>
+            <Link to="/auth/booking-history">My Bookings</Link>
           </li>
           <li>
             <NavLink
@@ -81,7 +81,7 @@ export default function AuthNavbar() {
       </div>
       <div className="navbar-end">
         <ThemeSwitcher />
-        <button  className="btn btn-ghost" onClick={handleLogout}>
+        <button className="btn btn-ghost" onClick={handleLogout}>
           Logout
         </button>
       </div>

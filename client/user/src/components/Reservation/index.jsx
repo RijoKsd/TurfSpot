@@ -18,6 +18,7 @@ const Reservation = () => {
     isTimeSlotBooked,
     isDurationAvailable,
     confirmReservation,
+    loading,
   } = useReservation();
 
   return (
@@ -55,35 +56,22 @@ const Reservation = () => {
           )}
           <div className="mt-6">
             <button
-              className="btn btn-primary w-full"
+              className="btn btn-primary w-full relative"
               disabled={
                 !selectedStartTime ||
-                !isDurationAvailable(selectedStartTime, duration)
+                !isDurationAvailable(selectedStartTime, duration) ||
+                loading
               }
               onClick={confirmReservation}
             >
-              Confirm Reservation
+              {loading ? (
+                <span className="absolute inset-0 flex items-center justify-center">
+                  <span className="loading loading-spinner loading-md"></span>
+                </span>
+              ) : (
+                "Confirm Reservation"
+              )}
             </button>
-            {/* <button
-              className="btn btn-primary w-full"
-              disabled={
-                !selectedStartTime ||
-                !duration ||
-                isNaN(duration) ||
-                !isDurationAvailable(selectedStartTime, duration)
-              }
-              onClick={() => {
-                console.log("Confirming reservation with:", {
-                  selectedDate,
-                  selectedStartTime,
-                  duration,
-                  pricePerHour,
-                });
-                confirmReservation();
-              }}
-            >
-              Confirm Reservation
-            </button> */}
           </div>
         </div>
       </div>

@@ -41,7 +41,6 @@ const useTimeSelection = (
   }, [timeSlots.openTime, timeSlots.closeTime]);
 
   const handleTimeSelection = (time) => {
-    console.log("Time selection:", time);
     setSelectedStartTime(time);
     setDuration(1);
   };
@@ -79,8 +78,6 @@ const useTimeSelection = (
         `/api/user/turf/timeslot?date=${date}&turfId=${turfId}`
       );
       const result = await response.data;
-      console.log("Time selection result:", result);
-
       setTimeSlots(result.timeSlots);
       setPricePerHour(result.timeSlots.pricePerHour);
 

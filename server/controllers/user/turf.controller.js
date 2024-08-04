@@ -54,7 +54,6 @@ export const getTimeSlotByTurfId = async (req, res) => {
       "closeTime",
       "pricePerHour",
     ]);
-    console.log(bookedTime, "bookedTime");
     return res.status(200).json({ timeSlots, bookedTime });
   } catch (error) {
     console.log(chalk.red("Error in getTimeSlotByTurfId"), error);
