@@ -1,5 +1,5 @@
 import   { useEffect, useState } from "react";
-import axiosInstance from "../hooks/useAxiosInstance";
+import axiosInstance from "../../hooks/useAxiosInstance";
 
 const Reviews = ({ turfId }) => {
   const [reviews, setReviews] = useState([]);

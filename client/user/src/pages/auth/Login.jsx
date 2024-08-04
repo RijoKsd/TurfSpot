@@ -1,12 +1,10 @@
-import useLoginForm from "../hooks/useLoginForm";
-import FormField from "../components/FormField";
+import useLoginForm from "../../hooks/useLoginForm";
+import FormField from "../../components/common/FormField";
 import { Link } from "react-router-dom";
-import Button  from "../components/Button";
-
+import Button from "../../components/common/Button";
 
 const Login = () => {
-
-  const { register, handleSubmit, errors, onSubmit,loading } = useLoginForm();
+  const { register, handleSubmit, errors, onSubmit, loading } = useLoginForm();
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-base-200">

@@ -1,9 +1,10 @@
- import FormField from "./FormField";
-import Button from "./Button";
-import useBecomeOwner from "../hooks/useBecomeOwner";
+import FormField from "../../components/common/FormField";
+import Button from "../../components/common/Button";
+import useBecomeOwner from "../../hooks/useBecomeOwner";
 
 const BecomeOwner = () => {
-const  { register, handleSubmit, errors, onSubmit, loading } = useBecomeOwner();
+  const { register, handleSubmit, errors, onSubmit, loading } =
+    useBecomeOwner();
   return (
     <div className="container mx-auto mt-20 p-4">
       <h1 className="text-3xl font-bold mb-8 text-center">

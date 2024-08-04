@@ -1,8 +1,8 @@
 import   { useState } from "react";
-import TurfCard from "./TurfCard";
-import TurfCardSkeleton from "./TurfCardSkeleton";
-import useTurfData from "../hooks/useTurfData";
-import SearchTurf from "./SearchTurf";
+import TurfCard from "./TurfCard.jsx";
+import TurfCardSkeleton from "../ui/TurfCardSkeleton.jsx";
+import useTurfData from "../../hooks/useTurfData.jsx";
+import SearchTurf from "../search/SearchTurf.jsx";
 
 const Turf = () => {
   const { turfs, loading, error } = useTurfData();

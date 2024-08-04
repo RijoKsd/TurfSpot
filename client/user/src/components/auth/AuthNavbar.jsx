@@ -1,7 +1,7 @@
  
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import ThemeSwitcher from './ThemeSwitcher';
-import  {logout} from "../redux/slices/authSlice.js"
+import ThemeSwitcher from '../common/ThemeSwitcher.jsx';
+import  {logout} from "../../redux/slices/authSlice.js"
 import { useDispatch } from 'react-redux';
 
 export default function AuthNavbar() {

@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
-import Carousel from "../components/Carousel";
-import Footer from "../components/Footer";
+import Carousel from "../components/common/Carousel";
+import Footer from "../components/layout/Footer";
 import useTurfData from "../hooks/useTurfData";
-import TurfCard from "../components/TurfCard";
-import TurfCardSkeleton from "../components/TurfCardSkeleton";
+import TurfCard from "../components/turf/TurfCard";
+import TurfCardSkeleton from "../components/ui/TurfCardSkeleton";
 
 import bg from "/r.png";
 import bg2 from "/bg.jpeg";

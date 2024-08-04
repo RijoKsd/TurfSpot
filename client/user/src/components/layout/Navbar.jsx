@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import ThemeSwitcher from "./ThemeSwitcher";
+import ThemeSwitcher from "../common/ThemeSwitcher";
 
 const Navbar = () => {
   return (
@@ -32,7 +32,6 @@ const Navbar = () => {
             <li>
               <Link to="/turfs">Turfs</Link>
             </li>
-     
           </ul>
         </div>
         <Link to="/" className="btn btn-ghost normal-case text-xl">

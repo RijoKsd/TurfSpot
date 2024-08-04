@@ -1,8 +1,8 @@
 import { useNavigate, useParams } from "react-router-dom";
-import useTurfData from "../hooks/useTurfData";
-import Reviews from "./Reviews";
-import TurfDetailsSkeleton from "./TurfDetailsSkeleton";
-  import { useSelector } from "react-redux";
+import useTurfData from "../../hooks/useTurfData";
+import Reviews from "../reviews/Reviews";
+import TurfDetailsSkeleton from "../ui/TurfDetailsSkeleton";
+import { useSelector } from "react-redux";
 
 const TurfDetails = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
@@ -68,8 +68,7 @@ const TurfDetails = () => {
   const handleReservation = () => {
     if (isLoggedIn) {
       navigate(`/auth/reserve/${id}`);
-    }
-    else {
+    } else {
       navigate(`/login`);
     }
   };
