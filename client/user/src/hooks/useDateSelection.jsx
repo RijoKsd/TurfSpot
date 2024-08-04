@@ -1,15 +1,15 @@
-import { useState } from "react";
-
-const useDateSelection = () => {
-  const [selectedDate, setSelectedDate] = useState(new Date());
-
+const useDateSelection = (
+  setSelectedDate,
+  setSelectedStartTime,
+  setDuration
+) => {
   const handleDateChange = (date) => {
     setSelectedDate(date);
-    
+    setSelectedStartTime(null);
+    setDuration(1);
   };
 
   return {
-    selectedDate,
     handleDateChange,
   };
 };

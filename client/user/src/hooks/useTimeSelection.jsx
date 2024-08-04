@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import {  useEffect, useMemo } from "react";
 import {
   format,
   parse,
@@ -11,12 +11,17 @@ import {
 } from "date-fns";
 import axiosInstance from "./useAxiosInstance";
 
-const useTimeSelection = (selectedDate, turfId) => {
-  const [selectedStartTime, setSelectedStartTime] = useState(null);
-  const [bookedTime, setBookedTime] = useState([]);
-  const [timeSlots, setTimeSlots] = useState({ openTime: "", closeTime: "" });
-  const [pricePerHour, setPricePerHour] = useState(0);
-
+const useTimeSelection = (
+  selectedDate,
+  turfId,
+  setSelectedStartTime,
+  setBookedTime,
+  setTimeSlots,
+  setPricePerHour,
+  bookedTime,
+  timeSlots,
+  setDuration
+) => {
   const availableTimes = useMemo(() => {
     if (!timeSlots.openTime || !timeSlots.closeTime) return [];
 
@@ -36,7 +41,9 @@ const useTimeSelection = (selectedDate, turfId) => {
   }, [timeSlots.openTime, timeSlots.closeTime]);
 
   const handleTimeSelection = (time) => {
+    console.log("Time selection:", time);
     setSelectedStartTime(time);
+    setDuration(1);
   };
 
   const isTimeSlotBooked = (time) => {
@@ -107,14 +114,9 @@ const useTimeSelection = (selectedDate, turfId) => {
   }, [selectedDate, turfId]);
 
   return {
-    selectedStartTime,
     availableTimes,
-    timeSlots,
-    bookedTime,
     handleTimeSelection,
     isTimeSlotBooked,
-    pricePerHour,
-
   };
 };
 

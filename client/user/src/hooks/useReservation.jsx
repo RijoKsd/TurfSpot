@@ -3,34 +3,52 @@ import useDateSelection from "./useDateSelection";
 import useTimeSelection from "./useTimeSelection";
 import useDurationSelection from "./useDurationSelection";
 import useBookingConfirmation from "./useBookingConfirmation";
+import { useState } from "react";
 
 const useReservation = () => {
   const { id } = useParams();
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedStartTime, setSelectedStartTime] = useState(null);
+  const [bookedTime, setBookedTime] = useState([]);
+  const [timeSlots, setTimeSlots] = useState({ openTime: "", closeTime: "" });
+  const [pricePerHour, setPricePerHour] = useState(0);
+  const [duration, setDuration] = useState(1);
 
-  const {
-    selectedDate,
-    handleDateChange,
-  } = useDateSelection();
 
-  const {
+
+  const { handleDateChange } = useDateSelection(
+    setSelectedDate,
+    setSelectedStartTime,
+    setDuration
+  );
+
+  const { availableTimes, handleTimeSelection, isTimeSlotBooked } =
+    useTimeSelection(
+      selectedDate,
+      id,
+      setSelectedStartTime,
+      setBookedTime,
+      setTimeSlots,
+      setPricePerHour,
+      bookedTime,
+      timeSlots,
+      setDuration
+    );
+
+  const { handleDurationChange, isDurationAvailable } = useDurationSelection(
     selectedStartTime,
-    availableTimes,
     timeSlots,
-    bookedTime,
-    handleTimeSelection,
     isTimeSlotBooked,
-  } = useTimeSelection(selectedDate, id);
+    setDuration
+  );
 
-  const {
+  const { confirmReservation } = useBookingConfirmation(
+    id,
+    selectedDate,
+    selectedStartTime,
     duration,
-    handleDurationChange,
-    isDurationAvailable,
-  } = useDurationSelection(selectedStartTime, timeSlots, isTimeSlotBooked);
-
-  const {
-    pricePerHour,
-    confirmReservation,
-  } = useBookingConfirmation(id, selectedDate, selectedStartTime, duration, timeSlots.pricePerHour);
+    pricePerHour
+  );
 
   return {
     selectedDate,

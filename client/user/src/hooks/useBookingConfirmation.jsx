@@ -13,13 +13,6 @@ const useBookingConfirmation = (
   pricePerHour
    
 ) => {
-  console.log("Booking confirmation:", {
-    id,
-    selectedDate,
-    selectedStartTime,
-    duration,
-    pricePerHour,
-  });
  
   const confirmReservation = async () => {
     const selectedTurfDate = format(selectedDate, "yyyy-MM-dd");
@@ -67,7 +60,6 @@ const useBookingConfirmation = (
   };
 
   return {
-    pricePerHour,
     confirmReservation,
   };
 };

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   parse,
   isAfter,
@@ -12,10 +11,9 @@ import {
 const useDurationSelection = (
   selectedStartTime,
   timeSlots,
-  isTimeSlotBooked
- ) => {
-  const [duration, setDuration] = useState(1);
-
+  isTimeSlotBooked,
+  setDuration
+) => {
   const handleDurationChange = (newDuration) => {
     setDuration(newDuration);
   };
@@ -44,7 +42,6 @@ const useDurationSelection = (
   };
 
   return {
-    duration,
     handleDurationChange,
     isDurationAvailable,
   };
