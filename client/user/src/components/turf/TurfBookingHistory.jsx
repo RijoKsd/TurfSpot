@@ -1,29 +1,13 @@
-import { Star, Clock, MapPin, DollarSign, Calendar } from "lucide-react";
-import { useState } from "react";
+import { Star, Clock, MapPin, IndianRupee, Calendar } from "lucide-react";
+import useBookingHistory from "../../hooks/useBookingHistory";
+import TurfBookingHistorySkeleton from "../../components/ui/TurfBookingHistorySkeleton";
 
-const TurfBookingHistory = ({  onReviewClick }) => {
-     const [bookings, setBookings] = useState([
-       {
-         id: 1,
-         turfName: "Green Valley Turf",
-         location: "Central Park, New York",
-         date: "2023-08-15",
-         startTime: "14:00",
-         endTime: "16:00",
-         totalPrice: 120,
-         review: null,
-       },
-       {
-         id: 2,
-         turfName: "Sunset Soccer Field",
-         location: "Westside Community Center, Los Angeles",
-         date: "2023-08-20",
-         startTime: "18:00",
-         endTime: "20:00",
-         totalPrice: 100,
-         review: null,
-       },
-     ]);
+const TurfBookingHistory = ({ onReviewClick }) => {
+  const { loading, bookings } = useBookingHistory();
+
+  if (loading) {
+    return <TurfBookingHistorySkeleton />;
+  }
 
   return (
     <div className="container mx-auto p-4 bg-base-200">
@@ -34,28 +18,26 @@ const TurfBookingHistory = ({  onReviewClick }) => {
         {bookings.map((booking) => (
           <div key={booking.id} className="card bg-base-100 shadow-xl">
             <div className="card-body">
-              <h2 className="card-title text-2xl mb-4">{booking.turfName}</h2>
+              <h2 className="card-title text-2xl mb-4">{booking.turf.name}</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <p className="flex items-center">
-                    <MapPin className="mr-2" /> {booking.location}
+                    <MapPin className="mr-2" /> {booking.turf.location}
                   </p>
                   <p className="flex items-center">
-                    <Calendar className="mr-2" /> {booking.date}
+                    <Calendar className="mr-2" /> {booking.timeSlot.startTime}
                   </p>
                   <p className="flex items-center">
-                    <Clock className="mr-2" /> {booking.startTime} -{" "}
-                    {booking.endTime}
+                    <Clock className="mr-2" /> {booking.timeSlot.startTime} -{" "}
+                    {booking.timeSlot.endTime}
                   </p>
                   <p className="flex items-center">
-                    <DollarSign className="mr-2" /> ${booking.totalPrice}
+                    <IndianRupee className="mr-2" />{booking.totalPrice}
                   </p>
                 </div>
                 <div className="flex flex-col justify-center items-center">
                   <img
-                    src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(
-                      JSON.stringify(booking)
-                    )}`}
+                    src={booking.qrCode}
                     alt="Booking QR Code"
                     className="w-32 h-32 mb-2"
                   />
