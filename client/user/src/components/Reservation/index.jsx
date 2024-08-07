@@ -3,6 +3,7 @@ import TimeSelection from "./TimeSelection";
 import DurationSelection from "./DurationSelection";
 import ReservationSummary from "./ReservationSummary";
 import useReservation from "../../hooks/useReservation";
+import { Link } from "lucide-react";
 
 const Reservation = () => {
   const {

@@ -3,6 +3,7 @@ import toast from "react-hot-toast";
 import axiosInstance from "./useAxiosInstance";
 import { createOrder, handlePayment } from "../config/razorpay";
 import "https://checkout.razorpay.com/v1/checkout.js";
+import { useNavigate } from "react-router-dom";
 
 const useBookingConfirmation = (
   id,
@@ -12,6 +13,7 @@ const useBookingConfirmation = (
   pricePerHour,
   setLoading
 ) => {
+  const navigate = useNavigate();
   const confirmReservation = async () => {
     const selectedTurfDate = format(selectedDate, "yyyy-MM-dd");
     const parsedStartTime = parse(selectedStartTime, "hh:mm a", new Date());
@@ -54,6 +56,7 @@ const useBookingConfirmation = (
       );
       const result = await response.data;
       toast.success(result.message);
+      navigate("/auth/booking-history");
     } catch (err) {
       if (err.response) {
         toast.error(err.response?.data?.message);

@@ -25,11 +25,12 @@ const TurfBookingHistory = ({ onReviewClick }) => {
                     <MapPin className="mr-2" /> {booking.turf.location}
                   </p>
                   <p className="flex items-center">
-                    <Calendar className="mr-2" /> {booking.timeSlot.startTime}
+                    <Calendar className="mr-2" /> {booking.timeSlot.date}
                   </p>
                   <p className="flex items-center">
-                    <Clock className="mr-2" /> {booking.timeSlot.startTime} -{" "}
-                    {booking.timeSlot.endTime}
+                    <Clock className="mr-2" /> {booking.timeSlot.formattedStartTime} -{" "}
+                    {booking.timeSlot.formattedEndTime}
+                    
                   </p>
                   <p className="flex items-center">
                     <IndianRupee className="mr-2" />{booking.totalPrice}
