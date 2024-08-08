@@ -1,11 +1,10 @@
 import Review from "../../models/review.model.js";
-import User from "../../models/user.model.js";
-import Turf from "../../models/turf.model.js";
+
 
 export const addReview = async (req, res) => {
-  const userId = req.user.user;
+   const userId = req.user.user;
   const { id } = req.params;
-  const { rating, comment } = req.body;
+  const { rating, review:comment } = req.body;
 
   if (!rating || !comment) {
     return res
@@ -31,9 +30,14 @@ export const viewReviewsByTurf = async (req, res) => {
   const { id } = req.params; // turf id
   try {
     const reviews = await Review.find({ turf: id }).sort({ createdAt: -1 }).populate("user", "name")
-    return res
-      .status(200)
-      .json({ message: "Reviews retrieved successfully", reviews });
+    const averageRating = reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length; // average rating
+     return res
+       .status(200)
+       .json({
+         message: "Reviews retrieved successfully",
+         reviews,
+         averageRating,
+       });
   } catch (error) {
     console.error("Error in viewReviewsByTurf", error);
     return res.status(500).json({ message: "Internal server error" });

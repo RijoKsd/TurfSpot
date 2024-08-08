@@ -5,7 +5,7 @@ import { useEffect } from "react";
 
 const useTurfData = () => {
   const dispatch = useDispatch();
-  const { turfs, loading, error } = useSelector((state) => state.turf);
+  const { turfs, loading } = useSelector((state) => state.turf);
 
   useEffect(() => {
     const fetchTurfData = async () => {
@@ -24,7 +24,7 @@ const useTurfData = () => {
     fetchTurfData();
   }, []);
 
-  return { turfs, loading, error };
+  return { turfs, loading };
 };
 
 export default useTurfData;

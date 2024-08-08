@@ -6,7 +6,6 @@ import { format, parseISO } from "date-fns";
 export default function useBookingHistory() {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(false);
-  console.log(bookings, "bookings");
 
   const formatBookingsData = (bookings) => {
     return bookings.map((booking) => ({

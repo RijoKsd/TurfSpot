@@ -17,21 +17,25 @@ const Reviews = ({ turfId }) => {
       ) : (
         <div className="space-y-4">
           {reviews.map((review) => (
-            <div key={review.id} className="card bg-base-100 shadow-xl">
+            <div key={review._id} className="card bg-base-100 shadow-xl">
               <div className="card-body">
                 <div className="flex items-center justify-between">
-                  <div className="font-semibold">{review.user.name || "Anonymous"}</div>
+                  <div className="font-semibold">
+                    {review.user.name || "Anonymous"}
+                  </div>
                   <div className="text-sm text-gray-500">
                     {format(new Date(review.createdAt), "MMM d, yyyy")}
                   </div>
                 </div>
-                <div className="rating rating-md">
+                <div className="rating rating-md ">
                   {[...Array(review.rating)].map((_, i) => (
                     <input
                       key={i}
                       type="radio"
                       name={`rating-${review.id}`}
-                      className="mask mask-star-2 bg-orange-400"
+                      className="mask mask-star-2 bg-orange-400 cursor-auto"
+                      readOnly
+                      disabled
                     />
                   ))}
                 </div>

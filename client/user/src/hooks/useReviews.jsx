@@ -5,12 +5,15 @@ import toast from "react-hot-toast";
 const useReviews = (turfId) => {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [averageRating, setAverageRating] = useState(0);
 
   const fetchReviews = async () => {
     try {
       const response = await axiosInstance.get(`/api/user/review/${turfId}`);
-      const result = response.data.reviews;
-      setReviews(result);
+       const result = response.data;
+      console.log(result, "result");
+      setReviews(result.reviews);
+      setAverageRating(result.averageRating);
     } catch (err) {
       console.log(err, "error");
       toast.error(err.response?.data?.message);
@@ -22,7 +25,7 @@ const useReviews = (turfId) => {
     fetchReviews();
   }, []);
 
-  return { reviews, loading };
+  return { reviews, loading, averageRating };
 };
 
 export default useReviews;

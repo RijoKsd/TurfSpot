@@ -2,9 +2,9 @@
 const TurfBookingHistorySkeleton = () => {
   return (
     <div className="container mx-auto p-4 bg-base-200 animate-pulse">
-      <div className="h-8 bg-base-300 rounded w-3/4 mx-auto mb-8"></div>
+      <div className="h-8 bg-base-300 rounded w-3/4 mx-auto mb-8  "></div>
       {[1, 2, 3].map((item) => (
-        <div key={item} className="card bg-base-100 shadow-xl mb-6 ">
+        <div key={item} className="card bg-base-100 shadow-xl mb-6 mx-auto lg:w-1/2">
           <div className="card-body">
             <div className="h-6 bg-base-300 rounded w-1/2 mb-4"></div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

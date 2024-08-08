@@ -1,5 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import useTurfData from "../../hooks/useTurfData";
+import useReviews from "../../hooks/useReviews";
 import Reviews from "../reviews/Reviews";
 import TurfDetailsSkeleton from "../ui/TurfDetailsSkeleton";
 import { useSelector } from "react-redux";
@@ -8,35 +9,11 @@ const TurfDetails = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const { id } = useParams();
   const navigate = useNavigate();
-  const { loading, error, turfs } = useTurfData();
-
-
+  const { loading, turfs } = useTurfData();
+  const { averageRating } = useReviews(id);
 
   if (loading) {
     return <TurfDetailsSkeleton />;
-  }
-
-  if (error) {
-    return (
-      <div className="alert alert-error shadow-lg">
-        <div>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="stroke-current flex-shrink-0 h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
-          </svg>
-          <span>Error: {error}</span>
-        </div>
-      </div>
-    );
   }
 
   const turf = turfs.find((t) => t._id === id);
@@ -92,16 +69,20 @@ const TurfDetails = () => {
                 <div className="flex items-center space-x-2 mb-2">
                   <h2 className="card-title text-2xl">{turf.name}</h2>
                   <div className="rating rating-sm">
-                    {[1, 2, 3, 4, 5].map((star) => (
-                      <input
-                        key={star}
-                        type="radio"
-                        name="rating-2"
-                        className="mask mask-star-2 bg-orange-400"
-                        checked={star === 3}
-                        readOnly
-                      />
-                    ))}
+                    {averageRating ? (
+                      [1, 2, 3, 4, 5].map((star) => (
+                        <input
+                          key={star}
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          checked={star === averageRating}
+                          readOnly
+                        />
+                      ))
+                    ) : (
+                      <p className="text-sm opacity-70 ">No reviews yet</p>
+                    )}
                   </div>
                 </div>
                 <p className="text-sm opacity-70 mb-4">{turf.location}</p>

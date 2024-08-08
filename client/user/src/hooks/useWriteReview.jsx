@@ -1,25 +1,23 @@
 import { useState } from "react";
-import axios from "axios"; // Assuming you're using axios for API calls
+import axiosInstance from "./useAxiosInstance";
 
 const useWriteReview = () => {
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
-  const [currentBookingId, setCurrentBookingId] = useState(null);
+  const [turfId, setTurfId] = useState(null);
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState(null);
 
   const openReviewModal = (bookingId) => {
-    setCurrentBookingId(bookingId);
+    setTurfId(bookingId);
     setIsReviewModalOpen(true);
   };
 
   const closeReviewModal = () => {
     setIsReviewModalOpen(false);
-    setCurrentBookingId(null);
+    setTurfId(null);
     setRating(0);
     setReview("");
-    setError(null);
   };
 
   const handleRatingChange = (newRating) => {
@@ -31,23 +29,22 @@ const useWriteReview = () => {
   };
 
   const submitReview = async () => {
-    if (!currentBookingId) return;
+    if (!turfId) return;
 
     setIsSubmitting(true);
-    setError(null);
 
     try {
       // Replace with your actual API endpoint
-      await axios.post("/api/reviews", {
-        bookingId: currentBookingId,
-        rating,
-        review,
-      });
+     const response = await axiosInstance.post(`/api/user/review/${turfId}`, {
+       rating,
+       review,
+     });
+     console.log(response, "response");
 
       closeReviewModal();
       // You might want to trigger a refresh of the bookings here
     } catch (err) {
-      setError("Failed to submit review. Please try again.");
+      console.error(err);
     } finally {
       setIsSubmitting(false);
     }
@@ -58,7 +55,6 @@ const useWriteReview = () => {
     rating,
     review,
     isSubmitting,
-    error,
     openReviewModal,
     closeReviewModal,
     handleRatingChange,

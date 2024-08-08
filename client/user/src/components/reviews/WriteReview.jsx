@@ -4,7 +4,6 @@ const WriteReview = ({
   rating,
   review,
   isSubmitting,
-  error,
   onClose,
   onRatingChange,
   onReviewChange,
@@ -47,9 +46,9 @@ const WriteReview = ({
               value={review}
               onChange={onReviewChange}
               placeholder="Write your review here..."
+               
             ></textarea>
           </div>
-          {error && <p className="text-error mb-4">{error}</p>}
           <div className="flex justify-end space-x-2">
             <button
               type="button"

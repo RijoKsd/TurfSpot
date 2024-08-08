@@ -6,12 +6,11 @@ import WriteReview from  "../../components/reviews/WriteReview"
 
 const TurfBookingHistory = () => {
   const { loading, bookings } = useBookingHistory();
-  const {
+   const {
     isReviewModalOpen,
     rating,
     review,
     isSubmitting,
-    error,
     openReviewModal,
     closeReviewModal,
     handleRatingChange,
@@ -24,13 +23,13 @@ const TurfBookingHistory = () => {
   }
  
   return (
-    <div className="container mx-auto p-4 bg-base-200">
+    <div className="container mx-auto p-4 bg-base-200 min-h-screen" >
       <h1 className="text-3xl font-bold text-center mb-8">
         Your Turf Booking History
       </h1>
-      <div className="space-y-6">
+      <div className="space-y-6 mx-auto lg:w-1/2">
         {bookings.map((booking) => (
-          <div key={booking.id} className="card bg-base-100 shadow-xl">
+          <div key={booking._id} className="card bg-base-100 shadow-xl">
             <div className="card-body">
               <h2 className="card-title text-2xl mb-4">{booking.turf.name}</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -62,7 +61,7 @@ const TurfBookingHistory = () => {
               </div>
               <button
                 className="btn btn-primary mt-4"
-                onClick={() => openReviewModal(booking.id)}
+                onClick={() => openReviewModal(booking.turf._id)}
               >
                 Write a Review
               </button>
@@ -75,7 +74,6 @@ const TurfBookingHistory = () => {
           rating={rating}
           review={review}
           isSubmitting={isSubmitting}
-          error={error}
           onClose={closeReviewModal}
           onRatingChange={handleRatingChange}
           onReviewChange={handleReviewChange}
