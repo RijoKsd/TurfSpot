@@ -58,8 +58,7 @@ const router = createBrowserRouter([
 
       {
         path: "reserve/:id",
-        // element: <Reservation />,
-        element: <Reservation />,
+         element: <Reservation />,
       },
       {
         path: "become-owner",
