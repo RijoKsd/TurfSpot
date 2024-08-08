@@ -10,9 +10,7 @@ const TurfDetails = () => {
   const navigate = useNavigate();
   const { loading, error, turfs } = useTurfData();
 
-  // useEffect(() => {
-  //   fetchTurfData();
-  // }, []);
+
 
   if (loading) {
     return <TurfDetailsSkeleton />;
@@ -130,7 +128,7 @@ const TurfDetails = () => {
           </div>
         </div>
       </div>
-      <div className="mt-8">
+      <div className="mt-8 ">
         <Reviews turfId={id} />
       </div>
     </div>

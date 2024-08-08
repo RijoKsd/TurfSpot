@@ -1,14 +1,28 @@
-import { Star, Clock, MapPin, IndianRupee, Calendar } from "lucide-react";
+import {  Clock, MapPin, IndianRupee, Calendar } from "lucide-react";
 import useBookingHistory from "../../hooks/useBookingHistory";
+import useWriteReview from "../../hooks/useWriteReview";
 import TurfBookingHistorySkeleton from "../../components/ui/TurfBookingHistorySkeleton";
+import WriteReview from  "../../components/reviews/WriteReview"
 
-const TurfBookingHistory = ({ onReviewClick }) => {
+const TurfBookingHistory = () => {
   const { loading, bookings } = useBookingHistory();
+  const {
+    isReviewModalOpen,
+    rating,
+    review,
+    isSubmitting,
+    error,
+    openReviewModal,
+    closeReviewModal,
+    handleRatingChange,
+    handleReviewChange,
+    submitReview,
+  } = useWriteReview();
 
   if (loading) {
     return <TurfBookingHistorySkeleton />;
   }
-
+ 
   return (
     <div className="container mx-auto p-4 bg-base-200">
       <h1 className="text-3xl font-bold text-center mb-8">
@@ -28,12 +42,13 @@ const TurfBookingHistory = ({ onReviewClick }) => {
                     <Calendar className="mr-2" /> {booking.timeSlot.date}
                   </p>
                   <p className="flex items-center">
-                    <Clock className="mr-2" /> {booking.timeSlot.formattedStartTime} -{" "}
+                    <Clock className="mr-2" />{" "}
+                    {booking.timeSlot.formattedStartTime} -{" "}
                     {booking.timeSlot.formattedEndTime}
-                    
                   </p>
                   <p className="flex items-center">
-                    <IndianRupee className="mr-2" />{booking.totalPrice}
+                    <IndianRupee className="mr-2" />
+                    {booking.totalPrice}
                   </p>
                 </div>
                 <div className="flex flex-col justify-center items-center">
@@ -45,35 +60,28 @@ const TurfBookingHistory = ({ onReviewClick }) => {
                   <p className="text-sm text-gray-500">Scan for details</p>
                 </div>
               </div>
-              {booking.review ? (
-                <div className="mt-4 p-4 bg-base-200 rounded-lg">
-                  <h3 className="font-semibold mb-2">Your Review</h3>
-                  <div className="flex items-center mb-2">
-                    {[...Array(5)].map((_, i) => (
-                      <Star
-                        key={i}
-                        className={`w-5 h-5 ${
-                          i < booking.review.rating
-                            ? "text-yellow-400 fill-current"
-                            : "text-gray-300"
-                        }`}
-                      />
-                    ))}
-                  </div>
-                  <p>{booking.review.comment}</p>
-                </div>
-              ) : (
-                <button
-                  className="btn btn-primary mt-4"
-                  onClick={() => onReviewClick(booking.id)}
-                >
-                  Write a Review
-                </button>
-              )}
+              <button
+                className="btn btn-primary mt-4"
+                onClick={() => openReviewModal(booking.id)}
+              >
+                Write a Review
+              </button>
             </div>
           </div>
         ))}
       </div>
+      {isReviewModalOpen && (
+        <WriteReview
+          rating={rating}
+          review={review}
+          isSubmitting={isSubmitting}
+          error={error}
+          onClose={closeReviewModal}
+          onRatingChange={handleRatingChange}
+          onReviewChange={handleReviewChange}
+          onSubmit={submitReview}
+        />
+      )}
     </div>
   );
 };

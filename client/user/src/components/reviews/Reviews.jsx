@@ -1,28 +1,13 @@
-import   { useEffect, useState } from "react";
-import axiosInstance from "../../hooks/useAxiosInstance";
+import useReviews from "../../hooks/useReviews";
+import { format } from "date-fns";
+import ReviewSkeleton from "../ui/ReviewSkeleton";
 
 const Reviews = ({ turfId }) => {
-  const [reviews, setReviews] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { reviews, loading } = useReviews(turfId);
 
-  useEffect(() => {
-    const fetchReviews = async () => {
-      try {
-        const response = await axiosInstance.get(`/api/turf/${turfId}/reviews`);
-        setReviews(response.data);
-        setLoading(false);
-      } catch (err) {
-        setError("Failed to load reviews");
-        setLoading(false);
-      }
-    };
-
-    fetchReviews();
-  }, [turfId]);
-
-  if (loading) return <div>Loading reviews...</div>;
-  if (error) return <div>{error}</div>;
+  if (loading) return <ReviewSkeleton />;
+    
+   
 
   return (
     <div className="mt-8">
@@ -30,19 +15,31 @@ const Reviews = ({ turfId }) => {
       {reviews.length === 0 ? (
         <p>No reviews yet.</p>
       ) : (
-        <ul>
+        <div className="space-y-4">
           {reviews.map((review) => (
-            <li key={review.id} className="mb-4 bg-gray-100 p-4 rounded">
-              <div className="flex items-center mb-2">
-                <span className="font-semibold mr-2">{review.username}</span>
-                <span className="text-yellow-500">
-                  {"★".repeat(review.rating)}
-                </span>
+            <div key={review.id} className="card bg-base-100 shadow-xl">
+              <div className="card-body">
+                <div className="flex items-center justify-between">
+                  <div className="font-semibold">{review.user.name || "Anonymous"}</div>
+                  <div className="text-sm text-gray-500">
+                    {format(new Date(review.createdAt), "MMM d, yyyy")}
+                  </div>
+                </div>
+                <div className="rating rating-md">
+                  {[...Array(review.rating)].map((_, i) => (
+                    <input
+                      key={i}
+                      type="radio"
+                      name={`rating-${review.id}`}
+                      className="mask mask-star-2 bg-orange-400"
+                    />
+                  ))}
+                </div>
+                <p>{review.comment}</p>
               </div>
-              <p>{review.comment}</p>
-            </li>
+            </div>
           ))}
-        </ul>
+        </div>
       )}
     </div>
   );
