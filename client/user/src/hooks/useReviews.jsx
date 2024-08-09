@@ -11,8 +11,7 @@ const useReviews = (turfId) => {
     try {
       const response = await axiosInstance.get(`/api/user/review/${turfId}`);
        const result = response.data;
-      console.log(result, "result");
-      setReviews(result.reviews);
+       setReviews(result.reviews);
       setAverageRating(result.averageRating);
     } catch (err) {
       console.log(err, "error");

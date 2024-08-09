@@ -1,5 +1,5 @@
 import { Router } from "express"
-import ownerRequestRouter from "./ownerRequest.routes.js"
+import ownerRequestRouter from "./ownerManagement.routes.js"
 
 const adminRouter = Router()
 

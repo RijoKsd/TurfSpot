@@ -2,7 +2,7 @@ import { Router } from "express";
 import {
   getAllRequestedOwners,
   approveOwnerRequest,
-} from "../../controllers/admin/ownerApproval.controller.js";
+} from "../../controllers/admin/ownerManagement.controller.js";
 
 
 const ownerRequestRouter = Router();
