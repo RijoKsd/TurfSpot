@@ -1,16 +1,15 @@
- 
-import { Link, NavLink, useNavigate } from 'react-router-dom';
-import ThemeSwitcher from '../common/ThemeSwitcher.jsx';
-import  {logout} from "../../redux/slices/authSlice.js"
-import { useDispatch } from 'react-redux';
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import ThemeSwitcher from "../common/ThemeSwitcher.jsx";
+import { logout } from "../../redux/slices/authSlice.js";
+import { useDispatch } from "react-redux";
 
 export default function AuthNavbar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-   const handleLogout = () =>{
+  const handleLogout = () => {
     dispatch(logout());
     navigate("/", { replace: true });
-  }
+  };
   return (
     <div className="navbar bg-base-100 fixed top-0 z-50 shadow-md">
       <div className="navbar-start">
@@ -55,6 +54,11 @@ export default function AuthNavbar() {
           </ul>
         </div>
         <Link to="/auth" className="btn btn-ghost normal-case text-xl">
+          <img
+            src="/logo.png"
+            alt="TurfSpot"
+            className="h-10 w-10 mask mask-squircle"
+          />
           TurfSpot
         </Link>
       </div>
