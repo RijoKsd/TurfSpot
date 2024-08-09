@@ -46,7 +46,7 @@ export const approveOwnerRequest = async (req, res) => {
 };
 
 // reject the pending owner request
-export const rejectOwnerRequest = async (req, res) => {};
+export const deleteOwnerRequest = async (req, res) => {};
 
 // get all approved owners
 export const getAllApprovedOwners = async (req, res) => {};

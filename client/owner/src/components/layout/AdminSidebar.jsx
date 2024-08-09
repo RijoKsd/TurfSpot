@@ -2,12 +2,12 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
   X,
-  LogOut,
   Home,
   Users,
   Building,
   MapPin,
   DollarSign,
+  UserPlus,
 } from "lucide-react";
 
 const AdminSidebar = ({ isOpen, toggleSidebar, className }) => {
@@ -15,6 +15,7 @@ const AdminSidebar = ({ isOpen, toggleSidebar, className }) => {
 
   const navItems = [
     { to: "/admin", label: "Dashboard", icon: Home },
+    { to: "/admin/owner-requests", label: "Owner Requests", icon: UserPlus },
     { to: "/admin/users", label: "Users", icon: Users },
     { to: "/admin/owners", label: "Owners", icon: Building },
     { to: "/admin/turfs", label: "Turfs", icon: MapPin },
@@ -49,13 +50,6 @@ const AdminSidebar = ({ isOpen, toggleSidebar, className }) => {
             {item.label}
           </Link>
         ))}
-        <Link
-          to="/logout"
-          className="flex items-center px-4 py-2 text-sm hover:bg-base-300"
-        >
-          <LogOut size={18} className="mr-2" />
-          Logout
-        </Link>
       </nav>
     </aside>
   );

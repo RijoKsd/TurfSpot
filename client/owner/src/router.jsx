@@ -8,6 +8,7 @@ import AdminLayout from "./layouts/AdminLayout";
 import OwnerLayout from "./layouts/OwnerLayout";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import OwnerDashboard from "./pages/owner/OwnerDashboard.jsx";
+import OwnerRequests from "./components/admin/OwnerRequests.jsx";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,7 @@ const router = createBrowserRouter([
     element: <AdminLayout />,
     children: [
       { index: true, element: <AdminDashboard /> },
+      { path: "owner-requests" , element: <OwnerRequests />},
       // { path: 'users', element: <UsersPage /> },
       // { path: 'owners', element: <OwnersPage /> },
       // { path: 'turfs', element: <TurfsPage /> },

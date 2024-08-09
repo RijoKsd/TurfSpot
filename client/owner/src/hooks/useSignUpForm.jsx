@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { login } from "../redux/slices/authSlice";
-
+ 
 const registerSchema = yup.object().shape({
   name: yup.string().required("Name is required"),
   email: yup
@@ -38,6 +38,9 @@ const useSignUpForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+
+
+
   const {
     register,
     handleSubmit,
@@ -62,6 +65,7 @@ const useSignUpForm = () => {
         } else if (result.role === "admin") {
           navigate("/admin");
         }
+        
     } catch (error){
        if (error.response) {
         // Server responded with a status other than 200 range

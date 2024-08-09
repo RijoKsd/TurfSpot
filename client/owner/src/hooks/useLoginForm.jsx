@@ -26,6 +26,7 @@ const useLoginForm = () => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+ 
   const {
     register,
     handleSubmit,
@@ -45,7 +46,8 @@ const useLoginForm = () => {
       }else if(result.role === "admin") {
         navigate("/admin");
       }
-      
+      console.log("result.token",result);
+      axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${result.token}`;
       toast.success(result.message);      
     } catch (error) {
       console.error(error, "error");
