@@ -4,15 +4,15 @@ import Footer from "../components/layout/Footer";
 import useTurfData from "../hooks/useTurfData";
 import TurfCard from "../components/turf/TurfCard";
 import TurfCardSkeleton from "../components/ui/TurfCardSkeleton";
-
-import bg from "/r.png";
-import bg2 from "/bg.jpeg";
 import { useSelector } from "react-redux";
+import banner1 from "/banner-1.png"
+import banner2 from "/banner-2.jpeg"
+import banner3 from "/banner-3.jpeg"
  
 const Home = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const { turfs, loading } = useTurfData();
-  const slides = [bg, bg2, bg];
+  const slides = [ banner1, banner2, banner3];
 
 
   return (

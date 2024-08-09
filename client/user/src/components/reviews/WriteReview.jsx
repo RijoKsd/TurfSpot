@@ -1,4 +1,5 @@
- import { Star } from "lucide-react";
+import { Star } from "lucide-react";
+import { useState } from "react";
 
 const WriteReview = ({
   rating,
@@ -9,16 +10,24 @@ const WriteReview = ({
   onReviewChange,
   onSubmit,
 }) => {
+  const [ratingError, setRatingError] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Check if a rating has been selected
+    if (rating === 0) {
+      setRatingError(true);
+      return;
+    }
+    setRatingError(false);
+    onSubmit();
+  };
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
       <div className="bg-base-100 rounded-lg p-6 w-full max-w-md">
         <h2 className="text-2xl font-bold mb-4">Write a Review</h2>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            onSubmit();
-          }}
-        >
+        <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-sm font-medium mb-2">Rating</label>
             <div className="flex">
@@ -34,6 +43,11 @@ const WriteReview = ({
                 />
               ))}
             </div>
+            {ratingError && (
+              <div className="text-red-500 text-sm mt-2">
+                Please select a rating.
+              </div>
+            )}
           </div>
           <div className="mb-4">
             <label htmlFor="review" className="block text-sm font-medium mb-2">
@@ -46,8 +60,10 @@ const WriteReview = ({
               value={review}
               onChange={onReviewChange}
               placeholder="Write your review here..."
-               
+              title="Please enter your review"
+              required
             ></textarea>
+          
           </div>
           <div className="flex justify-end space-x-2">
             <button

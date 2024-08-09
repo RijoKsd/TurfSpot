@@ -1,11 +1,9 @@
 import { useState } from "react";
-import bg from "/r.png";
-import bg2 from "/bg.jpeg";
+ 
 
-const Carousel = () => {
+const Carousel = ({slides}) => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const slides = [bg, bg2, bg];
-
+   
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % slides.length);
   };

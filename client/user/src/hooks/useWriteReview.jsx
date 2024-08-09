@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axiosInstance from "./useAxiosInstance";
+import toast from "react-hot-toast";
 
 const useWriteReview = () => {
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
@@ -35,12 +36,12 @@ const useWriteReview = () => {
 
     try {
       // Replace with your actual API endpoint
-     const response = await axiosInstance.post(`/api/user/review/${turfId}`, {
-       rating,
-       review,
-     });
-     console.log(response, "response");
-
+      const response = await axiosInstance.post(`/api/user/review/${turfId}`, {
+        rating,
+        review,
+      });
+      const result = await response.data;
+      toast.success(result.message);
       closeReviewModal();
       // You might want to trigger a refresh of the bookings here
     } catch (err) {

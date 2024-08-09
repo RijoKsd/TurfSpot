@@ -39,7 +39,7 @@ const Reviews = ({ turfId }) => {
                     />
                   ))}
                 </div>
-                <p>{review.comment}</p>
+                <p className="text-sm text-gray-500   break-all">{review.comment}</p>
               </div>
             </div>
           ))}

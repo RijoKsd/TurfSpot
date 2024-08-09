@@ -3,12 +3,13 @@ import Carousel from "../../components/Carousel";
 import Button from "../../components/Button";
 import Footer from "../../components/Footer";
 
-import bg from "/r.png";
-import bg2 from "/bg.jpeg";
+import banner1 from "/banner-1.png";
+import banner2 from "/banner-2.jpeg";
+import banner3 from "/banner-3.jpeg";
 
 const Home = () => {
 
-  const slides = [bg, bg2, bg];
+  const slides = [banner1, banner2, banner3];
 
   return (
     <div className="  bg-base-100 text-base-content">

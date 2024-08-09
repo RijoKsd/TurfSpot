@@ -29,10 +29,14 @@ const Navbar = () => {
             <li>
               <Link to="/">Home</Link>
             </li>
-            
           </ul>
         </div>
         <Link to="/" className="btn btn-ghost normal-case text-xl">
+          <img
+            src="/logo.png"
+            alt="TurfSpot"
+            className="h-10 w-10 mask mask-squircle"
+          />
           TurfSpot
         </Link>
       </div>
@@ -41,7 +45,6 @@ const Navbar = () => {
           <li>
             <Link to="/">Home</Link>
           </li>
-       
         </ul>
       </div>
       <div className="navbar-end">

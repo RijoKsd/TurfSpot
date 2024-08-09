@@ -7,16 +7,16 @@ import WriteReview from  "../../components/reviews/WriteReview"
 const TurfBookingHistory = () => {
   const { loading, bookings } = useBookingHistory();
    const {
-    isReviewModalOpen,
-    rating,
-    review,
-    isSubmitting,
-    openReviewModal,
-    closeReviewModal,
-    handleRatingChange,
-    handleReviewChange,
-    submitReview,
-  } = useWriteReview();
+     isReviewModalOpen,
+     rating,
+     review,
+     isSubmitting,
+     openReviewModal,
+     closeReviewModal,
+     handleRatingChange,
+     handleReviewChange,
+     submitReview,
+    } = useWriteReview();
 
   if (loading) {
     return <TurfBookingHistorySkeleton />;
@@ -78,7 +78,7 @@ const TurfBookingHistory = () => {
           onRatingChange={handleRatingChange}
           onReviewChange={handleReviewChange}
           onSubmit={submitReview}
-        />
+         />
       )}
     </div>
   );
