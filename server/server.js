@@ -1,11 +1,46 @@
+import express from "express";
+import cors from "cors";
 import connectDB from "./config/database.js";
 import dotenv from "dotenv";
-import app from "./app.js";
-
+import rootRouter from "./routes/index.js";
 
 dotenv.config();
 
-const port = process.env.PORT || 3000;
+const app = express();
+// app.use(cors());
+app.use(express.json());
+
+app.use(
+  cors({
+    origin: "*", //backend link
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    credentials: true,
+    allowedHeaders: [
+      "Content-Type",
+      "Authorization",
+      "X-Requested-With",
+      "Accept",
+      "Origin",
+    ],
+  })
+);
+app.options(
+  "*",
+  cors({
+    origin: true,
+    credentials: true,
+  })
+);
+
+// routes
+app.use("/api", rootRouter);
+
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
+
+
+const port = process.env.PORT || 1234;
 
 // Function to start the server
 const startServer = async () => {
