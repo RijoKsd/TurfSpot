@@ -1,21 +1,21 @@
 import React from "react";
-import { User, Mail, Calendar, Search } from "lucide-react";
+import {  Mail, Calendar, Search } from "lucide-react";
 import { format } from "date-fns";
-import useUsers from "./useUsers";
+import useUsers from "../../hooks/admin/useUsers";
 import UserSkeleton from "./UserSkeleton";
+import Avatar from "react-avatar";
 
 const UserPage = () => {
-  const { users, loading, error, searchTerm, handleSearch } = useUsers();
+  const { users, loading,  searchTerm, handleSearch } = useUsers();
 
   if (loading) return <UserSkeleton />;
-  if (error) return <div className="alert alert-error shadow-lg">{error}</div>;
 
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-3xl font-bold mb-6 text-center text-primary">
         User Management
       </h1>
-      <div className="form-control w-full max-w-xs mx-auto mb-6">
+      <div className="form-control w-full max-w-xs ml-auto mb-6">
         <label className="label">
           <span className="label-text">Search users</span>
         </label>
@@ -44,9 +44,10 @@ const UserPage = () => {
                 <div className="flex items-center mb-4">
                   <div className="avatar placeholder mr-4">
                     <div className="bg-neutral-focus text-neutral-content rounded-full w-12">
-                      <span className="text-xl">
+                      {/* <span className="text-xl ">
                         {user.name.charAt(0).toUpperCase()}
-                      </span>
+                      </span> */}
+                      <Avatar name={user.name} size={40} round={true}  />
                     </div>
                   </div>
                   <h2 className="card-title">{user.name}</h2>

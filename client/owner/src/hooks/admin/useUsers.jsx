@@ -10,11 +10,10 @@ const useUsers = () => {
   const fetchUsers = async () => {
     try {
       // Replace this with your actual API call
-      const response = await axiosInstance.get("/api/admin/users");
-    const result = await response.data;
-    console.log(result, "result")
-       setUsers(result.data);
-      setFilteredUsers(data);
+      const response = await axiosInstance.get("/api/admin/users/all");
+      const result = await response.data;
+      setUsers(result.users);
+      setFilteredUsers(result.users);
       setLoading(false);
     } catch (err) {
       setLoading(false);
