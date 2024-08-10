@@ -38,7 +38,7 @@ const RootNavbar = ({ toggleSidebar }) => {
         <button className="btn btn-ghost lg:hidden" onClick={toggleSidebar}>
           <Menu size={24} />
         </button>
-        <Link to="/" className="btn btn-ghost normal-case text-xl">
+        <Link to="/" className="btn btn-ghost normal-case text-xl max-sm:p-0">
           <img
             src="/logo.png"
             alt="TurfSpot"

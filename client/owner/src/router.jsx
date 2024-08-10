@@ -8,8 +8,7 @@ import AdminLayout from "./layouts/AdminLayout";
 import OwnerLayout from "./layouts/OwnerLayout";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import OwnerDashboard from "./pages/owner/OwnerDashboard";
-import OwnerRequests from "./components/admin/OwnerRequests";
-import UserManagement from "./components/admin/UserManagement";
+ import {UserManagement, NewOwnerRequests, RejectedOwnerRequests} from "./components/admin";
 
 const router = createBrowserRouter([
   {
@@ -36,7 +35,13 @@ const router = createBrowserRouter([
     element: <AdminLayout />,
     children: [
       { index: true, element: <AdminDashboard /> },
-      { path: "owner-requests", element: <OwnerRequests /> },
+      {
+        path: "owner-requests",
+        children: [
+          { path: "new", element:  <NewOwnerRequests /> },
+          { path: "rejected", element:  <RejectedOwnerRequests /> },
+        ],
+      },
       { path: "users", element: <UserManagement /> },
       // { path: 'owners', element: <OwnersPage /> },
       // { path: 'turfs', element: <TurfsPage /> },

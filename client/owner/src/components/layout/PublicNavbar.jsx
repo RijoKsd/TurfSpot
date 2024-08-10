@@ -31,7 +31,7 @@ const PublicNavbar = () => {
             </li>
           </ul>
         </div>
-        <Link to="/" className="btn btn-ghost normal-case text-xl">
+        <Link to="/" className="btn btn-ghost normal-case text-xl" >
           <img
             src="/logo.png"
             alt="TurfSpot"

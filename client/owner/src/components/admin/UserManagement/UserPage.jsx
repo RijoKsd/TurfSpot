@@ -17,7 +17,6 @@ const UserPage = () => {
       <SearchInput
         searchTerm={searchTerm}
         handleSearch={handleSearch}
-        className="max-w-xs ml-auto mb-6"
       />
       {users.length === 0 ? (
         <div className="alert alert-info shadow-lg">

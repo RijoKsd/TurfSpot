@@ -1,11 +1,12 @@
+ 
 import React from "react";
 import { Search } from "lucide-react";
 
-const SearchInput = ({ searchTerm, handleSearch }) => {
+const OwnerRequestSearch = ({ searchTerm, handleSearch }) => {
   return (
-    <div className={`form-control w-full max-w-xs ml-auto mb-6`}>
+    <div className="form-control w-full max-w-xs">
       <label className="label">
-        <span className="label-text">Search users</span>
+        <span className="label-text">Search requests</span>
       </label>
       <div className="relative">
         <input
@@ -21,4 +22,4 @@ const SearchInput = ({ searchTerm, handleSearch }) => {
   );
 };
 
-export default SearchInput;
+export default OwnerRequestSearch;
