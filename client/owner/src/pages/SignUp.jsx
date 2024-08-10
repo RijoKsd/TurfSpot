@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
-import FormField from "../../components/FormField";
-import useSignUpForm from "../../hooks/useSignUpForm"
-import Button from "../../components/Button";
+import useSignUpForm from "@hooks/useSignUpForm"
+import {Button, FormField} from "@components/common";
 
 const SignUp = () => {
   const { register, handleSubmit, errors, onSubmit,loading } = useSignUpForm();

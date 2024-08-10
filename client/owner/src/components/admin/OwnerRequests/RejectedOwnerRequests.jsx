@@ -1,5 +1,5 @@
 import React from "react";
-import useOwnerRequests from "../../../hooks/admin/useOwnerRequests";
+import useOwnerRequests from "@hooks/admin/useOwnerRequests";
 import OwnerRequestCard from "./OwnerRequestsCard";
 import OwnerRequestsSkeleton from "./OwnerRequestSkeleton";
 import OwnerRequestSearch from "./OwnerRequestSearch";

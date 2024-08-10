@@ -1,32 +1,13 @@
 import { useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Menu } from "lucide-react";
-import ThemeSwitcher from "../ThemeSwitcher.jsx";
+import ThemeSwitcher from "../common/ThemeSwitcher.jsx";
 import { useDispatch } from "react-redux";
-import { logout } from "../../redux/slices/authSlice";
+import { logout } from "../../redux/slices/authSlice.js";
 
-const RootNavbar = ({ toggleSidebar }) => {
+const AuthenticatedNavbar = ({ toggleSidebar }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  // logout function
-  // const handleLogout = useCallback(() => {
-  //   dispatch(logout());
-
-  //   //  clear the navigation history
-  //   window.history.pushState(null, "", "/");
-
-  //   // Navigate to the home page
-  //   navigate("/", { replace: true });
-
-  //   // prevent going to the previous page
-  //   const handlePopState = () => {
-  //     window.history.pushState(null, "", "/");
-  //   };
-  //   window.addEventListener("popstate", handlePopState);
-
-  
-  // }, [navigate]);
 
   const handleLogout = () => {
     dispatch(logout());
@@ -57,4 +38,4 @@ const RootNavbar = ({ toggleSidebar }) => {
   );
 };
 
-export default RootNavbar;
+export default AuthenticatedNavbar;

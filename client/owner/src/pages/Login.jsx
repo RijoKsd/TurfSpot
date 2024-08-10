@@ -1,7 +1,7 @@
-import useLoginForm from "../../hooks/useLoginForm";
-import FormField from "../../components/FormField";
-import { Link } from "react-router-dom";
-import Button from "../../components/Button";
+import useLoginForm from "@hooks/useLoginForm";
+ import { Link } from "react-router-dom";
+ 
+import {Button, FormField} from "@components/common";
 
 const Login = () => {
   const { register, handleSubmit, errors, onSubmit } = useLoginForm();

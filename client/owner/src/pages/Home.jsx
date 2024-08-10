@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
-import Carousel from "../../components/Carousel";
-import Button from "../../components/Button";
-import Footer from "../../components/Footer";
+
+import { Carousel,Footer } from "@components/common";
 
 import banner1 from "/banner-1.png";
 import banner2 from "/banner-2.jpeg";

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import ThemeSwitcher from "../ThemeSwitcher.jsx";
+import ThemeSwitcher from "../common/ThemeSwitcher.jsx";
 
-const PublicNavbar = () => {
+const GuestNavbar = () => {
   return (
     <div className="navbar bg-base-100 fixed top-0 z-50 shadow-md">
       <div className="navbar-start">
@@ -31,7 +31,7 @@ const PublicNavbar = () => {
             </li>
           </ul>
         </div>
-        <Link to="/" className="btn btn-ghost normal-case text-xl" >
+        <Link to="/" className="btn btn-ghost normal-case text-xl">
           <img
             src="/logo.png"
             alt="TurfSpot"
@@ -57,4 +57,4 @@ const PublicNavbar = () => {
   );
 };
 
-export default PublicNavbar;
+export default GuestNavbar;

@@ -1,7 +1,7 @@
-import   { useEffect } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Moon, Sun } from "lucide-react";
-import { setTheme } from "../redux/slices/themeSlice";
+import { setTheme } from "../../redux/slices/themeSlice";
 
 const ThemeSwitcher = () => {
   const theme = useSelector((state) => state.theme.current);

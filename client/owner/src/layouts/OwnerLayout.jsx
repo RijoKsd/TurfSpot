@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
-import OwnerSidebar from "../components/layout/OwnerSidebar";
-import RootNavbar from "../components/layout/RootNavbar";
+ 
+import {OwnerSidebar, AuthenticatedNavbar} from "@components/layout";
 
 const OwnerLayout = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,7 +9,7 @@ const OwnerLayout = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <RootNavbar toggleSidebar={toggleSidebar} />
+      <AuthenticatedNavbar toggleSidebar={toggleSidebar} />
       <div className="flex flex-1 pt-16">
         <OwnerSidebar
           isOpen={isOpen}

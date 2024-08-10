@@ -5,6 +5,28 @@ import rootRouter from "./routes/index.js";
 
 const app = express();
 
+app.use(
+  cors({
+    origin: "*", //backend link
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    credentials: true,
+    allowedHeaders: [
+      "Content-Type",
+      "Authorization",
+      "X-Requested-With",
+      "Accept",
+      "Origin",
+    ],
+  })
+);
+app.options(
+  "*",
+  cors({
+    origin: true,
+    credentials: true,
+  })
+);
+
 app.use(cors());
 app.use(express.json());
 

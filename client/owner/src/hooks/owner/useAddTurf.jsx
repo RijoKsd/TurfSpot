@@ -3,8 +3,8 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { format } from "date-fns";
-import toast from "react-hot-toast";  
-import axiosInstance from "./useAxiosInstance";
+import toast from "react-hot-toast";
+import axiosInstance from "../useAxiosInstance";
 
 const addTurfSchema = yup.object().shape({
   name: yup
@@ -84,7 +84,7 @@ export default function useAddTurf() {
   };
 
   const onSubmit = async (data) => {
-     setLoading(true);
+    setLoading(true);
 
     const formData = new FormData();
 
@@ -112,7 +112,6 @@ export default function useAddTurf() {
       console.log(key, value);
     }
     try {
-
       const response = await axiosInstance.post(
         "/api/owner/turf/register",
         formData,

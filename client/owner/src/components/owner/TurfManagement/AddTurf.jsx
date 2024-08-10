@@ -3,8 +3,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Controller } from "react-hook-form";
 import { setHours, setMinutes } from "date-fns";
-import FormField from "../../components/FormField";
-import useAddTurf from "../../hooks/useAddTurf";
+import { FormField } from "@components/common";
+import useAddTurf from "@hooks/owner/useAddTurf";
 
 const AddTurf = () => {
   const {

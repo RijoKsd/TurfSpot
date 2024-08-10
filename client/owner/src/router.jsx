@@ -1,19 +1,31 @@
 import { createBrowserRouter } from "react-router-dom";
-import PublicLayout from "./layouts/PublicLayout";
-import Home from "./pages/public/Home.jsx";
-import Login from "./pages/public/Login";
-import SignUp from "./pages/public/SignUp";
-import AddTurf from "./pages/owner/AddTurf";
-import AdminLayout from "./layouts/AdminLayout";
-import OwnerLayout from "./layouts/OwnerLayout";
-import AdminDashboard from "./pages/admin/AdminDashboard";
-import OwnerDashboard from "./pages/owner/OwnerDashboard";
- import {UserManagement, NewOwnerRequests, RejectedOwnerRequests} from "./components/admin";
+
+ import Home from "@pages/Home.jsx";
+import Login from "@pages/Login";
+import SignUp from "@pages/SignUp";
+
+//  all the components that are used in the layout
+import {AdminLayout,
+OwnerLayout,
+GuestLayout} from "@layouts"
+ 
+import OwnerDashboard from "./components/owner/Dashboard/OwnerDashboard.jsx";
+
+//  all the components that are used in the owner dashboard
+import {AddTurf} from "@components/owner"
+
+//  all the components that are used in the admin dashboard
+import {
+  UserManagement,
+  NewOwnerRequests,
+  RejectedOwnerRequests,
+  AdminDashboard,
+} from "@components/admin";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <PublicLayout />,
+    element: <GuestLayout />,
     errorElement: <div>Error</div>,
     children: [
       {
@@ -38,8 +50,8 @@ const router = createBrowserRouter([
       {
         path: "owner-requests",
         children: [
-          { path: "new", element:  <NewOwnerRequests /> },
-          { path: "rejected", element:  <RejectedOwnerRequests /> },
+          { path: "new", element: <NewOwnerRequests /> },
+          { path: "rejected", element: <RejectedOwnerRequests /> },
         ],
       },
       { path: "users", element: <UserManagement /> },
