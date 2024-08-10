@@ -9,7 +9,7 @@ import {
 const ownerRequestRouter = Router();
 
 ownerRequestRouter.get("/list",getAllRequestedOwners);
-ownerRequestRouter.post("/:id/accept",approveOwnerRequest);
+ownerRequestRouter.put("/:id/accept",approveOwnerRequest);
 ownerRequestRouter.delete("/:id",deleteOwnerRequest);
 
 export default ownerRequestRouter;

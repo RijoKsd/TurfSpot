@@ -4,6 +4,12 @@ import generateEmail from "../../utils/generateEmail.js";
 
 //  get all requested owners
 export const getAllRequestedOwners = async (req, res) => {
+    const admin = req.admin.role;
+     if (admin !== "admin") {
+      return res
+        .status(403)
+        .json({ success: false, message: "Unauthorized access denied" });
+    }
   try {
     const ownerRequests = await OwnerRequest.find({ status: "pending" });
     res.status(200).json({ success: true, message: "success", ownerRequests });
@@ -14,7 +20,13 @@ export const getAllRequestedOwners = async (req, res) => {
 
 // approve the pending owner request by id
 export const approveOwnerRequest = async (req, res) => {
-  const { id } = req.params;
+  const admin = req.admin.role;
+   const { id } = req.params;
+   if(admin !== "admin"){
+     return res
+       .status(403)
+       .json({ success: false, message: "Unauthorized access denied" });
+   }
   try {
     const ownerRequest = await OwnerRequest.findById(id);
     if (!ownerRequest) {
@@ -46,7 +58,42 @@ export const approveOwnerRequest = async (req, res) => {
 };
 
 // reject the pending owner request
-export const deleteOwnerRequest = async (req, res) => {};
+export const deleteOwnerRequest = async (req, res) => {
+   const admin = req.admin.role;
+   const { id } = req.params;
+   if (admin !== "admin") {
+     return res
+       .status(403)
+       .json({ success: false, message: "Unauthorized access denied" });
+   }
+  try{
+    const ownerRequest = await OwnerRequest.findById(id);
+    if (!ownerRequest) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Owner request not found" });
+    }
+    ownerRequest.status = "rejected";
+    await ownerRequest.save();
+    const to = ownerRequest.email;
+    const subject = "Your request has been rejected";
+    const html = ` 
+    <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+        <h1 style="color: #4CAF50;">Your request to become an owner has been rejected</h1>
+        <p>We apologize for the inconvenience. Please contact us if you have any further questions.</p>
+        <p>Thank you for your understanding.</p>
+    </div>
+`;
+    await generateEmail(to, subject, html);
+    return res
+      .status(200)
+      .json({ success: true, message: "Owner request rejected" });
+  }catch(eer){
+    console.log("Error in deleteOwnerRequest: ",eer);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+
+};
 
 // get all approved owners
 export const getAllApprovedOwners = async (req, res) => {};
