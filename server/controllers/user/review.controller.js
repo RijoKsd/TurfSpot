@@ -1,4 +1,5 @@
 import Review from "../../models/review.model.js";
+import Turf from "../../models/turf.model.js";
 
 
 export const addReview = async (req, res) => {
@@ -12,13 +13,17 @@ export const addReview = async (req, res) => {
       .json({ message: "Please provide all the required fields" });
   }
   try {
+    const turf = await Turf.findById(id);
     const review = new Review({
       user: userId,
       turf: id,
       rating,
       comment,
     });
-    await review.save();
+
+    turf.reviews.push(review._id);
+    
+    await Promise.all([turf.save(), review.save()]);
     return res.status(201).json({ message: "Review added successfully" });
   } catch (error) {
     console.error("Error in addReview", error);

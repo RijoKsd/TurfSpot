@@ -7,3 +7,6 @@ export {default as RejectedOwnerRequests} from "./OwnerRequests/RejectedOwnerReq
 
 // Dashboard
 export {default as AdminDashboard} from "./Dashboard/AdminDashboard"
+
+// Owner Management
+export {default as OwnerViewer} from "./OwnerManagement/OwnerViewer"

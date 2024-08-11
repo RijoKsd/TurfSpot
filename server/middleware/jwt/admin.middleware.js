@@ -25,7 +25,7 @@ const verifyAdminToken = async (req, res, next) => {
     }
     next();
   } catch (error) {
-    return res.status(500).json(err.message);
+    return res.status(500).json(error.message);
   }
 };
 

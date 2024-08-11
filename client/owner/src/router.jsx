@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 
- import Home from "@pages/Home.jsx";
+import Home from "@pages/Home.jsx";
 import Login from "@pages/Login";
 import SignUp from "@pages/SignUp";
 
@@ -9,10 +9,9 @@ import {AdminLayout,
 OwnerLayout,
 GuestLayout} from "@layouts"
  
-import OwnerDashboard from "./components/owner/Dashboard/OwnerDashboard.jsx";
-
+ 
 //  all the components that are used in the owner dashboard
-import {AddTurf} from "@components/owner"
+import { AddTurf, OwnerDashboard } from "@components/owner";
 
 //  all the components that are used in the admin dashboard
 import {
@@ -20,6 +19,7 @@ import {
   NewOwnerRequests,
   RejectedOwnerRequests,
   AdminDashboard,
+  OwnerViewer,
 } from "@components/admin";
 
 const router = createBrowserRouter([
@@ -55,7 +55,7 @@ const router = createBrowserRouter([
         ],
       },
       { path: "users", element: <UserManagement /> },
-      // { path: 'owners', element: <OwnersPage /> },
+      { path: "owners", element: <OwnerViewer /> },
       // { path: 'turfs', element: <TurfsPage /> },
       // { path: 'transactions', element: <TransactionsPage /> },
     ],

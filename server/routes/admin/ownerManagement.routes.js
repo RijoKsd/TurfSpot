@@ -1,17 +1,8 @@
 import { Router } from "express";
-import {
-  getAllRequestedOwners,
-  approveOwnerRequest,
-  deleteOwnerRequest,
-  reconsiderOwnerRequest,
-} from "../../controllers/admin/ownerManagement.controller.js";
+import {getAllOwners} from "../../controllers/admin/ownerManagement.controller.js";
 
+const ownerManagementRouter = Router();
 
-const ownerRequestRouter = Router();
+ownerManagementRouter.get("/list",getAllOwners);
 
-ownerRequestRouter.get("/list",getAllRequestedOwners);
-ownerRequestRouter.put("/:id/accept",approveOwnerRequest);
-ownerRequestRouter.delete("/:id",deleteOwnerRequest);
-ownerRequestRouter.put("/reconsider/:id",reconsiderOwnerRequest);
-
-export default ownerRequestRouter;
+export default ownerManagementRouter;
