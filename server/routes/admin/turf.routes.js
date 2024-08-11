@@ -1,8 +1,9 @@
 import { Router } from "express";
-import {getTurfByOwnerId} from "../../controllers/admin/turf.controller.js";
+import { getAllTurfs } from "../../controllers/admin/turf.controller.js";
+import verifyAdminToken from "../../middleware/jwt/admin.middleware.js";
 
 const turfRouter = Router();
 
-turfRouter.get("/:id/turf",getTurfByOwnerId);
+turfRouter.get("/all", verifyAdminToken,getAllTurfs);
 
 export default turfRouter;

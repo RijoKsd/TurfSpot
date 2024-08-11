@@ -18,6 +18,7 @@ import {
   AdminDashboard,
   OwnerViewer,
   TurfList,
+  AllTurf,
 } from "@components/admin";
 
 const router = createBrowserRouter([
@@ -61,7 +62,7 @@ const router = createBrowserRouter([
         ],
       },
 
-      { path: "turfs", element: <TurfList /> },
+      { path: "turfs", element: <AllTurf /> },
       // { path: 'transactions', element: <TransactionsPage /> },
     ],
   },
