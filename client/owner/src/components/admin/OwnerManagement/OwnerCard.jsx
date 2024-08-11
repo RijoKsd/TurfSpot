@@ -2,6 +2,7 @@
 import React from "react";
 import { User, Mail, Phone, Calendar, MapPin } from "lucide-react";
 import { format, parseISO } from "date-fns";
+import { Link } from "react-router-dom";
 
 const OwnerCard = ({ owner }) => {
   return (
@@ -24,10 +25,10 @@ const OwnerCard = ({ owner }) => {
           <p>Created: {format(parseISO(owner.createdAt), "PPP")}</p>
         </div>
         <div className="card-actions justify-end mt-4">
-          <button className="btn btn-primary flex items-center">
+          <Link to={`/admin/owners/${owner._id}/turf`} className="btn btn-primary flex items-center">
             <MapPin className="h-4 w-4 mr-2" />
             View Turf
-          </button>
+          </Link>
         </div>
       </div>
     </div>

@@ -5,11 +5,8 @@ import Login from "@pages/Login";
 import SignUp from "@pages/SignUp";
 
 //  all the components that are used in the layout
-import {AdminLayout,
-OwnerLayout,
-GuestLayout} from "@layouts"
- 
- 
+import { AdminLayout, OwnerLayout, GuestLayout } from "@layouts";
+
 //  all the components that are used in the owner dashboard
 import { AddTurf, OwnerDashboard } from "@components/owner";
 
@@ -20,6 +17,7 @@ import {
   RejectedOwnerRequests,
   AdminDashboard,
   OwnerViewer,
+  TurfList,
 } from "@components/admin";
 
 const router = createBrowserRouter([
@@ -55,8 +53,15 @@ const router = createBrowserRouter([
         ],
       },
       { path: "users", element: <UserManagement /> },
-      { path: "owners", element: <OwnerViewer /> },
-      // { path: 'turfs', element: <TurfsPage /> },
+      {
+        path: "owners",
+        children: [
+          { path: "", element: <OwnerViewer /> },
+          { path: ":ownerId/turf", element: <TurfList /> },
+        ],
+      },
+
+      { path: "turfs", element: <TurfList /> },
       // { path: 'transactions', element: <TransactionsPage /> },
     ],
   },
