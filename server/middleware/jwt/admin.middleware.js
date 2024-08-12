@@ -1,6 +1,8 @@
 import jwt from "jsonwebtoken";
 
 const verifyAdminToken = async (req, res, next) => {
+  console.log("verifyAdminToken", req.headers.authorization);
+  console.log("---------------------")
   try {
     const header = req.headers.authorization;
     if (!header) {

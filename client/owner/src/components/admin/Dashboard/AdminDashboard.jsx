@@ -9,30 +9,36 @@ import {
   UserPlus,
   UserX,
   TrendingUp,
-  Calendar,
 } from "lucide-react";
 import { useState } from "react";
 
-
-
 const AdminDashboard = () => {
-  const { data, loading, error } = useDashboardData();
-    const [selectedTimeRange, setSelectedTimeRange] = useState("30");
+ const { data, loading, error } = useDashboardData();
+ const [selectedTimeRange, setSelectedTimeRange] = useState("30");
 
+ if (loading) {
+   return (
+     <div className="flex justify-center items-center h-screen">
+       <span className="loading loading-spinner loading-lg"></span>
+     </div>
+   );
+ }
 
-  if (loading)
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <span className="loading loading-spinner loading-lg"></span>
-      </div>
-    );
-  if (error)
-    return <div className="text-center text-error p-4">Error: {error}</div>;
+ if (error) {
+   return (
+     <div className="flex justify-center items-center h-screen">
+       <p>Error loading dashboard data. Please try again later.</p>
+     </div>
+   );
+ }
 
-  const totalRevenue = data.bookingHistory.reduce(
-    (sum, day) => sum + day.amount,
-    0
-  );
+ if (!data) {
+   return null; // or some placeholder content
+ }
+
+   const totalRevenue = data.bookingHistory.reduce((sum, day) => {
+     return sum + day.amount;
+   }, 0);
 
   return (
     <div className="min-h-screen bg-base-200 p-4">
@@ -42,17 +48,29 @@ const AdminDashboard = () => {
         </h1>
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-8">
-          <StatCard title="Total Users" value={data.totalUsers} icon={Users} />
+          <StatCard
+            title="Total Users"
+            value={data.totalUsers}
+            icon={Users}
+            className="bg-base-100"
+          />
           <StatCard
             title="Total Owners"
             value={data.totalOwners}
             icon={Building}
+            className="bg-base-100"
           />
-          <StatCard title="Total Turfs" value={data.totalTurfs} icon={MapPin} />
+          <StatCard
+            title="Total Turfs"
+            value={data.totalTurfs}
+            icon={MapPin}
+            className="bg-base-100"
+          />
           <StatCard
             title="Total Bookings"
             value={data.totalBookings}
             icon={CreditCard}
+            className="bg-base-100"
           />
         </div>
 
@@ -79,7 +97,7 @@ const AdminDashboard = () => {
         </div>
 
         <div className="card bg-base-100 shadow-xl mb-8">
-          <div className="card-body">
+          <div className="card-body max:md:p-0">
             <h2 className="card-title mb-4">Booking History</h2>
             <div className="flex justify-end mb-4">
               <select
@@ -97,9 +115,6 @@ const AdminDashboard = () => {
             />
           </div>
         </div>
-
-
-       
       </div>
     </div>
   );

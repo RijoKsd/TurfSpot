@@ -9,7 +9,7 @@ import {
 } from "recharts";
 
 const BookingHistoryChart = ({ data }) => (
-  <div className="card bg-base-100 shadow-xl">
+  <div className="card bg-base-100 shadow-xl ">
     <div className="card-body">
       <h2 className="card-title mb-4">Booking History (Last 30 Days)</h2>
       <ResponsiveContainer width="100%" height={300}>

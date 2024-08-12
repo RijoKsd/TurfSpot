@@ -1,5 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 
+// import {ProtectedRoute} from "@components/ProtectedRoute"
+
 import Home from "@pages/Home.jsx";
 import Login from "@pages/Login";
 import SignUp from "@pages/SignUp";

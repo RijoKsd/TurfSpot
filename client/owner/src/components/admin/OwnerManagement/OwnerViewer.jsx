@@ -1,4 +1,4 @@
- import { useOwners } from "@hooks/admin";
+ import  useOwners  from "@hooks/admin/useOwners";
 import OwnerList from "./OwnerList";
 import SearchBar from "./SearchBar";
 import OwnersSkeleton from "./OwnersSkeleton";

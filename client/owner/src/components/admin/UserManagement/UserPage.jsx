@@ -1,5 +1,5 @@
 import React from "react";
-import useUsers from "../../../hooks/admin/useUsers";
+import useUsers from "@hooks/admin/useUsers";
 import UserSkeleton from "./UserSkeleton";
 import UserCard from "./UserCard";
 import SearchInput from "./SearchInput";
