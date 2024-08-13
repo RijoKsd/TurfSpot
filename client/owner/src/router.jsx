@@ -22,6 +22,7 @@ import {
   TurfList,
   AllTurf,
 } from "@components/admin";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -45,7 +46,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/admin",
-    element: <AdminLayout />,
+    element:  <ProtectedRoute requiredRole="admin"><AdminLayout /></ProtectedRoute>,
     children: [
       { index: true, element: <AdminDashboard /> },
       {
@@ -70,7 +71,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/owner",
-    element: <OwnerLayout />,
+    element:  <ProtectedRoute requiredRole="owner"><OwnerLayout /></ProtectedRoute>,
     children: [
       { path: "", element: <OwnerDashboard /> },
       { path: "add-turf", element: <AddTurf /> },

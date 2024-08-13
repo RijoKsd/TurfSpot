@@ -9,9 +9,9 @@ export default function ProtectedRoute({ children, requiredRole }) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  // if (requiredRole && role !== requiredRole) {
-  //   return <Navigate to="/" replace />;
-  // }
+  if (requiredRole && role !== requiredRole) {
+    return <Navigate to="/" replace />;
+  }
 
   return children;
 }

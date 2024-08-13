@@ -1,6 +1,7 @@
 import useDashboardData from "@hooks/admin/useDashboardData";
 import StatCard from "./StatCard";
 import BookingHistoryChart from "./BookingHistoryChart";
+import AdminDashboardSkeleton from "./AdminDashboardSkeleton";
 import {
   Users,
   Building,
@@ -14,14 +15,11 @@ import { useState } from "react";
 
 const AdminDashboard = () => {
  const { data, loading, error } = useDashboardData();
+ console.log(loading, "loading")
  const [selectedTimeRange, setSelectedTimeRange] = useState("30");
 
- if (loading) {
-   return (
-     <div className="flex justify-center items-center h-screen">
-       <span className="loading loading-spinner loading-lg"></span>
-     </div>
-   );
+ if (loading)  {
+   return <AdminDashboardSkeleton />;
  }
 
  if (error) {
@@ -33,7 +31,7 @@ const AdminDashboard = () => {
  }
 
  if (!data) {
-   return null; // or some placeholder content
+   return null; 
  }
 
    const totalRevenue = data.bookingHistory.reduce((sum, day) => {
