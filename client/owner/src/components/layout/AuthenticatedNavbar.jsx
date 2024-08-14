@@ -1,14 +1,14 @@
-import { useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Menu } from "lucide-react";
 import ThemeSwitcher from "../common/ThemeSwitcher.jsx";
-import { useDispatch } from "react-redux";
-import { logout } from "../../redux/slices/authSlice.js";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "@redux/slices/authSlice.js";
 
 const AuthenticatedNavbar = ({ toggleSidebar }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const role = useSelector((state) => state?.auth?.role);
+ const path = role === "admin" ? "/admin" : "/owner";
   const handleLogout = () => {
     dispatch(logout());
     navigate("/", { replace: true });
@@ -19,7 +19,7 @@ const AuthenticatedNavbar = ({ toggleSidebar }) => {
         <button className="btn btn-ghost lg:hidden" onClick={toggleSidebar}>
           <Menu size={24} />
         </button>
-        <Link to="/" className="btn btn-ghost normal-case text-xl max-sm:p-0">
+        <Link to={path} className="btn btn-ghost normal-case text-xl max-sm:p-0">
           <img
             src="/logo.png"
             alt="TurfSpot"

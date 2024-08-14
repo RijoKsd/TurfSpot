@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
- 
-import {OwnerSidebar, AuthenticatedNavbar} from "@components/layout";
+
+import { OwnerSidebar, AuthenticatedNavbar } from "@components/layout";
 
 const OwnerLayout = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,14 +14,9 @@ const OwnerLayout = () => {
         <OwnerSidebar
           isOpen={isOpen}
           toggleSidebar={toggleSidebar}
-          className={`
-    fixed lg:static 
-    w-64 
-    transition-transform duration-300 ease-in-out
-    ${isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
-    z-30 lg:z-0
-    h-screen
-  `}
+          className={`${
+            isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
+          }`}
         />
         <main
           className={`

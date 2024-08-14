@@ -14,7 +14,10 @@ const OwnerSidebar = ({ isOpen, toggleSidebar, className }) => {
   ];
 
   return (
-    <aside className={`${className} bg-base-200 overflow-y-auto`}>
+    <aside
+      className={`${className} bg-base-200 overflow-y-auto  fixed lg:static 
+    w-64 transition-transform duration-300 ease-in-out z-30 lg:z-0 min-h-screen`}
+    >
       <div className="flex items-center justify-between p-4 border-b">
         <span className="text-xl font-semibold">Owner Dashboard</span>
         <button onClick={toggleSidebar} className="lg:hidden">

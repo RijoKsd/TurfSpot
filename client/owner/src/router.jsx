@@ -23,13 +23,17 @@ import {
   AllTurf,
   TransactionSection,
 } from "@components/admin";
-import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import ProtectedRoute from "@components/ProtectedRoute/ProtectedRoute";
+
+// 404 page
+
+import { NotFound } from "@components/common";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <GuestLayout />,
-    errorElement: <div>Error</div>,
+    errorElement:  <NotFound />,
     children: [
       {
         path: "",
