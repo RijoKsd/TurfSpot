@@ -147,15 +147,15 @@ export const verifyPayment = async (req, res) => {
 };
 
 // get bookings for a user
-export const getBookings = async (req, res)=>{
+export const getBookings = async (req, res) => {
   const userId = req.user.user;
-  try{
-    const bookings = await Booking.find({ user: userId }).select("qrCode totalPrice")
-      .populate("timeSlot", 'startTime endTime')
-      .populate("turf", 'name location');
-      // qrCode, totalPrice, timeSlot.starTime, timeSlot.endTime, turf.name and turf.location
-    return res.status(200).json(bookings)
-  }catch(error){
-  }
-
-}
+  try {
+  const bookings = await Booking.find({ user: userId })
+    .sort({ createdAt: -1 })
+    .select("qrCode totalPrice")
+    .populate("timeSlot", "startTime endTime")
+    .populate("turf", "name location");
+      console.log(bookings, "bookings");
+    return res.status(200).json(bookings);
+  } catch (error) {}
+};

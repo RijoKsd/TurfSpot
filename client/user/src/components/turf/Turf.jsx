@@ -16,7 +16,7 @@ const Turf = () => {
         turf.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         turf.sportTypes.some((sport) =>
           sport.toLowerCase().includes(searchTerm.toLowerCase())
-        )
+        ) || turf.location.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setFilteredTurfs(filtered);
   };

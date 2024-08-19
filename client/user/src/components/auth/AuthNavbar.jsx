@@ -38,14 +38,14 @@ export default function AuthNavbar() {
               <Link to="/auth">Home</Link>
             </li>
             <li>
-              <Link to="/turfs">Turfs</Link>
+              <Link to="/auth/turfs">Turfs</Link>
             </li>
             <li>
               <Link to="/auth/booking-history">My Bookings</Link>
             </li>
             <li>
               <NavLink
-                to="/become-owner"
+                to="/auth/become-owner"
                 className={({ isActive }) => (isActive ? "text-accent" : "")}
               >
                 Become an Owner
