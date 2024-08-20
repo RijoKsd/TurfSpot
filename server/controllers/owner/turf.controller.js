@@ -4,9 +4,9 @@ import Turf from "../../models/turf.model.js";
 import chalk from "chalk";
 
 export const turfRegister = async (req, res) => {
-   const image = req.file.path;
+  const image = req.file.path;
   const owner = req.owner.id;
-   const errors = validationResult(req);
+  const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ success: false, message: errors.array() });
   }
@@ -29,3 +29,7 @@ export const turfRegister = async (req, res) => {
     return res.status(500).json({ success: false, message: err.message });
   }
 };
+
+// get all turfs by owner id
+
+export const getTurfByOwner = async (req, res) => {};

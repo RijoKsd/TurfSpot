@@ -25,9 +25,6 @@ const verifyOwnerToken = async (req, res, next) => {
         return res.status(403).json({ success: false, message: "Unauthorized" });
     }
     next();
-
-     
-   
   } catch (err) {
     return res.status(500).json(err.message);
   }

@@ -10,7 +10,7 @@ import SignUp from "@pages/SignUp";
 import { AdminLayout, OwnerLayout, GuestLayout } from "@layouts";
 
 //  all the components that are used in the owner dashboard
-import { AddTurf, OwnerDashboard } from "@components/owner";
+import { AddTurf, OwnerDashboard,TurfManagement  } from "@components/owner";
 
 //  all the components that are used in the admin dashboard
 import {
@@ -33,7 +33,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <GuestLayout />,
-    errorElement:  <NotFound />,
+    errorElement: <NotFound />,
     children: [
       {
         path: "",
@@ -88,7 +88,7 @@ const router = createBrowserRouter([
     children: [
       { path: "", element: <OwnerDashboard /> },
       { path: "add-turf", element: <AddTurf /> },
-      // { path: 'turfs', element: <MyTurfsPage /> },
+      { path: "turfs", element: <TurfManagement /> },
       // { path: 'reviews', element: <ReviewsPage /> },
       // { path: 'bookings', element: <BookingsPage /> },
     ],
