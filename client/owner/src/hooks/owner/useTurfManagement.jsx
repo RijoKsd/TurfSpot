@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axiosInstance from "../useAxiosInstance";
-
+ 
 const useTurfManagement = () => {
   const [turfs, setTurfs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -10,9 +10,9 @@ const useTurfManagement = () => {
     setIsLoading(true);
     try {
       // Replace this with your actual API call
-      const response = await fetch("/api/turfs");
-      const data = await response.json();
-      setTurfs(data);
+      const response = await axiosInstance.get("/api/owner/turf/all");
+      const result = await response.data;
+        setTurfs(result);
     } catch (err) {
       setError("Failed to fetch turfs");
     } finally {

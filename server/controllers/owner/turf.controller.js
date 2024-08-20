@@ -32,4 +32,15 @@ export const turfRegister = async (req, res) => {
 
 // get all turfs by owner id
 
-export const getTurfByOwner = async (req, res) => {};
+export const getTurfByOwner = async (req, res) => {
+  const ownerId  = req.owner.id;
+
+  try{
+    const turfs = await Turf.find({owner: ownerId});
+    return res.status(200).json(turfs);
+  }catch(err){
+    console.error("Error getting turfs by ownerId", err);
+    return res.status(500).json({success: false, message: err.message});
+  }
+   
+ };
