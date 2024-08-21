@@ -12,6 +12,7 @@ const useTurfManagement = () => {
       // Replace this with your actual API call
       const response = await axiosInstance.get("/api/owner/turf/all");
       const result = await response.data;
+      console.log(result);
         setTurfs(result);
     } catch (err) {
       setError("Failed to fetch turfs");
@@ -35,21 +36,20 @@ const useTurfManagement = () => {
     }
   };
 
-  const editTurf = async (updatedTurf) => {
-    try {
-      // Replace this with your actual API call
-      const response = await fetch(`/api/turfs/${updatedTurf.id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(updatedTurf),
-      });
-      const editedTurf = await response.json();
-      setTurfs((prev) =>
-        prev.map((turf) => (turf.id === editedTurf.id ? editedTurf : turf))
-      );
-    } catch (err) {
-      setError("Failed to edit turf");
-    }
+  const editTurf = async (updatedTurf, turfId) => {
+     console.log(updatedTurf, "updatedTurf");
+     console.log("id", turfId)
+     try {
+      const response = await axiosInstance.put(`/api/owner/turf/${turfId}`, updatedTurf);
+      const result = await response.data;
+       console.log(result, "result in edit turf");
+       setTurfs(result.allTurfs);
+      
+     } catch (error) {
+       console.log(error, "error in edit turf");
+      
+     }
+      
   };
 
   const deleteTurf = async (id) => {

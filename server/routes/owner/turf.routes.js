@@ -3,6 +3,7 @@ import { validateTurfInput } from "../../middleware/validators/owner/turfValidat
 import {
   turfRegister,
   getTurfByOwner,
+  editTurfById,
 } from "../../controllers/owner/turf.controller.js";
 import upload from "../../middleware/uploads/upload.middleware.js";
 import verifyOwnerToken from "../../middleware/jwt/owner.middleware.js";
@@ -18,6 +19,7 @@ turfRouter.post(
 );
 
 turfRouter.get("/all", verifyOwnerToken, getTurfByOwner);
+turfRouter.put("/:id", verifyOwnerToken,  editTurfById);
 
 
 export default turfRouter;
