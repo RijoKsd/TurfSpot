@@ -1,6 +1,5 @@
 import { Router } from "express";
-import { validateTurfInput } from "../../middleware/validators/owner/turfValidator.js";
-import {
+ import {
   turfRegister,
   getTurfByOwner,
   editTurfById,

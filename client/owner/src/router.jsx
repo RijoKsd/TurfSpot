@@ -10,7 +10,12 @@ import SignUp from "@pages/SignUp";
 import { AdminLayout, OwnerLayout, GuestLayout } from "@layouts";
 
 //  all the components that are used in the owner dashboard
-import { AddTurf, OwnerDashboard,TurfManagement  } from "@components/owner";
+import {
+  AddTurf,
+  OwnerDashboard,
+  TurfManagement,
+  OwnerReviews,
+} from "@components/owner";
 
 //  all the components that are used in the admin dashboard
 import {
@@ -89,7 +94,7 @@ const router = createBrowserRouter([
       { path: "", element: <OwnerDashboard /> },
       { path: "add-turf", element: <AddTurf /> },
       { path: "turfs", element: <TurfManagement /> },
-      // { path: 'reviews', element: <ReviewsPage /> },
+      { path: "reviews", element: <OwnerReviews /> },
       // { path: 'bookings', element: <BookingsPage /> },
     ],
   },
