@@ -2,14 +2,14 @@ import User from "../../models/user.model.js";
 import Turf from "../../models/turf.model.js";
 import Booking from "../../models/booking.model.js";
 import OwnerRequest from "../../models/ownerRequest.model.js";
+import Owner from "../../models/owner.model.js";
 
 const getDashboard = async (req, res) => {
-  console.log("getDashboard");
-  try {
+   try {
     // Get only the count
 
     const totalUsers = await User.countDocuments();
-    const totalOwners = await OwnerRequest.countDocuments();
+    const totalOwners = await Owner.countDocuments({ role: "owner" });
     const totalTurfs = await Turf.countDocuments();
     const totalBookings = await Booking.countDocuments();
     const pendingRequests = await OwnerRequest.countDocuments({

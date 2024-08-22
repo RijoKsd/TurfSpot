@@ -157,5 +157,8 @@ export const getBookings = async (req, res) => {
     .populate("turf", "name location");
       console.log(bookings, "bookings");
     return res.status(200).json(bookings);
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: error.message });
+  }
 };

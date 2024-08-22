@@ -1,7 +1,7 @@
- import { Edit2, Trash2, Clock, MapPin, Tag } from "lucide-react";
+import React from "react";
+import { Edit2, Trash2, Clock, MapPin, Tag, Star } from "lucide-react";
 
 const TurfCard = ({ turf, onEdit }) => {
- 
   return (
     <div className="card bg-base-100 shadow-xl h-full">
       <figure className="px-4 pt-4">
@@ -12,7 +12,15 @@ const TurfCard = ({ turf, onEdit }) => {
         />
       </figure>
       <div className="card-body p-4">
-        <h2 className="card-title text-lg">{turf.name}</h2>
+        <div className="flex justify-between items-center">
+          <h2 className="card-title text-lg">{turf.name}</h2>
+          <div className="flex items-center">
+            <Star size={16} className="text-yellow-400 mr-1" />
+            <span className="text-sm font-semibold">
+              {turf.avgRating ? turf.avgRating.toFixed(1) : "N/A"}
+            </span>
+          </div>
+        </div>
         <p className="text-sm">{turf.description}</p>
         <div className="flex items-center mt-2 text-sm">
           <MapPin size={14} className="mr-2" />
@@ -28,18 +36,20 @@ const TurfCard = ({ turf, onEdit }) => {
             {turf.openTime} - {turf.closeTime}
           </span>
         </div>
-        <div className="flex flex-wrap  gap-2">
-          {turf.sportTypes.map((sports, index) => (
+        <div className="flex flex-wrap gap-2">
+          {turf.sportTypes.map((sport, index) => (
             <div key={index} className="badge badge-accent mt-2">
-              {sports}
+              {sport}
             </div>
           ))}
         </div>
         <div className="card-actions justify-end mt-4">
-          <button className="btn btn-primary btn-sm" onClick={onEdit}>
+          <button
+            className="btn btn-primary btn-sm"
+            onClick={() => onEdit(turf)}
+          >
             <Edit2 size={14} className="mr-1" /> Edit
           </button>
-           
         </div>
       </div>
     </div>

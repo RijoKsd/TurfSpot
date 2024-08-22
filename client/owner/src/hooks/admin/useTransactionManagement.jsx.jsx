@@ -13,8 +13,7 @@ const useTransactionManagement = (initialTransactions) => {
   });
 
   useEffect(() => {
-    console.log("Initial transactions:", initialTransactions);
-    setTransactions(initialTransactions || []);
+     setTransactions(initialTransactions || []);
   }, [initialTransactions]);
 
   const handleFilterChange = (e) => {
@@ -32,9 +31,7 @@ const useTransactionManagement = (initialTransactions) => {
   };
 
   const filteredAndSortedTransactions = useMemo(() => {
-    console.log("Filtering and sorting transactions");
-    console.log("Current filters:", filters);
-    console.log("Current sort:", sortField, sortDirection);
+ 
 
     try {
       const filtered = transactions.filter((transaction) => {
@@ -73,8 +70,7 @@ const useTransactionManagement = (initialTransactions) => {
         return 0;
       });
 
-      console.log("Filtered and sorted transactions:", sorted);
-      return sorted;
+       return sorted;
     } catch (error) {
       console.error("Error in filtering and sorting:", error);
       return [];

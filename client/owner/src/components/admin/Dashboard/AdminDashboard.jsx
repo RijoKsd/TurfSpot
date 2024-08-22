@@ -15,8 +15,7 @@ import { useState } from "react";
 
 const AdminDashboard = () => {
  const { data, loading, error } = useDashboardData();
- console.log(loading, "loading")
- const [selectedTimeRange, setSelectedTimeRange] = useState("30");
+  const [selectedTimeRange, setSelectedTimeRange] = useState("30");
 
  if (loading)  {
    return <AdminDashboardSkeleton />;

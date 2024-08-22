@@ -2,6 +2,7 @@ import { validationResult } from "express-validator";
 import cloudinary from "../../utils/cloudinary.js";
 import Turf from "../../models/turf.model.js";
 import chalk from "chalk";
+import Review from "../../models/review.model.js"
 
 export const turfRegister = async (req, res) => {
   const image = req.file.path;
@@ -25,7 +26,7 @@ export const turfRegister = async (req, res) => {
       .status(201)
       .json({ success: true, message: "Turf created successfully" });
   } catch (err) {
-    console.log(chalk.red(err.message));
+    console.error(chalk.red(err.message));
     return res.status(500).json({ success: false, message: err.message });
   }
 };
@@ -37,7 +38,26 @@ export const getTurfByOwner = async (req, res) => {
 
   try {
     const turfs = await Turf.find({ owner: ownerId });
-    return res.status(200).json(turfs);
+
+    // get all reviews by turf id of owner
+    const turfsWithAvgRating = await Promise.all(
+      turfs.map(async (turf) => {
+        const reviewCount = turf.reviews.length;
+        const avgRating =
+          reviewCount > 0
+            ? await Review.aggregate([
+                { $match: { turf: turf._id } },
+                { $group: { _id: null, avgRating: { $avg: "$rating" } } },
+              ])
+            : 0;
+        return {
+          ...turf.toObject(),
+          avgRating: avgRating[0] ? avgRating[0].avgRating : 0,
+        };
+      })
+    );
+ 
+    return res.status(200).json(turfsWithAvgRating);
   } catch (err) {
     console.error("Error getting turfs by ownerId", err);
     return res.status(500).json({ success: false, message: err.message });
@@ -54,9 +74,7 @@ export const editTurfById = async (req, res) => {
   if (req.body.sportsType) {
     sportTypes.push(sportsType);
   }
-
-  console.log(chalk.magentaBright(sportTypes), "sportTypes");
-  console.log(chalk.magentaBright(sportsType), "sportsType");
+ 
 
   const updatedTurfData = {
     ...otherDetails,

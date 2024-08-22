@@ -1,29 +1,30 @@
-import {  Clock, MapPin, IndianRupee, Calendar } from "lucide-react";
+import { Clock, MapPin, IndianRupee, Calendar } from "lucide-react";
 import useBookingHistory from "../../hooks/useBookingHistory";
 import useWriteReview from "../../hooks/useWriteReview";
 import TurfBookingHistorySkeleton from "../../components/ui/TurfBookingHistorySkeleton";
-import WriteReview from  "../../components/reviews/WriteReview"
+import WriteReview from "../../components/reviews/WriteReview";
 
 const TurfBookingHistory = () => {
   const { loading, bookings } = useBookingHistory();
-   const {
-     isReviewModalOpen,
-     rating,
-     review,
-     isSubmitting,
-     openReviewModal,
-     closeReviewModal,
-     handleRatingChange,
-     handleReviewChange,
-     submitReview,
-    } = useWriteReview();
+  console.log(bookings, "bookings");
+  const {
+    isReviewModalOpen,
+    rating,
+    review,
+    isSubmitting,
+    openReviewModal,
+    closeReviewModal,
+    handleRatingChange,
+    handleReviewChange,
+    submitReview,
+  } = useWriteReview();
 
   if (loading) {
     return <TurfBookingHistorySkeleton />;
   }
- 
+
   return (
-    <div className="container mx-auto p-4 bg-base-200 min-h-screen" >
+    <div className="container mx-auto p-4 bg-base-200 min-h-screen">
       <h1 className="text-3xl font-bold text-center mb-8">
         Your Turf Booking History
       </h1>
@@ -78,7 +79,7 @@ const TurfBookingHistory = () => {
           onRatingChange={handleRatingChange}
           onReviewChange={handleReviewChange}
           onSubmit={submitReview}
-         />
+        />
       )}
     </div>
   );
