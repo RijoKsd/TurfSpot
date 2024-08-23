@@ -15,6 +15,7 @@ import {
   OwnerDashboard,
   TurfManagement,
   OwnerReviews,
+  OwnerBookings,
 } from "@components/owner";
 
 //  all the components that are used in the admin dashboard
@@ -95,7 +96,7 @@ const router = createBrowserRouter([
       { path: "add-turf", element: <AddTurf /> },
       { path: "turfs", element: <TurfManagement /> },
       { path: "reviews", element: <OwnerReviews /> },
-      // { path: 'bookings', element: <BookingsPage /> },
+      { path: "bookings", element: <OwnerBookings /> },
     ],
   },
 ]);
