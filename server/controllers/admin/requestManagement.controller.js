@@ -51,7 +51,7 @@ export const approveOwnerRequest = async (req, res) => {
         <h1 style="color: #4CAF50;">Your request to become an owner has been approved</h1>
         <p>Congratulations! You can now create your account by clicking the button below:</p>
         <button style="background-color: #4CAF50; border: none; padding: 10px 20px; text-align: center; display: inline-block; margin: 10px 0; cursor: pointer; border-radius: 5px;">
-            <a href=${process.env.OWNER_URL} style="color: white; text-decoration: none; font-size: 16px;">Create your account</a>
+            <a href="${process.env.OWNER_URL}" style="color: white; text-decoration: none; font-size: 16px;">Create your account</a>
         </button>
     </div>
 `;
