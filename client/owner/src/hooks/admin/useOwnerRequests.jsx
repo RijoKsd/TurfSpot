@@ -73,8 +73,7 @@ const useOwnerRequests = () => {
         `/api/admin/owner-requests/${id}/accept`
       );
       const result = await response.data;
-      console.log(result, "result");
-      toast.success(result.message);
+       toast.success(result.message);
       setRequests(requests.filter((request) => request._id !== id));
     } catch (err) {
       console.error(err);

@@ -10,7 +10,7 @@ const UserPage = () => {
   if (loading) return <UserSkeleton />;
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-2  ">
       <h1 className="text-3xl font-bold mb-6 text-center text-primary">
         User Management
       </h1>

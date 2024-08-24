@@ -18,8 +18,7 @@ const useOwnerDashboard = () => {
       try {
         setLoading(true);
         const response = await axiosInstance.get("/api/owner/dashboard");
-        console.log("Dashboard data:", response.data);
-        setDashboardData(response.data);
+         setDashboardData(response.data);
         setLoading(false);
       } catch (err) {
         console.error("Error fetching dashboard data:", err);

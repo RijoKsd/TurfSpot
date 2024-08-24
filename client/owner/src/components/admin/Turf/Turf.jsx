@@ -12,7 +12,7 @@ const Turf = ({ turf }) => {
           className="w-full h-full object-cover"
         />
         <div className="absolute top-0 right-0 bg-base-100 text-primary font-semibold px-3 py-1 m-2 rounded-full">
-          ${turf.pricePerHour}/hr
+          ₹{turf.pricePerHour}/hr
         </div>
       </figure>
       <div className="card-body p-4 sm:p-6">

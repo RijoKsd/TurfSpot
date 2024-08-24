@@ -5,6 +5,7 @@ import * as yup from "yup";
 import { format } from "date-fns";
 import toast from "react-hot-toast";
 import axiosInstance from "../useAxiosInstance";
+import { useNavigate } from "react-router-dom";
 
 const addTurfSchema = yup.object().shape({
   name: yup
@@ -22,7 +23,8 @@ const addTurfSchema = yup.object().shape({
   pricePerHour: yup
     .number()
     .required("Enter the price per hour of the turf")
-    .min(500, "Price per hour must be at least 500 rupees"),
+    .min(500, "Price per hour must be at least 500 rupees")
+    .max(3000, "Price per hour must be at most 3000 rupees"),
   image: yup
     .mixed()
     .test(
@@ -48,6 +50,7 @@ const addTurfSchema = yup.object().shape({
 
 export default function useAddTurf() {
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -109,8 +112,7 @@ export default function useAddTurf() {
     });
 
     for (let [key, value] of formData.entries()) {
-      console.log(key, value);
-    }
+     }
     try {
       const response = await axiosInstance.post(
         "/api/owner/turf/register",
@@ -121,11 +123,10 @@ export default function useAddTurf() {
           },
         }
       );
-      console.log("hit");
-      const result = await response.data;
+       const result = await response.data;
       toast.success(result.message);
-      console.log(result);
-    } catch (error) {
+      navigate("/owner/turfs");
+     } catch (error) {
       if (error.response) {
         toast.error(error.response?.data?.message);
       } else if (error.request) {

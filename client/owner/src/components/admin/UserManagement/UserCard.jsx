@@ -5,11 +5,11 @@ import Avatar from "react-avatar";
 
 const UserCard = ({ user }) => {
   return (
-    <div className="card bg-base-100 shadow-xl">
+    <div className="card bg-base-100 shadow-xl  ">
       <div className="card-body">
         <div className="flex items-center mb-4">
           <div className="avatar placeholder mr-4">
-            <div className="bg-neutral-focus text-neutral-content rounded-full w-12">
+            <div className="bg-neutral-focus text-neutral-content rounded-full w-12 ">
               <Avatar name={user.name} size={40} round={true} />
             </div>
           </div>

@@ -5,7 +5,7 @@ import { Controller } from "react-hook-form";
 import { setHours, setMinutes } from "date-fns";
 import { FormField } from "@components/common";
 import useAddTurf from "@hooks/owner/useAddTurf";
-
+import { Button } from "@components/common";
 const AddTurf = () => {
   const {
     register,
@@ -20,6 +20,7 @@ const AddTurf = () => {
     addSportType,
     removeSportType,
     openTime,
+    loading,
   } = useAddTurf();
 
   return (
@@ -187,9 +188,9 @@ const AddTurf = () => {
           </div>
         </div>
         <div className="md:col-span-2">
-          <button type="submit" className="btn btn-primary w-full">
+          <Button type="submit" className=" btn-primary w-full" loading={loading}>
             Add Turf
-          </button>
+          </Button>
         </div>
       </form>
     </div>

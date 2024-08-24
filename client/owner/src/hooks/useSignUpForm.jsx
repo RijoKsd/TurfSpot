@@ -50,9 +50,7 @@ const useSignUpForm = () => {
   });
 
   const onSubmit = async (data) => {
-    console.log(data, "data");
-    setLoading(true);
-
+     setLoading(true);
     try {
       const response = await axiosInstance.post(
         "/api/owner/auth/register",

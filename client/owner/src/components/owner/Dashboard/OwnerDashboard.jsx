@@ -30,8 +30,6 @@ const OwnerDashboard = () => {
     revenueOverTime,
   } = dashboardData;
 
-  console.log(bookingsPerTurf, "bookingsPerTurf");
-
   // Prepare data for Revenue Over Time chart
   const revenueChartData = revenueOverTime.map((item) => ({
     date: new Date(item._id).toLocaleDateString(),
