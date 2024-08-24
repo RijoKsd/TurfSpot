@@ -27,7 +27,7 @@ const AddTurf = () => {
       <h1 className="text-2xl font-bold mb-4">Add New Turf</h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="grid md:grid-cols-2 gap-4"
+        className="md:grid md:grid-cols-2 gap-4"
       >
         <div className="space-y-4">
           <FormField
@@ -149,18 +149,18 @@ const AddTurf = () => {
             <label className="label">
               <span className="label-text">Sport Types</span>
             </label>
-            <div className="flex space-x-2">
+            <div className="md:flex md:space-x-2">
               <input
                 type="text"
                 value={newSportType}
                 onChange={(e) => setNewSportType(e.target.value)}
-                className="input input-bordered flex-grow"
+                className="input input-bordered md:flex-grow w-full "
                 placeholder="Add a sport type"
               />
               <button
                 type="button"
                 onClick={addSportType}
-                className="btn btn-primary"
+                className="btn btn-outline btn-primary max-sm:mt-2"
               >
                 Add
               </button>

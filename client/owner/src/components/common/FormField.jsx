@@ -16,10 +16,6 @@
   </div>
 );
 
-//  const Form = ({ children }) => {
-//   return <div className="form-control">{children}</div>;
-// };
- 
-// export { FormField, Form };
+
 
 export default FormField;
