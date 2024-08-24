@@ -1,4 +1,3 @@
-import React from 'react';
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
@@ -12,7 +11,9 @@ const EditTurfForm = ({ turf, onSave, onCancel, turfId }) => {
    description: Yup.string(),
    pricePerHour: Yup.number()
      .required("Price per Hour is required")
-     .positive("Price per Hour must be a positive number"),
+     .positive("Price per Hour must be a positive number")
+     .min(500, "Price per Hour must be greater than 500")
+     .max(10000, "Price per Hour must be less than 10000"),
    location: Yup.string().required("Location is required"),
     openTime: Yup.date().required("Open Time is required"),
    closeTime: Yup.date()
