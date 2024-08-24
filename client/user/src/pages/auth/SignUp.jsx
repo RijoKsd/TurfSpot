@@ -8,7 +8,7 @@ const SignUp = () => {
   return (
     <div className="flex items-center justify-center min-h-screen">
       <div className="card w-96 bg-base-100 shadow-xl border">
-        <div className="card-body">
+        <div className="card-body p-4">
           <h2 className="card-title justify-center">Sign Up</h2>
           <form onSubmit={handleSubmit(onSubmit)}>
             <FormField
