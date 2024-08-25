@@ -1,9 +1,11 @@
+import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 import useTurfData from "../../hooks/useTurfData";
 import useReviews from "../../hooks/useReviews";
 import Reviews from "../reviews/Reviews";
 import TurfDetailsSkeleton from "../ui/TurfDetailsSkeleton";
-import { useSelector } from "react-redux";
+import { MapPin, Clock, Activity, IndianRupee } from "lucide-react";
 
 const TurfDetails = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
@@ -40,6 +42,7 @@ const TurfDetails = () => {
       </div>
     );
   }
+
   const handleReservation = () => {
     if (isLoggedIn) {
       navigate(`/auth/reserve/${id}`);
@@ -50,76 +53,98 @@ const TurfDetails = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 h-full">
-        <div className="flex flex-col h-full">
-          <div className="card bg-base-100 shadow-xl flex-grow">
-            <figure className="h-full">
-              <img
-                src={turf.image || "/api/placeholder/800/600"}
-                alt={turf.name}
-                className="w-full h-full object-cover"
-              />
-            </figure>
-          </div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="card bg-base-100 shadow-xl">
+          <figure className="relative h-96 w-full">
+            <img
+              src={turf.image || "/banner-1.png"}
+              alt={turf.name}
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
+              <h2 className="card-title text-3xl text-white">{turf.name}</h2>
+              <div className="flex items-center space-x-2 text-white">
+                <MapPin className="w-4 h-4" />
+                <p className="text-sm">{turf.location}</p>
+              </div>
+            </div>
+          </figure>
         </div>
-        <div className="flex flex-col h-full">
-          <div className="card bg-base-100 shadow-xl flex-grow">
-            <div className="card-body flex flex-col justify-between">
-              <div>
-                <div className="flex items-center space-x-2 mb-2">
-                  <h2 className="card-title text-2xl">{turf.name}</h2>
-                  <div className="rating rating-sm">
-                    {averageRating ? (
-                      [1, 2, 3, 4, 5].map((star) => (
-                        <input
-                          key={star}
-                          type="radio"
-                          name="rating-2"
-                          className="mask mask-star-2 bg-orange-400"
-                          checked={star === averageRating}
-                          readOnly
-                        />
-                      ))
-                    ) : (
-                      <p className="text-sm opacity-70 ">No reviews yet</p>
-                    )}
-                  </div>
-                </div>
-                <p className="text-sm opacity-70 mb-4">{turf.location}</p>
-                <p className="mb-6">{turf.description}</p>
-                <div className="grid grid-cols-2 gap-4 mb-6">
-                  <InfoItem
-                    label="Price per Hour"
-                    value={`$${turf.pricePerHour}`}
-                  />
-                  <InfoItem label="Sports" value={turf.sportTypes.join(", ")} />
-                  <InfoItem label="Open Time" value={turf.openTime} />
-                  <InfoItem label="Close Time" value={turf.closeTime} />
-                </div>
+        <div className="card bg-base-100 shadow-xl">
+          <div className="card-body">
+            <div className="flex items-center space-x-2 mb-4">
+              <h3 className="text-2xl font-bold">Rating</h3>
+              <div className="rating rating-md">
+                {averageRating ? (
+                  [1, 2, 3, 4, 5].map((star) => (
+                    <input
+                      key={star}
+                      type="radio"
+                      name="rating-2"
+                      className="mask mask-star-2 bg-orange-400"
+                      checked={star === Math.round(averageRating)}
+                      readOnly
+                    />
+                  ))
+                ) : (
+                  <p className="text-sm opacity-70">No reviews yet</p>
+                )}
               </div>
-              <div className="card-actions">
-                <button
-                  className="btn btn-primary w-full"
-                  onClick={handleReservation}
-                >
-                  Reserve Now
-                </button>
-              </div>
+              {averageRating && (
+                <span className="text-lg">({averageRating.toFixed(1)})</span>
+              )}
+            </div>
+            <p className="text-lg mb-6">{turf.description}</p>
+            <div className="grid grid-cols-2 gap-6 mb-6">
+              <InfoItem
+                icon={<IndianRupee />}
+                label="Price per Hour"
+                value={`₹ ${turf.pricePerHour}`}
+              />
+              <InfoItem
+                icon={<Activity />}
+                label="Sports"
+                value={turf.sportTypes.join(", ")}
+              />
+              <InfoItem
+                icon={<Clock />}
+                label="Open Time"
+                value={turf.openTime}
+              />
+              <InfoItem
+                icon={<Clock />}
+                label="Close Time"
+                value={turf.closeTime}
+              />
+            </div>
+            <div className="card-actions">
+              <button
+                className="btn btn-primary btn-lg w-full"
+                onClick={handleReservation}
+              >
+                Reserve Now
+              </button>
             </div>
           </div>
         </div>
       </div>
-      <div className="mt-8 ">
+      <div className="mt-12">
+        <h3 className="text-2xl font-bold mb-6">Reviews</h3>
         <Reviews turfId={id} />
       </div>
     </div>
   );
 };
 
-const InfoItem = ({ label, value }) => (
-  <div className="space-y-1">
-    <p className="text-sm font-semibold">{label}</p>
-    <p className="text-lg">{value}</p>
+const InfoItem = ({ icon, label, value }) => (
+  <div className="flex items-center space-x-3">
+    <div className="bg-primary bg-opacity-10 p-3 rounded-full">
+      {React.cloneElement(icon, { className: "w-6 h-6 text-primary" })}
+    </div>
+    <div>
+      <p className="text-sm font-semibold text-gray-500">{label}</p>
+      <p className="text-lg font-medium">{value}</p>
+    </div>
   </div>
 );
 

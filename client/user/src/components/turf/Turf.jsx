@@ -1,4 +1,4 @@
-import   { useState } from "react";
+import { useState } from "react";
 import TurfCard from "./TurfCard.jsx";
 import TurfCardSkeleton from "../ui/TurfCardSkeleton.jsx";
 import useTurfData from "../../hooks/useTurfData.jsx";
@@ -8,15 +8,14 @@ const Turf = () => {
   const { turfs, loading, error } = useTurfData();
   const [filteredTurfs, setFilteredTurfs] = useState(turfs);
 
- 
-
   const handleSearch = (searchTerm) => {
     const filtered = turfs.filter(
       (turf) =>
         turf.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         turf.sportTypes.some((sport) =>
           sport.toLowerCase().includes(searchTerm.toLowerCase())
-        ) || turf.location.toLowerCase().includes(searchTerm.toLowerCase())
+        ) ||
+        turf.location.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setFilteredTurfs(filtered);
   };

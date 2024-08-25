@@ -30,7 +30,7 @@ const Home = () => {
               got you covered.
             </p>
             <Link
-              to={isLoggedIn ? "/auth/turfs" : "/turfs"}
+              to={isLoggedIn ? "/auth/turfs" : "/signup"}
               className="btn btn-accent"
             >
               Get Started
@@ -38,7 +38,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className="container mx-auto py-12 px-12">
+      <div className="container mx-auto  p-4">
         <h2 className="text-3xl font-bold mb-6">Featured Turfs</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {loading
