@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axiosInstance from "./useAxiosInstance";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const useWriteReview = () => {
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
@@ -8,6 +9,7 @@ const useWriteReview = () => {
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate();
 
   const openReviewModal = (bookingId) => {
     setTurfId(bookingId);
@@ -43,7 +45,7 @@ const useWriteReview = () => {
       const result = await response.data;
       toast.success(result.message);
       closeReviewModal();
-      // You might want to trigger a refresh of the bookings here
+      navigate(`/auth/turf/${turfId}`);
     } catch (err) {
       console.error(err);
     } finally {

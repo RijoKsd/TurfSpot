@@ -3,6 +3,7 @@ import TimeSelection from "./TimeSelection";
 import DurationSelection from "./DurationSelection";
 import ReservationSummary from "./ReservationSummary";
 import useReservation from "../../hooks/useReservation";
+import ReservationSkeleton from "../ui/ReservationSkeleton";
 
 const Reservation = () => {
   const {
@@ -20,6 +21,8 @@ const Reservation = () => {
     confirmReservation,
     loading,
   } = useReservation();
+
+if( loading) return <ReservationSkeleton />;
 
   return (
     <div className="container mx-auto px-4 py-8">

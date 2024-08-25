@@ -4,6 +4,7 @@ import * as yup from "yup";
 import axiosInstance from "./useAxiosInstance";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const becomeOwnerSchema = yup.object().shape({
   name: yup.string().required("Name is required"),
@@ -24,6 +25,7 @@ const becomeOwnerSchema = yup.object().shape({
 
 const useBecomeOwner = () => {
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
      const {
        register,
        handleSubmit,
@@ -39,6 +41,7 @@ const useBecomeOwner = () => {
             );
             const result = await response.data;
              toast.success(result.message);
+             navigate("/auth")
          } catch (error) {
            if(error.response){
              toast.error(error.response?.data?.message);

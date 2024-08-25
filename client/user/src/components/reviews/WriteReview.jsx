@@ -61,7 +61,7 @@ const WriteReview = ({
               onChange={onReviewChange}
               placeholder="Write your review here..."
               title="Please enter your review"
-              required
+              
             ></textarea>
           
           </div>
