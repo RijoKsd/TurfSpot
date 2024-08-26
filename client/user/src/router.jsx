@@ -9,12 +9,13 @@ import BecomeOwner from "./features/becomeOwner/BecomeOwner";
 import ProtectedLayout from "./layouts/ProtectedLayout";
 import Reservation from "./components/Reservation";
 import TurfBookingHistory from "./components/turf/TurfBookingHistory";
+import NotFound from "./components/common/NotFound";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
-    // errorElement: <div>Error</div>,
+    errorElement: <NotFound />,
     children: [
       {
         path: "",
@@ -58,7 +59,7 @@ const router = createBrowserRouter([
 
       {
         path: "reserve/:id",
-         element: <Reservation />,
+        element: <Reservation />,
       },
       {
         path: "become-owner",

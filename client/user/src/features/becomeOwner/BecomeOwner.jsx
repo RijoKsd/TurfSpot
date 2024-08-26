@@ -6,7 +6,7 @@ const BecomeOwner = () => {
   const { register, handleSubmit, errors, onSubmit, loading } =
     useBecomeOwner();
   return (
-    <div className="container mx-auto mt-20 p-4">
+    <div className="container mx-auto mt-20  p-2">
       <h1 className="text-3xl font-bold mb-8 text-center">
         Become a Turf Owner
       </h1>
@@ -19,6 +19,7 @@ const BecomeOwner = () => {
               type="text"
               register={register}
               error={errors.name}
+              
             />
             <FormField
               label="Email"
