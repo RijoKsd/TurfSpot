@@ -62,7 +62,7 @@ const AdminSidebar = ({ isOpen, toggleSidebar, className }) => {
                   to={subItem.to}
                   className={`flex items-center px-4 py-2 text-sm ${
                     location.pathname === subItem.to
-                      ? "bg-primary text-primary-content"
+                      ? "bg-accent text-accent-content"
                       : "hover:bg-base-300"
                   }`}
                   onClick={() => {
@@ -86,7 +86,7 @@ const AdminSidebar = ({ isOpen, toggleSidebar, className }) => {
         to={item.to}
         className={`flex items-center px-4 py-2 text-sm ${
           location.pathname === item.to
-            ? "bg-primary text-primary-content"
+            ? "bg-accent text-accent-content"
             : "hover:bg-base-300"
         }`}
         onClick={() => {
@@ -103,9 +103,9 @@ const AdminSidebar = ({ isOpen, toggleSidebar, className }) => {
 
   return (
     <aside
-      className={`${className} bg-base-200 overflow-y-auto fixed lg:static 
-            w-64  transition-transform duration-300 ease-in-out z-30 lg:z-0
-            min-h-screen`}
+      className={`${className} bg-base-200 overflow-y-auto fixed lg:static
+          w-64 transition-transform duration-300 ease-in-out z-30 lg:z-0
+          min-h-screen`}
     >
       <div className="flex items-center justify-between p-4 border-b">
         <span className="text-xl font-semibold">Admin Dashboard</span>

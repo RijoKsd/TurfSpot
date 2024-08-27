@@ -18,7 +18,6 @@ const useTurfData = () => {
         `/api/admin/owners/${ownerId}/turf`
       );
       const result = await response.data;
-      console.log(result, "result");
       setTurfData(result.turfs);
      } catch (err) {
       console.log(err);
