@@ -30,8 +30,11 @@ const TurfBookingHistory = () => {
       </h1>
       <div className="space-y-6 mx-auto lg:w-1/2">
         {bookings.map((booking) => (
-          <div key={booking._id} className="card bg-base-100 shadow-xl">
-            <div className="card-body">
+          <div
+            key={booking._id}
+            className="card bg-base-100 shadow-xl animate-bounce-fade-in"
+          >
+            <div className="card-body ">
               <h2 className="card-title text-2xl mb-4">{booking.turf.name}</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">

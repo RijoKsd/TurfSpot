@@ -53,13 +53,13 @@ const TurfDetails = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div className="card bg-base-100 shadow-xl">
-          <figure className="relative h-96 w-full">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 animate-slide-in-left">
+        <div className="card bg-base-100 shadow-xl   ">
+          <figure className="relative h-96 w-full ">
             <img
               src={turf.image || "/banner-1.png"}
               alt={turf.name}
-              className="w-full h-full object-cover"
+              className="w-full h-full  object-cover"
             />
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
               <h2 className="card-title text-3xl text-white">{turf.name}</h2>

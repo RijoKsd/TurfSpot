@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const TurfCard = ({ turf }) => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   return (
-    <div className="card bg-base-100 shadow-xl">
+    <div className="card bg-base-100 shadow-xl animate-bounce-fade-in">
       <figure>
         <img
           src={turf.image}
@@ -25,7 +25,10 @@ const TurfCard = ({ turf }) => {
           Open: {turf.openTime} - {turf.closeTime}
         </p>
         <div className="card-actions justify-end mt-4">
-          <Link to={isLoggedIn ? `/auth/turf/${turf._id}` : `/turf/${turf._id}`} className="btn btn-primary">
+          <Link
+            to={isLoggedIn ? `/auth/turf/${turf._id}` : `/turf/${turf._id}`}
+            className="btn btn-primary"
+          >
             View Details
           </Link>
         </div>
