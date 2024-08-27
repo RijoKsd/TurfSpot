@@ -31,7 +31,7 @@ export const AllTurf = () => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
       {turfData.map((turf) => (
-        <Turf key={turf.id} turf={turf} />
+        <Turf key={turf._id} turf={turf} />
       ))}
     </div>
   );

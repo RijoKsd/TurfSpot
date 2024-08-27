@@ -1,13 +1,12 @@
 import { Link } from "react-router-dom";
 
-import { Carousel,Footer } from "@components/common";
+import { Carousel, Footer } from "@components/common";
 
 import banner1 from "/banner-1.png";
 import banner2 from "/banner-2.jpeg";
 import banner3 from "/banner-3.jpeg";
 
 const Home = () => {
-
   const slides = [banner1, banner2, banner3];
 
   return (
@@ -24,11 +23,13 @@ const Home = () => {
               you&#39;re planning a casual game or a tournament, TurfSpot has
               got you covered.
             </p>
-            <Link to="/login" className="btn btn-accent">Login</Link>
+            <Link to="/login" className="btn btn-accent">
+              Login
+            </Link>
           </div>
         </div>
       </div>
-     
+
       <Footer />
     </div>
   );

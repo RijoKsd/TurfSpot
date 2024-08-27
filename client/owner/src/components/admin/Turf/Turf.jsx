@@ -1,5 +1,5 @@
 import React from "react";
-import { MapPin, Clock, DollarSign, Star, Calendar } from "lucide-react";
+import { MapPin, Clock, Star, Calendar } from "lucide-react";
 import { format } from "date-fns";
 
 const Turf = ({ turf }) => {
@@ -33,7 +33,7 @@ const Turf = ({ turf }) => {
           </div>
           <div className="flex items-center">
             <Star size={18} className="mr-2 text-primary" />
-            <span>{turf.reviewStars} stars</span>
+            <span>{turf.avgRating} ratings</span>
           </div>
           <div className="flex items-center">
             <Calendar size={18} className="mr-2 text-primary" />
