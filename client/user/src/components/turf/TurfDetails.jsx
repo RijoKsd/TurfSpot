@@ -54,77 +54,75 @@ const TurfDetails = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 animate-slide-in-left">
-        <div className="card bg-base-100 shadow-xl   ">
-          <figure className="relative h-96 w-full ">
+        <div className="bg-base-100 shadow-xl rounded-lg overflow-hidden">
+          <div className="relative h-96">
             <img
               src={turf.image || "/banner-1.png"}
               alt={turf.name}
-              className="w-full h-full  object-cover"
+              className="w-full h-full object-cover"
             />
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
-              <h2 className="card-title text-3xl text-white">{turf.name}</h2>
+              <h2 className="text-3xl font-bold text-white">{turf.name}</h2>
               <div className="flex items-center space-x-2 text-white">
                 <MapPin className="w-4 h-4" />
                 <p className="text-sm">{turf.location}</p>
               </div>
             </div>
-          </figure>
+          </div>
         </div>
-        <div className="card bg-base-100 shadow-xl">
-          <div className="card-body">
-            <div className="flex items-center space-x-2 mb-4">
-              <h3 className="text-2xl font-bold">Rating</h3>
-              <div className="rating rating-md">
-                {averageRating ? (
-                  [1, 2, 3, 4, 5].map((star) => (
-                    <input
-                      key={star}
-                      type="radio"
-                      name="rating-2"
-                      className="mask mask-star-2 bg-orange-400"
-                      checked={star === Math.round(averageRating)}
-                      readOnly
-                    />
-                  ))
-                ) : (
-                  <p className="text-sm opacity-70">No reviews yet</p>
-                )}
-              </div>
-              {averageRating && (
-                <span className="text-lg">({averageRating.toFixed(1)})</span>
+        <div className="bg-base-100 shadow-xl rounded-lg p-6">
+          <div className="flex items-center space-x-2 mb-4">
+            <h3 className="text-2xl font-bold">Rating</h3>
+            <div className="rating rating-md">
+              {averageRating ? (
+                [1, 2, 3, 4, 5].map((star) => (
+                  <input
+                    key={star}
+                    type="radio"
+                    name="rating-2"
+                    className="mask mask-star-2 bg-orange-400"
+                    checked={star === Math.round(averageRating)}
+                    readOnly
+                  />
+                ))
+              ) : (
+                <p className="text-sm opacity-70">No reviews yet</p>
               )}
             </div>
-            <p className="text-lg mb-6">{turf.description}</p>
-            <div className="grid grid-cols-2 gap-6 mb-6">
-              <InfoItem
-                icon={<IndianRupee />}
-                label="Price per Hour"
-                value={`₹ ${turf.pricePerHour}`}
-              />
-              <InfoItem
-                icon={<Activity />}
-                label="Sports"
-                value={turf.sportTypes.join(", ")}
-              />
-              <InfoItem
-                icon={<Clock />}
-                label="Open Time"
-                value={turf.openTime}
-              />
-              <InfoItem
-                icon={<Clock />}
-                label="Close Time"
-                value={turf.closeTime}
-              />
-            </div>
-            <div className="card-actions">
-              <button
-                className="btn btn-primary btn-lg w-full"
-                onClick={handleReservation}
-              >
-                Reserve Now
-              </button>
-            </div>
+            {averageRating && (
+              <span className="text-lg">({averageRating.toFixed(1)})</span>
+            )}
+          </div>
+          <p className="text-lg mb-6">{turf.description}</p>
+          <div className="grid grid-cols-2 gap-6 mb-6">
+            <InfoItem
+              icon={<IndianRupee />}
+              label="Price per Hour"
+              value={`₹ ${turf.pricePerHour}`}
+            />
+            <InfoItem
+              icon={<Activity />}
+              label="Sports"
+              value={turf.sportTypes.join(", ")}
+            />
+            <InfoItem
+              icon={<Clock />}
+              label="Open Time"
+              value={turf.openTime}
+            />
+            <InfoItem
+              icon={<Clock />}
+              label="Close Time"
+              value={turf.closeTime}
+            />
+          </div>
+          <div className="card-actions">
+            <button
+              className="btn btn-primary btn-lg w-full"
+              onClick={handleReservation}
+            >
+              Reserve Now
+            </button>
           </div>
         </div>
       </div>
