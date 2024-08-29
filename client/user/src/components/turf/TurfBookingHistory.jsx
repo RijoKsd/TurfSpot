@@ -6,7 +6,6 @@ import WriteReview from "../../components/reviews/WriteReview";
 
 const TurfBookingHistory = () => {
   const { loading, bookings } = useBookingHistory();
-  console.log(bookings, "bookings");
   const {
     isReviewModalOpen,
     rating,

@@ -5,8 +5,7 @@ import TurfCardSkeleton from "./TurfCardSkeleton";
 import TurfCard from "./TurfCard";
 
 const TurfManagement = () => {
-  const { turfs, isLoading, error, fetchTurfs, editTurf } =
-    useTurfManagement();
+  const { turfs, isLoading, error, fetchTurfs, editTurf } = useTurfManagement();
   const [editingTurf, setEditingTurf] = useState(null);
 
   useEffect(() => {
@@ -18,7 +17,6 @@ const TurfManagement = () => {
   };
 
   const handleSaveEdit = (updatedTurf, turfId) => {
-    console.log(updatedTurf, "updatedTurf");
     editTurf(updatedTurf, turfId);
     setEditingTurf(null);
   };
@@ -49,13 +47,10 @@ const TurfManagement = () => {
                     turf={editingTurf}
                     onSave={handleSaveEdit}
                     onCancel={handleCancelEdit}
-                    turfId = {turf._id}
+                    turfId={turf._id}
                   />
                 ) : (
-                  <TurfCard
-                    turf={turf}
-                    onEdit={() => handleEdit(turf)}
-                   />
+                  <TurfCard turf={turf} onEdit={() => handleEdit(turf)} />
                 )}
               </div>
             ))}

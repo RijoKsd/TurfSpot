@@ -6,8 +6,6 @@ const useTurfData = () => {
   const [turfData, setTurfData] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  console.log(turfData, "turf data");
-
   const { ownerId } = useParams();
 
 

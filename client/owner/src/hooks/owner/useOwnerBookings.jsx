@@ -9,8 +9,6 @@ const useOwnerBookings = () => {
   const [filterDays, setFilterDays] = useState(30);
   const [sortConfig, setSortConfig] = useState(null);
 
-  console.log(sortConfig, "sortConfig");
-
   useEffect(() => {
     fetchBookings();
   }, []);

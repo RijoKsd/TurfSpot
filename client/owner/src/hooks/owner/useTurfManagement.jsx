@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axiosInstance from "../useAxiosInstance";
- 
+
 const useTurfManagement = () => {
   const [turfs, setTurfs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -12,8 +12,7 @@ const useTurfManagement = () => {
       // Replace this with your actual API call
       const response = await axiosInstance.get("/api/owner/turf/all");
       const result = await response.data;
-      console.log(result);
-        setTurfs(result);
+      setTurfs(result);
     } catch (err) {
       setError("Failed to fetch turfs");
     } finally {
@@ -37,19 +36,16 @@ const useTurfManagement = () => {
   };
 
   const editTurf = async (updatedTurf, turfId) => {
-     console.log(updatedTurf, "updatedTurf");
-     console.log("id", turfId)
-     try {
-      const response = await axiosInstance.put(`/api/owner/turf/${turfId}`, updatedTurf);
+    try {
+      const response = await axiosInstance.put(
+        `/api/owner/turf/${turfId}`,
+        updatedTurf
+      );
       const result = await response.data;
-       console.log(result, "result in edit turf");
-       setTurfs(result.allTurfs);
-      
-     } catch (error) {
-       console.log(error, "error in edit turf");
-      
-     }
-      
+      setTurfs(result.allTurfs);
+    } catch (error) {
+      console.log(error, "error in edit turf");
+    }
   };
 
   const deleteTurf = async (id) => {
