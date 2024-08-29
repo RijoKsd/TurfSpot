@@ -112,6 +112,3 @@ This project is licensed under the MIT License.
 
 For any inquiries or questions, please contact us at [rijobdk@gmail.com](mailto:rijobdk@gmail.com).
 
-```
-
-```
