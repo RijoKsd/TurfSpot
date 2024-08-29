@@ -1,37 +1,41 @@
+
 # TurfSpot
 
-TurfSpot is a MERN stack application used for booking turf grounds. The application has three modules: User, Owner, and Admin.
+TurfSpot is a comprehensive turf booking application with three modules: Admin, Owner, and User. This app allows users to view and book turf grounds, owners to manage their turfs and bookings, and admins to oversee all activities within the platform.
 
 ## Features
 
 ### User Module
-- **View Turf:** Users can view available turf grounds.
-- **Book Turf:** If a time slot is available, users can book the turf using dummy payment via Stripe. 
-- **Booking Confirmation:** Users will receive an email containing booking details, time, and a QR code. Scanning the QR code will show all booking details.
-- **Booking History:** Users can view their booking history.
-- **Become an Owner:** Users can request to become a turf owner by filling out a form. Upon admin approval, users receive an email with a URL to the owner's website.
+- **Browse Turfs**: Users can view various turfs, check their details, and select time slots for booking.
+- **Slot Booking**: Purchase time slots using Razorpay. After booking, users receive a confirmation email with all the booking details, including price, turf name, start time, end time, and a QR code containing all these details.
+- **Rate Turfs**: Users can provide ratings for the turfs they have booked.
+- **Become Owner**: Users can apply to become turf owners by filling out a form. Admins will review the application and send an approval or rejection email accordingly.
 
 ### Owner Module
-- **Add Turf:** Owners can add new turf grounds.
-- **View Turf:** Owners can view all their turfs.
-- **View Bookings:** Owners can view all bookings for their turfs.
-- **View Ratings:** Owners can see ratings given by users.
-- **View Transactions:** Owners can view all transactions related to their turfs.
+- **Turf Management**: Owners can add new turfs, manage their existing turfs, and view all related booking details.
+- **Dashboard**: Owners have access to a dashboard where they can view transactions and booking statistics in a graphical format.
+- **Review Management**: Owners can view and manage reviews left by users for their turfs.
 
 ### Admin Module
-- **Accept Owner Requests:** Admin can accept or reject requests from users to become owners.
-- **View All Owners:** Admin can view all registered owners.
-- **View All Users:** Admin can view all registered users.
-- **View Reviews:** Admin can view all reviews.
-- **View All Transactions:** Admin can view all transactions in the system.
+- **Owner Requests**: Admins can approve or reject requests from users who wish to become owners. If approved, the user will receive an email with a registration link to the owner section.
+- **User and Owner Management**: Admins can view all users and owners registered on the platform.
+- **Turf Management**: Admins can view all turfs listed by owners and manage them as necessary.
+- **Transaction Overview**: Admins have access to all transactions on the platform and can view transaction data on a monthly basis in graph format.
 
-## Tech Stack
-- **Frontend:** React, Redux, Tailwind CSS, Daisy UI
-- **Backend:** Node.js, Express
-- **Database:** MongoDB
-- **Payments:** Stripe
-- **Image Uploads:** Cloudinary
-- **Other:** JavaScript
+## Technologies Used
+
+- **Frontend**: React, Tailwind CSS, DaisyUI, Redux
+- **Backend**: Node.js, Express.js
+- **Database**: MongoDB
+- **Payments**: Razorpay
+- **Image Hosting**: Cloudinary
+
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/RijoKsd/TurfSpot.git
+
 
 ## Installation
 
