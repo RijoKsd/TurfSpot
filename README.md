@@ -32,12 +32,7 @@ TurfSpot is a comprehensive turf booking application with three modules: Admin, 
 - **Payments**: Razorpay
 - **Image Hosting**: Cloudinary
 
-## Installation
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/RijoKsd/TurfSpot.git
-   ```
 
 ## Installation
 
