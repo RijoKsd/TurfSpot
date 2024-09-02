@@ -127,8 +127,7 @@ const TurfDetails = () => {
         </div>
       </div>
       <div className="mt-12">
-        <h3 className="text-2xl font-bold mb-6">Reviews</h3>
-        <Reviews turfId={id} />
+         <Reviews turfId={id} />
       </div>
     </div>
   );
