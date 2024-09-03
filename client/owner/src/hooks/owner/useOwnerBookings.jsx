@@ -1,7 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import axiosInstance from "../useAxiosInstance";
 
-  
 const useOwnerBookings = () => {
   const [allBookings, setAllBookings] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -16,12 +15,16 @@ const useOwnerBookings = () => {
   const fetchBookings = async () => {
     try {
       setLoading(true);
-       const response = await axiosInstance.get("/api/owner/bookings");
+      const response = await axiosInstance.get("/api/owner/bookings");
       const result = response.data;
       setAllBookings(result);
       setLoading(false);
     } catch (err) {
-      setError("Failed to fetch bookings");
+      if (err.response?.data?.message) {
+        setError(err.response.data.message);
+      } else {
+        setError("Failed to fetch bookings");
+      }
       setLoading(false);
     }
   };
@@ -33,7 +36,6 @@ const useOwnerBookings = () => {
       (booking) => new Date(booking.bookingDate) >= cutoffDate
     );
   }, [allBookings, filterDays]);
-
 
   const sortedBookings = useMemo(() => {
     let sortableBookings = [...filteredBookings];
